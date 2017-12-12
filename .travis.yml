@@ -1,0 +1,8 @@
+language: csharp
+solution: Equilaterus.Vortex.sln
+mono: none
+dotnet: 2.0.0
+script:
+  - dotnet restore
+  - dotnet build ./Equilaterus.Vortex.sln
+  - dotnet test ./test/Vortex.Data.EFCore.Tests/Vortex.Data.EFCore.Tests.csproj
