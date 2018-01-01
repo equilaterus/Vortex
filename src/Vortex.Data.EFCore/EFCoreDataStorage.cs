@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Services.EFCore
 {
-    public class EFCoreDataStorage<T> : IDataStorage<T> where T : class
+    public class EFCoreDataStorage<T> /*: IDataStorage<T>*/ where T : class
     {
         protected readonly DbContext _dbContext;
         protected readonly DbSet<T> _dbSet;
@@ -19,22 +19,20 @@ namespace Equilaterus.Vortex.Services.EFCore
             _dbContext = context;
             _dbSet = _dbContext.Set<T>();
         }
-        
-        public async Task<List<T>> GetAllAsync(int top = 0)
+
+              
+
+        public async Task<List<T>> FindAllAsync(string includeProperty)
         {
-            if (top > 0)
-            {
-                return await _dbSet.Take(top).ToListAsync();
-            }
-            else
-            {
-                return await _dbSet.ToListAsync();
-            }
+            IQueryable<T> query = _dbSet;
+            //query.AddIncludes(includeProperties);
+            return await query.ToListAsync();
         }
 
-        public async Task<List<T>> GetAsync(
+        private async Task<List<T>> FindAsync(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            int top = 0,
             params string[] includeProperties)
         {
             IQueryable<T> query = _dbSet;
@@ -42,6 +40,11 @@ namespace Equilaterus.Vortex.Services.EFCore
             if (filter != null)
             {
                 query = query.Where(filter);
+            }
+
+            if (orderBy != null)
+            {
+                query = orderBy(query);
             }
 
             if (includeProperties != null)
@@ -52,15 +55,10 @@ namespace Equilaterus.Vortex.Services.EFCore
                 }
             }
 
-            if (orderBy != null)
-            {
-                return await orderBy(query).ToListAsync();
-            }
-            else
-            {
-                return await query.ToListAsync();
-            }
-        }
+            return await query.ToListAsync();
+        }        
+               
+
 
         public async Task InsertAsync(T entity)
         {

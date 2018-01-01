@@ -6,6 +6,8 @@
     <IsPackable>false</IsPackable>
 
     <AssemblyName>Equilaterus.Vortex.Data.EFCore.Tests</AssemblyName>
+
+    <RootNamespace>Equilaterus.Vortex.Services.EFCore.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

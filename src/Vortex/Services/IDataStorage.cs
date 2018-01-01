@@ -9,12 +9,14 @@ namespace Equilaterus.Vortex.Services
 {
     public interface IDataStorage<T> where T : class
     {
-        Task<List<T>> GetAllAsync(int top = 0);
+        Task<List<T>> FindAllAsync(
+            params string[] includeProperties);
         
-        Task<List<T>> GetAsync(
+        Task<List<T>> FindAsync(            
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            params string[] includeProperties);
+            int top = 0,
+            params string[] includeProperties);        
 
         Task InsertAsync(T entity);
 
