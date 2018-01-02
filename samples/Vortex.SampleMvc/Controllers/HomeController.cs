@@ -20,7 +20,7 @@ namespace Vortex.SampleMvc.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _dataStorage.GetAllAsync());
+            return View(await _dataStorage.FindAllAsync());
         }
 
         public async Task<IActionResult> Add()
