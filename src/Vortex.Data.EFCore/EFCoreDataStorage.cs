@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Services.EFCore
 {
-    public class EFCoreDataStorage<T> /*: IDataStorage<T>*/ where T : class
+    public class EFCoreDataStorage<T> : IDataStorage<T> where T : class
     {
         protected readonly DbContext _dbContext;
         protected readonly DbSet<T> _dbSet;
@@ -18,18 +18,19 @@ namespace Equilaterus.Vortex.Services.EFCore
         {
             _dbContext = context;
             _dbSet = _dbContext.Set<T>();
-        }
+        }              
 
-              
-
-        public async Task<List<T>> FindAllAsync(string includeProperty)
+        public async Task<List<T>> FindAllAsync(
+            params string[] includeProperties)
         {
             IQueryable<T> query = _dbSet;
-            //query.AddIncludes(includeProperties);
+
+            query = query.AddIncludes(includeProperties);
+
             return await query.ToListAsync();
         }
 
-        private async Task<List<T>> FindAsync(
+        public async Task<List<T>> FindAsync(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             int top = 0,
@@ -47,29 +48,29 @@ namespace Equilaterus.Vortex.Services.EFCore
                 query = orderBy(query);
             }
 
-            if (includeProperties != null)
-            {
-                foreach (var includeProperty in includeProperties)
-                {
-                    query = query.Include(includeProperty);
-                }
-            }
+            query.AddIncludes(includeProperties);
 
             return await query.ToListAsync();
-        }        
-               
-
+        }
 
         public async Task InsertAsync(T entity)
         {
-            CheckEntity(entity);
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             await _dbSet.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(T entity)
         {
-            CheckEntity(entity);
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             _dbSet.Attach(entity);
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
@@ -77,7 +78,11 @@ namespace Equilaterus.Vortex.Services.EFCore
 
         public async Task DeleteAsync(T entity)
         {
-            CheckEntity(entity);
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             if (_dbContext.Entry(entity).State == EntityState.Detached)
             {
                 _dbSet.Attach(entity);
@@ -91,15 +96,7 @@ namespace Equilaterus.Vortex.Services.EFCore
             _dbSet.RemoveRange(entities);
             await _dbContext.SaveChangesAsync();
         }
-
-        protected virtual void CheckEntity(T entity)
-        {
-            if (entity == null)
-            {
-                throw new Exception("Null entity");
-            }
-        }
-
+        
         public Task InsertRangeAsync(IEnumerable<T> entities)
         {
             throw new NotImplementedException();
