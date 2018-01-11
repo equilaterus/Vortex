@@ -11,12 +11,13 @@ namespace Equilaterus.Vortex.Services
     {
         Task<List<T>> FindAllAsync(
             params string[] includeProperties);
-        
-        Task<List<T>> FindAsync(            
+
+        Task<List<T>> FindAsync(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            int top = 0,
-            params string[] includeProperties);        
+            int skip = 0,
+            int take = 0,
+            params string[] includeProperties);    
 
         Task InsertAsync(T entity);
 

@@ -23,7 +23,7 @@ namespace Equilaterus.Vortex.Services.EFCore
         public async Task<List<T>> FindAllAsync(
             params string[] includeProperties)
         {
-            IQueryable<T> query = _dbSet;
+            IQueryable<T> query = _dbSet.AsNoTracking();
 
             query = query.AddIncludes(includeProperties);
 
@@ -33,10 +33,11 @@ namespace Equilaterus.Vortex.Services.EFCore
         public async Task<List<T>> FindAsync(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            int top = 0,
+            int skip = 0,
+            int take = 0,
             params string[] includeProperties)
         {
-            IQueryable<T> query = _dbSet;
+            IQueryable<T> query = _dbSet.AsNoTracking();
 
             if (filter != null)
             {
@@ -46,6 +47,16 @@ namespace Equilaterus.Vortex.Services.EFCore
             if (orderBy != null)
             {
                 query = orderBy(query);
+            }
+
+            if (skip != 0)
+            {
+                query = query.Skip(skip);
+            }
+
+            if (take != 0)
+            {
+                query = query.Take(take);
             }
 
             query.AddIncludes(includeProperties);

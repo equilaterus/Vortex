@@ -94,7 +94,7 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
             {
                 EFCoreDataStorage<TestModel> service = new EFCoreDataStorage<TestModel>(context);
 
-                var result = await service.FindAllAsync("TestModelFk");
+                var result = await service.FindAllAsync(nameof(TestModel.TestModelFk));
                 Assert.Equal(await context.TestModels.CountAsync(), (await service.FindAllAsync()).Count());
                 Assert.NotNull(result[0].TestModelFk);
             }
