@@ -99,7 +99,8 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
             using (var context = GetContext(dbName))
             {
                 IQueryable<TestModel> includes = context.TestModels;
-                await Assert.ThrowsAsync<System.InvalidOperationException>(async () => await includes.AddIncludes("somerandomproperty").ToListAsync());
+                await Assert.ThrowsAsync<System.InvalidOperationException>(
+                    async () => await includes.AddIncludes("somerandomproperty").ToListAsync());
             }
         }
 

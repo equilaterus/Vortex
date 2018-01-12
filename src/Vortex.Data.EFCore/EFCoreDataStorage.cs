@@ -34,9 +34,19 @@ namespace Equilaterus.Vortex.Services.EFCore
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             int skip = 0,
-            int take = 0,
+            int take = 0,            
             params string[] includeProperties)
         {
+            if (skip < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(skip));
+            }
+
+            if (take < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(take));
+            }
+
             IQueryable<T> query = _dbSet.AsNoTracking();
 
             if (filter != null)
@@ -58,8 +68,8 @@ namespace Equilaterus.Vortex.Services.EFCore
             {
                 query = query.Take(take);
             }
-
-            query.AddIncludes(includeProperties);
+            
+            query = query.AddIncludes(includeProperties);
 
             return await query.ToListAsync();
         }
@@ -104,21 +114,41 @@ namespace Equilaterus.Vortex.Services.EFCore
 
         public async Task DeleteRangeAsync(IEnumerable<T> entities)
         {
+            if (entities == null)
+            {
+                throw new ArgumentNullException(nameof(entities));
+            }
+
             _dbSet.RemoveRange(entities);
             await _dbContext.SaveChangesAsync();
         }
         
-        public Task InsertRangeAsync(IEnumerable<T> entities)
+        public async Task InsertRangeAsync(IEnumerable<T> entities)
         {
-            throw new NotImplementedException();
+            if (entities == null)
+            {
+                throw new ArgumentNullException(nameof(entities));
+            }
+
+            await _dbSet.AddRangeAsync(entities);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task UpdateRangeAsync(IEnumerable<T> entities)
+        public async Task UpdateRangeAsync(IEnumerable<T> entities)
         {
-            throw new NotImplementedException();
+            if (entities == null)
+            {
+                throw new ArgumentNullException(nameof(entities));
+            }
+
+            foreach (var entity in entities) { 
+                _dbSet.Attach(entity);
+                _dbContext.Entry(entity).State = EntityState.Modified;
+            }
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<T> IncrementField(Expression<Func<T, bool>> filter, Expression<Func<T, int>> field, int quantity = 1)
+        public async Task<T> IncrementField(Expression<Func<T, bool>> filter, Expression<Func<T, int>> field, int quantity = 1)
         {
             throw new NotImplementedException();
         }
