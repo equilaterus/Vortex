@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Services.EFCore
 {
-    public class EFCoreDataStorage<T> /*: IDataStorage<T>*/ where T : class
+    public class EFCoreDataStorage<T> : IDataStorage<T> where T : class
     {
         protected readonly DbContext _dbContext;
         protected readonly DbSet<T> _dbSet;
@@ -18,24 +18,36 @@ namespace Equilaterus.Vortex.Services.EFCore
         {
             _dbContext = context;
             _dbSet = _dbContext.Set<T>();
-        }
+        }              
 
-              
-
-        public async Task<List<T>> FindAllAsync(string includeProperty)
+        public async Task<List<T>> FindAllAsync(
+            params string[] includeProperties)
         {
-            IQueryable<T> query = _dbSet;
-            //query.AddIncludes(includeProperties);
+            IQueryable<T> query = _dbSet.AsNoTracking();
+
+            query = query.AddIncludes(includeProperties);
+
             return await query.ToListAsync();
         }
 
-        private async Task<List<T>> FindAsync(
+        public async Task<List<T>> FindAsync(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            int top = 0,
+            int skip = 0,
+            int take = 0,            
             params string[] includeProperties)
         {
-            IQueryable<T> query = _dbSet;
+            if (skip < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(skip));
+            }
+
+            if (take < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(take));
+            }
+
+            IQueryable<T> query = _dbSet.AsNoTracking();
 
             if (filter != null)
             {
@@ -47,29 +59,39 @@ namespace Equilaterus.Vortex.Services.EFCore
                 query = orderBy(query);
             }
 
-            if (includeProperties != null)
+            if (skip != 0)
             {
-                foreach (var includeProperty in includeProperties)
-                {
-                    query = query.Include(includeProperty);
-                }
+                query = query.Skip(skip);
             }
 
-            return await query.ToListAsync();
-        }        
-               
+            if (take != 0)
+            {
+                query = query.Take(take);
+            }
+            
+            query = query.AddIncludes(includeProperties);
 
+            return await query.ToListAsync();
+        }
 
         public async Task InsertAsync(T entity)
         {
-            CheckEntity(entity);
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             await _dbSet.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(T entity)
         {
-            CheckEntity(entity);
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             _dbSet.Attach(entity);
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
@@ -77,7 +99,11 @@ namespace Equilaterus.Vortex.Services.EFCore
 
         public async Task DeleteAsync(T entity)
         {
-            CheckEntity(entity);
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             if (_dbContext.Entry(entity).State == EntityState.Detached)
             {
                 _dbSet.Attach(entity);
@@ -88,29 +114,41 @@ namespace Equilaterus.Vortex.Services.EFCore
 
         public async Task DeleteRangeAsync(IEnumerable<T> entities)
         {
+            if (entities == null)
+            {
+                throw new ArgumentNullException(nameof(entities));
+            }
+
             _dbSet.RemoveRange(entities);
             await _dbContext.SaveChangesAsync();
         }
-
-        protected virtual void CheckEntity(T entity)
+        
+        public async Task InsertRangeAsync(IEnumerable<T> entities)
         {
-            if (entity == null)
+            if (entities == null)
             {
-                throw new Exception("Null entity");
+                throw new ArgumentNullException(nameof(entities));
             }
+
+            await _dbSet.AddRangeAsync(entities);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task InsertRangeAsync(IEnumerable<T> entities)
+        public async Task UpdateRangeAsync(IEnumerable<T> entities)
         {
-            throw new NotImplementedException();
+            if (entities == null)
+            {
+                throw new ArgumentNullException(nameof(entities));
+            }
+
+            foreach (var entity in entities) { 
+                _dbSet.Attach(entity);
+                _dbContext.Entry(entity).State = EntityState.Modified;
+            }
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task UpdateRangeAsync(IEnumerable<T> entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> IncrementField(Expression<Func<T, bool>> filter, Expression<Func<T, int>> field, int quantity = 1)
+        public async Task<T> IncrementField(Expression<Func<T, bool>> filter, Expression<Func<T, int>> field, int quantity = 1)
         {
             throw new NotImplementedException();
         }
