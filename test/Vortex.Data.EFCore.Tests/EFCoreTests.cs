@@ -365,9 +365,14 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
             using (var context = GetContext(dbName))
             {
                 var service = new EFCoreDataStorage<TestModel>(context);
+                var entity = GetDefaultEntity();
+
+                Assert.NotEqual(1, entity.Id);
                 await service.InsertAsync(
-                    GetDefaultEntity()
+                    entity
                 );
+                Assert.Equal(1, entity.Id);
+                Assert.Empty(context.ChangeTracker.Entries());
             }
 
             using (var context = GetContext(dbName))
@@ -411,6 +416,8 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
 
                 var service = new EFCoreDataStorage<TestModel>(context);
                 await service.UpdateAsync(entity);
+                                
+                Assert.Empty(context.ChangeTracker.Entries());
             }
 
             using (var context = GetContext(dbName))
@@ -453,6 +460,8 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
                
                 var service = new EFCoreDataStorage<TestModel>(context);
                 await service.DeleteAsync(entity);
+
+                Assert.Empty(context.ChangeTracker.Entries());
             }
 
             using (var context = GetContext(dbName))
@@ -483,8 +492,14 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
             using (var context = GetContext(dbName))
             {                
                 var service = new EFCoreDataStorage<TestModel>(context);
-                await service.InsertRangeAsync(
-                    new List<TestModel>() { GetDefaultEntity(), GetDefaultEntity(), GetDefaultEntity() });
+                var entities = new List<TestModel>() { GetDefaultEntity(), GetDefaultEntity(), GetDefaultEntity() };
+                await service.InsertRangeAsync(entities);
+
+                Assert.Empty(context.ChangeTracker.Entries());
+                foreach (var entity in entities)
+                {
+                    Assert.True(entity.Id > 0);
+                }
             }
 
             using (var context = GetContext(dbName))
@@ -524,6 +539,8 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
 
                 var service = new EFCoreDataStorage<TestModel>(context);
                 await service.UpdateRangeAsync(entities);
+
+                Assert.Empty(context.ChangeTracker.Entries());
             }
 
             using (var context = GetContext(dbName))
@@ -561,6 +578,8 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
 
                 var service = new EFCoreDataStorage<TestModel>(context);
                 await service.DeleteRangeAsync(entities);
+
+                Assert.Empty(context.ChangeTracker.Entries());
             }
 
             using (var context = GetContext(dbName))

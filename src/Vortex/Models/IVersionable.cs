@@ -4,8 +4,10 @@ using System.Text;
 
 namespace Equilaterus.Vortex.Models
 {
-    public interface IVersionable
+    public interface IVersionable<T> : IBaseModel<T>
     {
+        T OriginalId { get; set; }
+
         int Version { get; set; }
     }
 }
