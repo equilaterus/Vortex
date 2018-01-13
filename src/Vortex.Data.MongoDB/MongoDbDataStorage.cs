@@ -20,7 +20,6 @@ namespace Equilaterus.Vortex.Services.MongoDB
             _context = context;
         }
 
-
         public async Task<List<T>> FindAllAsync(params string[] includeProperties)
         {
             var result = await _context.GetCollection<T>().FindAsync(new BsonDocument());
@@ -36,7 +35,7 @@ namespace Equilaterus.Vortex.Services.MongoDB
         {
             IQueryable<T> result =  _context.GetCollection<T>().AsQueryable().Where(filter);
             result = orderBy(result);
-            return result.ToList();
+            return await ((IMongoQueryable<T>)result).ToListAsync();
         }        
 
         public Task InsertAsync(T entity)

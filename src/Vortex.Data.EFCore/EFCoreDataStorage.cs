@@ -82,9 +82,7 @@ namespace Equilaterus.Vortex.Services.EFCore
             }
 
             await _dbSet.AddAsync(entity);
-            await _dbContext.SaveChangesAsync();
-
-            _dbContext.Entry(entity).State = EntityState.Detached;
+            await _dbContext.SaveChangesAsync();            
         }
 
         public async Task UpdateAsync(T entity)
@@ -94,11 +92,8 @@ namespace Equilaterus.Vortex.Services.EFCore
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            _dbSet.Attach(entity);
-            _dbContext.Entry(entity).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
-            
-            _dbContext.Entry(entity).State = EntityState.Detached;            
+            _dbContext.Update(entity);
+            await _dbContext.SaveChangesAsync();       
         }
 
         public async Task DeleteAsync(T entity)
@@ -108,10 +103,6 @@ namespace Equilaterus.Vortex.Services.EFCore
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            if (_dbContext.Entry(entity).State == EntityState.Detached)
-            {
-                _dbSet.Attach(entity);
-            }
             _dbSet.Remove(entity);
             await _dbContext.SaveChangesAsync();
         }
@@ -134,13 +125,8 @@ namespace Equilaterus.Vortex.Services.EFCore
                 throw new ArgumentNullException(nameof(entities));
             }
 
-            await _dbSet.AddRangeAsync(entities);
+            _dbSet.AddRange(entities);
             await _dbContext.SaveChangesAsync();
-
-            foreach (var entity in entities)
-            {
-                _dbContext.Entry(entity).State = EntityState.Detached;
-            }
         }
 
         public async Task UpdateRangeAsync(IEnumerable<T> entities)
@@ -150,16 +136,8 @@ namespace Equilaterus.Vortex.Services.EFCore
                 throw new ArgumentNullException(nameof(entities));
             }
 
-            foreach (var entity in entities) { 
-                _dbSet.Attach(entity);
-                _dbContext.Entry(entity).State = EntityState.Modified;
-            }
+             _dbSet.UpdateRange(entities);
             await _dbContext.SaveChangesAsync();
-
-            foreach (var entity in entities)
-            {
-                _dbContext.Entry(entity).State = EntityState.Detached;
-            }
         }
 
         public async Task<T> IncrementField(Expression<Func<T, bool>> filter, Expression<Func<T, int>> field, int quantity = 1)

@@ -371,8 +371,7 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
                 await service.InsertAsync(
                     entity
                 );
-                Assert.Equal(1, entity.Id);
-                Assert.Empty(context.ChangeTracker.Entries());
+                Assert.Equal(1, entity.Id);                
             }
 
             using (var context = GetContext(dbName))
@@ -415,9 +414,7 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
                 entity.Text = DEFAULT_TEXT + "*";
 
                 var service = new EFCoreDataStorage<TestModel>(context);
-                await service.UpdateAsync(entity);
-                                
-                Assert.Empty(context.ChangeTracker.Entries());
+                await service.UpdateAsync(entity);                
             }
 
             using (var context = GetContext(dbName))
@@ -495,7 +492,6 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
                 var entities = new List<TestModel>() { GetDefaultEntity(), GetDefaultEntity(), GetDefaultEntity() };
                 await service.InsertRangeAsync(entities);
 
-                Assert.Empty(context.ChangeTracker.Entries());
                 foreach (var entity in entities)
                 {
                     Assert.True(entity.Id > 0);
@@ -539,8 +535,6 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
 
                 var service = new EFCoreDataStorage<TestModel>(context);
                 await service.UpdateRangeAsync(entities);
-
-                Assert.Empty(context.ChangeTracker.Entries());
             }
 
             using (var context = GetContext(dbName))
