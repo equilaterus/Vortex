@@ -18,13 +18,20 @@ namespace Equilaterus.Vortex.Services.EFCore
         {
             _dbContext = context;
             _dbSet = _dbContext.Set<T>();
-        }              
+        }
+
+        private void DetachAll(IEnumerable<T> entities)
+        {            
+            foreach (var entity in entities)
+            {
+                _dbContext.Entry(entity).State = EntityState.Detached;
+            }
+        }
 
         public async Task<List<T>> FindAllAsync(
             params string[] includeProperties)
         {
-            IQueryable<T> query = _dbSet.AsNoTracking();
-
+            IQueryable<T> query = _dbSet.AsNoTracking();           
             query = query.AddIncludes(includeProperties);
 
             return await query.ToListAsync();
@@ -82,7 +89,9 @@ namespace Equilaterus.Vortex.Services.EFCore
             }
 
             await _dbSet.AddAsync(entity);
-            await _dbContext.SaveChangesAsync();            
+            await _dbContext.SaveChangesAsync();
+
+            _dbContext.Entry(entity).State = EntityState.Detached;
         }
 
         public async Task UpdateAsync(T entity)
@@ -93,7 +102,9 @@ namespace Equilaterus.Vortex.Services.EFCore
             }
 
             _dbContext.Update(entity);
-            await _dbContext.SaveChangesAsync();       
+            await _dbContext.SaveChangesAsync();
+
+            _dbContext.Entry(entity).State = EntityState.Detached;
         }
 
         public async Task DeleteAsync(T entity)
@@ -105,6 +116,8 @@ namespace Equilaterus.Vortex.Services.EFCore
 
             _dbSet.Remove(entity);
             await _dbContext.SaveChangesAsync();
+
+            _dbContext.Entry(entity).State = EntityState.Detached;
         }
 
         public async Task DeleteRangeAsync(IEnumerable<T> entities)
@@ -116,6 +129,8 @@ namespace Equilaterus.Vortex.Services.EFCore
 
             _dbSet.RemoveRange(entities);
             await _dbContext.SaveChangesAsync();
+
+            DetachAll(entities);
         }
         
         public async Task InsertRangeAsync(IEnumerable<T> entities)
@@ -127,6 +142,8 @@ namespace Equilaterus.Vortex.Services.EFCore
 
             _dbSet.AddRange(entities);
             await _dbContext.SaveChangesAsync();
+
+            DetachAll(entities);
         }
 
         public async Task UpdateRangeAsync(IEnumerable<T> entities)
@@ -138,6 +155,8 @@ namespace Equilaterus.Vortex.Services.EFCore
 
              _dbSet.UpdateRange(entities);
             await _dbContext.SaveChangesAsync();
+
+            DetachAll(entities);
         }
 
         public async Task<T> IncrementField(Expression<Func<T, bool>> filter, Expression<Func<T, int>> field, int quantity = 1)

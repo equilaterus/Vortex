@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Vortex.Data.EFCore\Vortex.Data.EFCore.csproj" />
+    <ProjectReference Include="..\Vortex.Data.Tests\Vortex.Data.Tests.csproj" />
   </ItemGroup>
 
   <ItemGroup>

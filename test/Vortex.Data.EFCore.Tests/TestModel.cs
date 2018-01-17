@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Equilaterus.Vortex.Services.Tests;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,36 +8,11 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Services.EFCore.Tests
 {
-    #region Entities
-    public class TestModel
-    {
-        public int Id { get; set; }
-
-        public string Text { get; set; }
-
-        public DateTime Date { get; set; }
-
-        public int Counter { get; set; }
-
-        public int? TestModelFkId { get; set; }
-        [ForeignKey("TestModelFkId")]
-        public virtual TestModelFk TestModelFk { get; set; }
-    }
-
-    public class TestModelFk
-    {
-        public int Id { get; set; }
-
-        public string OtherText { get; set; }
-    }
-    #endregion
-
-    #region Context
     public class TestContext : DbContext
     {
-        public DbSet<TestModel> TestModels { get; set; }
+        public DbSet<ModelA> ModelsA { get; set; }
 
-        public DbSet<TestModelFk> TestModelFks { get; set; }
+        public DbSet<ModelB> ModelsB { get; set; }
 
         public TestContext()
         { }
@@ -45,5 +21,4 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
             : base(options)
         { }
     }
-    #endregion
 }
