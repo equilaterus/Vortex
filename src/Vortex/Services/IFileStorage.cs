@@ -9,6 +9,7 @@ namespace Equilaterus.Vortex.Services
     public interface IFileStorage
     {
         Task<string> StoreFileAsync(Stream stream, string extension);
+
         Task<bool> DeleteFileAsync(string path);
 
         string GenerateFileName();
