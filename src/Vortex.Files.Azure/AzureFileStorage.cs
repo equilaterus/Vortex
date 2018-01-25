@@ -18,7 +18,7 @@ namespace Equilaterus.Vortex.Services.AzureStorage
         private CloudBlobContainer Container;
 
         public AzureFileStorage(IOptions<AzureStorageConfig> configuration)
-        {
+        {            
             Configuration = configuration.Value;
 
             StorageAccount = CloudStorageAccount.Parse(
@@ -26,6 +26,11 @@ namespace Equilaterus.Vortex.Services.AzureStorage
 
             BlobClient = StorageAccount.CreateCloudBlobClient();
             Container = BlobClient.GetContainerReference(Configuration.ContainerName);
+
+            if(Configuration.CreateIfNotExist)
+            {
+                Container.CreateIfNotExistsAsync().Wait();
+            }
         }
 
         public async Task<bool> DeleteFileAsync(string path)
@@ -44,7 +49,7 @@ namespace Equilaterus.Vortex.Services.AzureStorage
             string fileName = GenerateFileName() + extension; ;
             CloudBlockBlob blockBlob = Container.GetBlockBlobReference(fileName);
 
-            await blockBlob.UploadFromStreamAsync(stream);
+            await blockBlob.UploadFromStreamAsync(stream);            
 
             return blockBlob.Uri.ToString();               
         }
@@ -58,5 +63,6 @@ namespace Equilaterus.Vortex.Services.AzureStorage
             var splitedPath = path.Split('/');
             return splitedPath[splitedPath.Length - 1];
         }
+        
     }
 }

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Vortex.Files.Azure\Vortex.Files.Azure.csproj" />
+    <ProjectReference Include="..\Vortex.Files.Tests\Vortex.Files.Tests.csproj" />
   </ItemGroup>
 
   <ItemGroup>
