@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Equilaterus.Vortex.Services.Tests
+namespace Equilaterus.Vortex.Services.DataStorage.Tests
 {
     public abstract class DataStorageTests
     {

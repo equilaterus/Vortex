@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace Vortex.Data.MongoDB.Tests
+namespace Equilaterus.Vortex.Services.MongoDB.Tests
 {
     public class TestModel
     {

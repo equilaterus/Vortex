@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Vortex.Tests.IntegrationTests
+namespace Equilaterus.Vortex.Tests.Integration
 {
     public class ActivableFilterTests
     {
@@ -50,7 +50,8 @@ namespace Vortex.Tests.IntegrationTests
             using (var context = GetContext(dbName))
             {
                 await context.AddRangeAsync(
-                    new List<ActivableTestModel>() {
+                    new List<ActivableTestModel>()
+                    {
                         new ActivableTestModel { IsActive = true, Counter = 1},
                         new ActivableTestModel { IsActive = false, Counter = 1},
                         new ActivableTestModel { IsActive = true, Counter = 0},
@@ -74,7 +75,8 @@ namespace Vortex.Tests.IntegrationTests
                 var result = await service.FindAsync(filter);
 
                 Assert.Equal(2, result.Count);
-                foreach (var entity in result) {
+                foreach (var entity in result)
+                {
                     Assert.True(entity.IsActive);
                     Assert.True(entity.Counter > 0);
                 }

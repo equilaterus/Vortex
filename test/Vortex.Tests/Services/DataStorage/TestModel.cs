@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace Equilaterus.Vortex.Services.Tests
+namespace Equilaterus.Vortex.Services.DataStorage.Tests
 {
     public class BaseModel : IBaseModel<string>
     {

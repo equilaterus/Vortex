@@ -1,4 +1,4 @@
-﻿using Equilaterus.Vortex.Services.Tests;
+﻿using Equilaterus.Vortex.Services.DataStorage.Tests;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

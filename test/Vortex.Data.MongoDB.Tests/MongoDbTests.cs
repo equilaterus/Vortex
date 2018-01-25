@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Vortex.Data.MongoDB.Tests
+namespace Equilaterus.Vortex.Services.MongoDB.Tests
 {
     public class MongoDbTests
     {

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2020
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vortex", "src\Vortex\Vortex.csproj", "{2CC14F42-9F27-4E1A-AA4E-DBFDBE43BA45}"
 EndProject
@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vortex.Data.MongoDB", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vortex.Data.MongoDB.Tests", "test\Vortex.Data.MongoDB.Tests\Vortex.Data.MongoDB.Tests.csproj", "{E85E4850-0FBE-4AC2-B295-D748FA91EC4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vortex.Data.Tests", "test\Vortex.Data.Tests\Vortex.Data.Tests.csproj", "{52AC8FF4-9105-4D1D-9653-4B269BCB701A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vortex.IntegrationTests", "test\Vortex.IntegrationTests\Vortex.IntegrationTests.csproj", "{345BA247-D56D-48B9-A0C6-E6D042BE937F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,10 +65,10 @@ Global
 		{E85E4850-0FBE-4AC2-B295-D748FA91EC4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E85E4850-0FBE-4AC2-B295-D748FA91EC4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E85E4850-0FBE-4AC2-B295-D748FA91EC4D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{52AC8FF4-9105-4D1D-9653-4B269BCB701A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{52AC8FF4-9105-4D1D-9653-4B269BCB701A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{52AC8FF4-9105-4D1D-9653-4B269BCB701A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{52AC8FF4-9105-4D1D-9653-4B269BCB701A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{345BA247-D56D-48B9-A0C6-E6D042BE937F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{345BA247-D56D-48B9-A0C6-E6D042BE937F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{345BA247-D56D-48B9-A0C6-E6D042BE937F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{345BA247-D56D-48B9-A0C6-E6D042BE937F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
