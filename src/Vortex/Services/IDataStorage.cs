@@ -9,15 +9,13 @@ namespace Equilaterus.Vortex.Services
 {
     public interface IDataStorage<T> where T : class
     {
-        Task<List<T>> FindAllAsync(
-            params string[] includeProperties);
+        Task<List<T>> FindAllAsync();
 
         Task<List<T>> FindAsync(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             int skip = 0,
-            int take = 0,            
-            params string[] includeProperties);    
+            int take = 0);    
 
         Task InsertAsync(T entity);
 
@@ -29,11 +27,6 @@ namespace Equilaterus.Vortex.Services
 
         Task DeleteAsync(T entity);
 
-        Task DeleteRangeAsync(IEnumerable<T> entities);
-
-        Task<T> IncrementField(
-            Expression<Func<T, bool>> filter, 
-            Expression<Func<T, int>> field, 
-            int quantity = 1);
+        Task DeleteRangeAsync(IEnumerable<T> entities);        
     }
 }
