@@ -23,8 +23,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\Files\" />
-  </ItemGroup>
-
 </Project>
