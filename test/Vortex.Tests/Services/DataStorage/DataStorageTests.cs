@@ -64,7 +64,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
         /// </summary>
         /// <param name="service"></param>
         /// <returns></returns>
-        protected abstract void DisposeIfNecessary(IDataStorage<T> service);
+        protected abstract void ClearOrDispose(IDataStorage<T> service);
         
         [Fact]
         public async Task EnsureSeed()
@@ -83,7 +83,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             Check(seed, await GetAllEntitiesAsync(databaseName));
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -102,7 +102,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             Check(seed, result);
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }       
 
 
@@ -122,7 +122,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             Check(seed, result);
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
                 
         [Fact]
@@ -146,7 +146,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             Check(expected, result);
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -172,7 +172,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             Check(expected, result);
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -191,7 +191,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             Assert.True(result.Count == 0);
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -206,7 +206,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
                 async () => await service.FindAsync(skip: -1));
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -223,7 +223,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
                 async () => await service.FindAsync(take: -1));
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -243,7 +243,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             Check(seed, result);
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -267,7 +267,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             Check(expected, result);
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -298,7 +298,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             Check(expected, result);
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -328,7 +328,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             Assert.Equal(id, result[0].Id);
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -343,7 +343,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
                 async () => await service.InsertAsync(null));
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -379,7 +379,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             Check(expected, result);
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -394,7 +394,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
                 async () => await service.UpdateAsync(null));
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
         
         [Fact]
@@ -421,7 +421,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             Check(expected, result);
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -436,7 +436,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
                    async () => await service.DeleteAsync(null));
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -466,7 +466,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             Check(entities, await GetAllEntitiesAsync(databaseName));            
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -481,7 +481,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
                 async () => await service.InsertRangeAsync(null));
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -505,7 +505,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             Check(entities, await GetAllEntitiesAsync(databaseName));
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -520,7 +520,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
                 async () => await service.UpdateRangeAsync(null));
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -548,7 +548,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             Check(expected, result);
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
 
         [Fact]
@@ -563,7 +563,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
                 async () => await service.DeleteRangeAsync(null));
 
             // End
-            DisposeIfNecessary(service);
+            ClearOrDispose(service);
         }
     }
 }

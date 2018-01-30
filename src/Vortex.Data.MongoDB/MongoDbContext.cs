@@ -8,20 +8,26 @@ namespace Equilaterus.Vortex.Services.MongoDB
 {
     public class MongoDbContext : IMongoDbContext
     {
-        IMongoDatabase db;
-
-        public IMongoCollection<T> GetCollection<T>()
-        {
-            return db.GetCollection<T>(typeof(T).Name);
-        }
-
-        public MongoDbContext(IOptions<MongoDbSettings> settings) : this(settings.Value)
-        {  }
+        protected IMongoDatabase _database;
 
         public MongoDbContext(MongoDbSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
-            db = client.GetDatabase(settings.DatabaseName);
+            _database = client.GetDatabase(settings.DatabaseName);
         }
+
+        public MongoDbContext(IOptions<MongoDbSettings> settings) : this(settings.Value)
+        { }
+
+
+        public IMongoCollection<T> GetCollection<T>()
+        {
+            return _database.GetCollection<T>(typeof(T).Name);
+        }
+
+        public IMongoDatabase GetDatabase()
+        {
+            return _database;
+        }                
     }
 }

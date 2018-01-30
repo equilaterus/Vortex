@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using Equilaterus.Vortex.Services.DataStorage.Tests;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -7,26 +8,18 @@ using System.Text;
 
 namespace Equilaterus.Vortex.Services.MongoDB.Tests
 {
-    public class TestModel
+    public class TestModel : MongoDbEntity, ITestModel
     {
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
-
         public string Text { get; set; }
 
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        [BsonRepresentation(BsonType.String)]
         public DateTime Date { get; set; }
 
-        public int Counter { get; set; }
+        public int Counter { get; set; }     
 
-        public int? TestModelFkId { get; set; }
-        [ForeignKey("TestModelFkId")]
-        public virtual TestModelFk TestModelFk { get; set; }
-    }
+        public float Value { get; set; }
 
-    public class TestModelFk
-    {
-        public int Id { get; set; }
-
-        public string OtherText { get; set; }
-    }
+        public TestModel() : base() { }
+    }    
 }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Services.MongoDB
 {
-    public class MongoDbDataStorage<T> : IDocumentDataStorage<T> where T : class
+    public class MongoDbDataStorage<T> : IDocumentDataStorage<T> where T : MongoDbEntity
     {
         protected readonly IMongoDbContext _context;
 
@@ -32,44 +32,109 @@ namespace Equilaterus.Vortex.Services.MongoDB
             int skip = 0, 
             int take = 0)
         {
-            IQueryable<T> result =  _context.GetCollection<T>().AsQueryable().Where(filter);
-            result = orderBy(result);
+            if (skip < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(skip));
+            }
+
+            if (take < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(take));
+            }
+
+            IQueryable<T> result =  _context.GetCollection<T>().AsQueryable();
+
+            if (filter != null)
+            {
+                result = result.Where(filter);
+            }
+
+            if (orderBy != null)
+            {
+                result = orderBy(result);
+            }
+
+            if (skip > 0)
+            {
+                result = result.Skip(skip);
+            }
+
+            if (take > 0)
+            {
+                result = result.Take(take);
+            }
+            
             return await ((IMongoQueryable<T>)result).ToListAsync();
         }        
 
-        public Task InsertAsync(T entity)
+        public async Task InsertAsync(T entity)
         {
-            throw new NotImplementedException();
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            await _context.GetCollection<T>().InsertOneAsync(entity);
         }
 
-        public Task InsertRangeAsync(IEnumerable<T> entities)
+        public async Task InsertRangeAsync(IEnumerable<T> entities)
         {
-            throw new NotImplementedException();
+            if (entities == null)
+            {
+                throw new ArgumentNullException(nameof(entities));
+            }
+
+            await _context.GetCollection<T>().InsertManyAsync(entities);
         }
 
         public async Task UpdateAsync(T entity)
-        {            
-            //await _context.GetCollection<T>().ReplaceOneAsync(c => c.Id == entity.Id, entity);
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            await _context.GetCollection<T>().ReplaceOneAsync(c => c.Id == entity.Id, entity);
         }
 
-        public Task UpdateRangeAsync(IEnumerable<T> entities)
+        public async Task UpdateRangeAsync(IEnumerable<T> entities)
         {
-            throw new NotImplementedException();
+            if (entities == null)
+            {
+                throw new ArgumentNullException(nameof(entities));
+            }
+
+            foreach (var entity in entities)
+            {
+                await _context.GetCollection<T>().ReplaceOneAsync(c => c.Id == entity.Id, entity);
+            }
         }
 
-        public Task DeleteAsync(T entity)
+        public async Task DeleteAsync(T entity)
         {
-            throw new NotImplementedException();
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            await _context.GetCollection<T>().DeleteOneAsync(c => c.Id == entity.Id);
         }
 
-        public Task DeleteRangeAsync(IEnumerable<T> entities)
+        public async Task DeleteRangeAsync(IEnumerable<T> entities)
         {
-            throw new NotImplementedException();
+            if (entities == null)
+            {
+                throw new ArgumentNullException(nameof(entities));
+            }
+            var filter = Builders<T>.Filter.In(e => e.Id, entities.Select(l => l.Id));
+            await _context.GetCollection<T>().DeleteManyAsync(filter);
         }
         
-        public Task<T> IncrementField(Expression<Func<T, bool>> filter, Expression<Func<T, int>> field, int quantity = 1)
+        public async Task<T> IncrementField(Expression<Func<T, bool>> filter, Expression<Func<T, int>> field, int quantity = 1)
         {
-            throw new NotImplementedException();
+            var update = Builders<T>.Update.Inc(field, quantity);
+            var result = await _context.GetCollection<T>().FindOneAndUpdateAsync(filter, update);
+            return result;
         }
     }
 }

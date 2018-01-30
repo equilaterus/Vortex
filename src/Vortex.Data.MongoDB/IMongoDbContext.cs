@@ -8,5 +8,7 @@ namespace Equilaterus.Vortex.Services.MongoDB
     public interface IMongoDbContext
     {
         IMongoCollection<T> GetCollection<T>();
+
+        IMongoDatabase GetDatabase();
     }
 }
