@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Vortex.Data.MongoDB\Vortex.Data.MongoDB.csproj" />
+    <ProjectReference Include="..\Vortex.Tests\Vortex.Tests.csproj" />
   </ItemGroup>
 
 </Project>

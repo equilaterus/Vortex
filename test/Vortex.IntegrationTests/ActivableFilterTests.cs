@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace Equilaterus.Vortex.Tests.Integration
-{
+{/*
     public class ActivableFilterTests
     {
         public static TestContext GetContext(string databaseName)
@@ -82,5 +82,5 @@ namespace Equilaterus.Vortex.Tests.Integration
                 }
             }            
         }
-    }
+    }*/
 }

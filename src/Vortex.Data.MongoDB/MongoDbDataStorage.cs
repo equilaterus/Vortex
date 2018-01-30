@@ -47,9 +47,9 @@ namespace Equilaterus.Vortex.Services.MongoDB
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(T entity)
-        {
-            throw new NotImplementedException();
+        public async Task UpdateAsync(T entity)
+        {            
+            //await _context.GetCollection<T>().ReplaceOneAsync(c => c.Id == entity.Id, entity);
         }
 
         public Task UpdateRangeAsync(IEnumerable<T> entities)

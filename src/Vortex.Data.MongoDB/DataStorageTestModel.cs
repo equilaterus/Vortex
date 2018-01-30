@@ -46,7 +46,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
                     Id = "f88f49d8-44c5-453d-969e-9ef6a2e5a8c9",
                     Text = "first entry",
                     Counter = 1,
-                    Date = DateTime.Now,
+                    Date = DateTime.UtcNow,
                     Value = 0.1f
                 },
                 new ModelA
@@ -54,7 +54,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
                     Id = "e2dd92a3-b492-4ba3-aef1-b6cc783ad5d0",
                     Text = "second entry",
                     Counter = 2,
-                    Date = DateTime.Now,
+                    Date = DateTime.UtcNow,
                     Value = 0.01f
                 },
                 new ModelA
@@ -62,7 +62,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
                     Id = "76f08c2f-3f6b-47e8-99f0-e97dcaf2e3a7",
                     Text = "third entry",
                     Counter = 3,
-                    Date = DateTime.Now,
+                    Date = DateTime.UtcNow,
                     Value = 0.001f
                 },
                 new ModelA
@@ -70,7 +70,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
                     Id = "c1633e72-e9d4-4a85-ba1e-74e34f923b28",
                     Text = "fourth entry",
                     Counter = 4,
-                    Date = DateTime.Now,
+                    Date = DateTime.UtcNow,
                     Value = 0.00001f
                 }
             };

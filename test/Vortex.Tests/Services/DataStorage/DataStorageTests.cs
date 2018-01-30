@@ -6,39 +6,43 @@ using Xunit;
 
 namespace Equilaterus.Vortex.Services.DataStorage.Tests
 {
+
+    public interface ITestModel
+    {
+        string Id { get; set; }
+        int Counter { get; set; }
+    }
+
     /// <summary>
     /// Base class for data storage tests.
     /// </summary>
-    public abstract class DataStorageTests
+    public abstract class DataStorageTests<T> where T : class, ITestModel, new()
     {
-        protected enum ContextType { Seeded, Empty };
-        
-        protected static void Check(List<ModelA> expected, List<ModelA> result)
-        {
-            //  Check size
-            Assert.Equal(expected.Count, result.Count);
-            for (int i = 0; i < result.Count; ++i)
-            {
-                var expectedEntity = expected[i];
-                var resultEntity = result[i];
+        /// <summary>
+        /// You must check if the given lists have the same information
+        /// </summary>
+        /// <param name="expected"></param>
+        /// <param name="result"></param>
+        protected abstract void Check(List<T> expected, List<T> result);
 
-                // Check Ids
-                Assert.Equal(expectedEntity.Id, resultEntity.Id);
-
-                // Check other properties
-                Assert.Equal(expectedEntity.Text, resultEntity.Text);
-                Assert.Equal(expectedEntity.Date, resultEntity.Date);
-                Assert.Equal(expectedEntity.Counter, resultEntity.Counter);
-                Assert.Equal(expectedEntity.Value, resultEntity.Value);
-            }
-        }
+        /// <summary>
+        /// You must return the default data seed
+        /// </summary>
+        /// <returns>A list with at least 4 elements</returns>
+        protected abstract List<T> GetSeedData();
         
         /// <summary>
         /// You must return a service with a new context for the provided databaseName
         /// </summary>
         /// <param name="databaseName"></param>
         /// <returns></returns>
-        protected abstract IDataStorage<ModelA> GetService(string databaseName);
+        protected abstract IDataStorage<T> GetService(string databaseName);
+
+        /// <summary>
+        /// You must return a default entity
+        /// </summary>
+        /// <returns></returns>
+        protected abstract T GetDefaultEntity();
 
         /// <summary>
         /// You must insert the entities into the provided databaseName directly using your driver provider
@@ -46,21 +50,21 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
         /// <param name="entities"></param>
         /// <param name="databaseName"></param>
         /// <returns></returns>
-        protected abstract Task SeedAsync(List<ModelA> entities, string databaseName);
+        protected abstract Task SeedAsync(List<T> entities, string databaseName);
 
         /// <summary>
         /// Return the content of the database of name databaseName directly using your driver provider.
         /// </summary>
         /// <param name="databaseName"></param>
         /// <returns></returns>
-        protected abstract Task<List<ModelA>> GetAllEntitiesAsync(string databaseName);
+        protected abstract Task<List<T>> GetAllEntitiesAsync(string databaseName);
 
         /// <summary>
         /// Dispose if necessary unmanaged resources like DbContext.
         /// </summary>
         /// <param name="service"></param>
         /// <returns></returns>
-        protected abstract void DisposeIfNecessary(IDataStorage<ModelA> service);
+        protected abstract void DisposeIfNecessary(IDataStorage<T> service);
         
         [Fact]
         public async Task EnsureSeed()
@@ -69,8 +73,8 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             var databaseName = nameof(EnsureSeed);
             var service = GetService(databaseName);
 
-            var seed = this.GetSeedData();
-            Assert.Equal(4, seed.Count());
+            var seed = GetSeedData();
+            Assert.True(seed.Count() >= 4);
 
             // Execute
             await SeedAsync(seed, databaseName);
@@ -87,7 +91,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
         {
             // Prepare
             var databaseName = nameof(FindAll);
-            var seed = this.GetSeedData();
+            var seed = GetSeedData();
             await SeedAsync(seed, databaseName);
 
             // Execute
@@ -107,7 +111,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
         {
             // Prepare
             var databaseName = nameof(FindDefaultParams);
-            var seed = this.GetSeedData();
+            var seed = GetSeedData();
             await SeedAsync(seed, databaseName);
 
             // Execute
@@ -126,7 +130,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
         {
             // Prepare
             var databaseName = nameof(FindFilter);
-            var seed = this.GetSeedData();
+            var seed = GetSeedData();
             await SeedAsync(seed, databaseName);
 
             var expected = seed.
@@ -150,7 +154,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
         {
             // Prepare
             var databaseName = nameof(FindSkipAndTake);
-            var seed = this.GetSeedData();
+            var seed = GetSeedData();
             await SeedAsync(seed, databaseName);
 
             var expected = seed
@@ -176,7 +180,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
         {
             // Prepare
             var databaseName = nameof(FindSkipMaxThanAvailable);
-            var seed = this.GetSeedData();
+            var seed = GetSeedData();
             await SeedAsync(seed, databaseName);
 
             // Execute
@@ -227,7 +231,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
         {
             // Prepare
             var databaseName = nameof(FindTakeMaxThanAvailable);
-            var seed = this.GetSeedData();
+            var seed = GetSeedData();
             await SeedAsync(seed, databaseName);
             
             // Execute
@@ -247,7 +251,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
         {
             // Prepare
             var databaseName = nameof(FindOrderBy);
-            var seed = this.GetSeedData();
+            var seed = GetSeedData();
             await SeedAsync(seed, databaseName);
 
             var expected = seed
@@ -271,7 +275,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
         {
             // Prepare
             var databaseName = nameof(FindAllParams);
-            var seed = this.GetSeedData();
+            var seed = GetSeedData();
             await SeedAsync(seed, databaseName);
 
             var expected = seed
@@ -303,11 +307,10 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             // Prepare
             var databaseName = nameof(Insert);
 
-            var entity = this.GetDefaultEntity();
-            var expected = new List<ModelA>() { entity };
+            var entity = GetDefaultEntity();
+            var expected = new List<T>() { entity };
 
             var id = entity.Id;
-            Assert.NotNull(entity.Id);
 
             // Execute
             var service = GetService(databaseName);
@@ -320,8 +323,9 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             Assert.Single(result);
             Check(expected, result);
 
-            // Original entity must have the beginning Id
+            // It must preserve the id
             Assert.Equal(id, entity.Id);
+            Assert.Equal(id, result[0].Id);
 
             // End
             DisposeIfNecessary(service);
@@ -347,20 +351,17 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
         {
             // Prepare
             var databaseName = nameof(Update);
-            var seed = this.GetSeedData();
+            var seed = GetSeedData();
             await SeedAsync(seed, databaseName);
 
             var originalEntity = seed[0];
-            var updatedEntity = new ModelA()
+            var updatedEntity = new T()
             {
-                Counter = originalEntity.Counter - 1,
-                Text = originalEntity.Text + "*",
-                Date = originalEntity.Date.AddYears(1),
-                Value = originalEntity.Value + 0.1f,
-                Id = originalEntity.Id
+                Id = originalEntity.Id,
+                Counter = originalEntity.Counter - 1               
             };
 
-            var expected = new List<ModelA>()
+            var expected = new List<T>()
             {
                 updatedEntity,
                 seed[1],
@@ -401,10 +402,10 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
         {
             // Prepare
             var databaseName = nameof(Delete);
-            var seed = this.GetSeedData();
+            var seed = GetSeedData();
             await SeedAsync(seed, databaseName);
 
-            var entityToDelete = new ModelA { Id = seed[0].Id };
+            var entityToDelete = new T { Id = seed[0].Id };
 
             var expected = seed;
             expected.RemoveAt(0);
@@ -444,7 +445,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
             // Prepare
             var databaseName = nameof(InsertRange);            
 
-            var entities = new List<ModelA>() {
+            var entities = new List<T>() {
                 this.GetDefaultEntity(),
                 this.GetDefaultEntity(),
                 this.GetDefaultEntity()
@@ -488,7 +489,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
         {
             // Prepare
             var databaseName = nameof(UpdateRange);
-            var seed = this.GetSeedData();
+            var seed = GetSeedData();
             await SeedAsync(seed, databaseName);
             
             var entities = seed; // Only for naming purpouses
@@ -527,10 +528,10 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
         {
             // Prepare
             var databaseName = nameof(DeleteRange);
-            var seed = this.GetSeedData();
+            var seed = GetSeedData();
             await SeedAsync(seed, databaseName);
 
-            var expected = new List<ModelA>() { seed[0] };
+            var expected = new List<T>() { seed[0] };
 
             var entities = seed; // Only for naming purpouses
             seed.RemoveAt(0);

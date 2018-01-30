@@ -1,6 +1,8 @@
+using Equilaterus.Vortex.Services.DataStorage.Tests;
 using Equilaterus.Vortex.Services.MongoDB;
 using Microsoft.Extensions.Options;
 using Mongo2Go;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -9,50 +11,49 @@ using Xunit;
 
 namespace Equilaterus.Vortex.Services.MongoDB.Tests
 {
-    public class MongoDbTests
+    public class MongoDbTests : DataStorageTests
     {
-        internal static MongoDbRunner _runner;
-        internal static IMongoDbContext _context;
-        internal static string _databaseName = "IntegrationTest";
-        internal static string _collectionName = "TestCollection";
+        static protected MongoDbRunner _runner;
+        static protected MongoDbContext _context;
 
-        const string DEFAULT_TEXT = "random text";
-        public static TestModel GetDefaultEntity()
+        protected MongoDbContext GetContext()
         {
-            return new TestModel { Text = DEFAULT_TEXT, Counter = 0, Date = DateTime.Now };
-        }
-
-        internal static void CreateConnection()
-        {
-            _runner = MongoDbRunner.Start();
-
-            MongoDbSettings mongoDbSettings = new MongoDbSettings()
+            if (_context == null)
             {
-                ConnectionString = _runner.ConnectionString,
-                DatabaseName = _databaseName
-            };
+                _runner = MongoDbRunner.Start();
 
-            _context = new MongoDbContext(mongoDbSettings);
+                MongoDbSettings mongoDbSettings = new MongoDbSettings()
+                {
+                    ConnectionString = _runner.ConnectionString,
+                    DatabaseName = "mongotest"
+                };
+                _context = new MongoDbContext(mongoDbSettings);
+            }
+
+            return _context;
         }
 
-        static async Task Seed()
+        protected override IDataStorage<ModelA> GetService(string databaseName)
         {
-            await _context.GetCollection<TestModel>().InsertManyAsync(
-                new List<TestModel> {
-                    GetDefaultEntity(), GetDefaultEntity()});
+            return new MongoDbDataStorage<ModelA>(GetContext());
         }
 
-        [Fact]
-        public async Task MongoDb_FindAll()
+        protected override async Task SeedAsync(List<ModelA> entities, string databaseName)
         {
-            CreateConnection();
+            var context = GetContext();
+            await context.GetCollection<ModelA>()
+                .InsertManyAsync(entities);
+        }
 
-            await Seed();
+        protected override async Task<List<ModelA>> GetAllEntitiesAsync(string databaseName)
+        {
+            var context = GetContext();
+            return await (await context.GetCollection<ModelA>().FindAsync(new BsonDocument())).ToListAsync();
+        }
 
-            MongoDbDataStorage<TestModel> service = new MongoDbDataStorage<TestModel>(_context);
-            var result = await service.FindAllAsync();
-
-            Assert.Equal(2, result.Count);
+        protected override void DisposeIfNecessary(IDataStorage<ModelA> service)
+        {
+            _context.GetCollection<ModelA>().DeleteMany(e => e.Text != "");
         }
     }
 }
