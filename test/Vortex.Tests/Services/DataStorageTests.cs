@@ -7,7 +7,7 @@ using Xunit;
 namespace Equilaterus.Vortex.Services.DataStorage.Tests
 {
 
-    public interface ITestModel
+    public interface IDataTestModel
     {
         string Id { get; set; }
         int Counter { get; set; }
@@ -16,7 +16,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
     /// <summary>
     /// Base class for data storage tests.
     /// </summary>
-    public abstract class DataStorageTests<T> where T : class, ITestModel, new()
+    public abstract class DataStorageTests<T> where T : class, IDataTestModel, new()
     {
         /// <summary>
         /// You must check if the given lists have the same information

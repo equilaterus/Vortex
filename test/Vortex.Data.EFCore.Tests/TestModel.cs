@@ -13,7 +13,8 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
     public class TestContext : DbContext
     {
         public DbSet<ModelA> ModelsA { get; set; }
-        
+        public DbSet<ModelA> ModelsB { get; set; }
+
         public TestContext()
         { }
 
@@ -22,7 +23,7 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
         { }
     }
 
-    public class ModelA : ITestModel
+    public class ModelA : IRelationalTestModel
     {
         public string Id { get; set; }
 
@@ -32,11 +33,28 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
 
         public int Counter { get; set; }
 
-        public float Value { get; set; }        
+        public float Value { get; set; }
+
+
+        public string FkId { get; set; }
+
+        [ForeignKey(nameof(FkId))]
+        public virtual ModelB Fk { get; set; }
+
+        public IDataTestModel GetFkObject() => Fk;
+
+        public string GetFkIncludeName() => nameof(Fk);
+
 
         public ModelA()
         {
             Id = Guid.NewGuid().ToString();
         }
+    }
+
+    public class ModelB : IDataTestModel
+    {
+        public string Id { get; set; }
+        public int Counter { get; set; }
     }
 }

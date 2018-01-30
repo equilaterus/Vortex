@@ -13,9 +13,14 @@ namespace Equilaterus.Vortex.Services
     /// <typeparam name="T"></typeparam>
     public interface IDocumentDataStorage<T> : IDataStorage<T> where T : class
     {       
-        Task<T> IncrementField(
+        Task<T> IncrementFieldAsync(
             Expression<Func<T, bool>> filter, 
             Expression<Func<T, int>> field, 
+            int quantity = 1);
+
+        Task IncrementFieldRangeAsync(
+            Expression<Func<T, bool>> filter,
+            Expression<Func<T, int>> field,
             int quantity = 1);
     }
 }

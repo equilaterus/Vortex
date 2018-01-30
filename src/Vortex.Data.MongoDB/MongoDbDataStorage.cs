@@ -126,15 +126,35 @@ namespace Equilaterus.Vortex.Services.MongoDB
             {
                 throw new ArgumentNullException(nameof(entities));
             }
+
             var filter = Builders<T>.Filter.In(e => e.Id, entities.Select(l => l.Id));
             await _context.GetCollection<T>().DeleteManyAsync(filter);
         }
         
-        public async Task<T> IncrementField(Expression<Func<T, bool>> filter, Expression<Func<T, int>> field, int quantity = 1)
+        public async Task<T> IncrementFieldAsync(
+            Expression<Func<T, bool>> filter, 
+            Expression<Func<T, int>> field, 
+            int quantity = 1)
         {
             var update = Builders<T>.Update.Inc(field, quantity);
-            var result = await _context.GetCollection<T>().FindOneAndUpdateAsync(filter, update);
+            var result = await _context.GetCollection<T>()
+                .FindOneAndUpdateAsync(
+                    filter, 
+                    update, 
+                    new FindOneAndUpdateOptions<T>
+                    {
+                        ReturnDocument = ReturnDocument.After
+                    });
             return result;
+        }
+
+        public async Task IncrementFieldRangeAsync(
+            Expression<Func<T, bool>> filter, 
+            Expression<Func<T, int>> field, 
+            int quantity = 1)
+        {
+            var update = Builders<T>.Update.Inc(field, quantity);
+            await _context.GetCollection<T>().UpdateManyAsync(filter, update);
         }
     }
 }

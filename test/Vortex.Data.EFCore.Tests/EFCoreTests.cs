@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Equilaterus.Vortex.Services.EFCore.Tests
 {
-    public class EFCoreTests : DataStorageTests<ModelA>
+    public class EFCoreTests : RelationalDataStorageTests<ModelA>
     {
         protected IDataStorage<ModelA> _service = null;
 
@@ -40,6 +40,7 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
                 Assert.Equal(expectedEntity.Date, resultEntity.Date);
                 Assert.Equal(expectedEntity.Counter, resultEntity.Counter);
                 Assert.Equal(expectedEntity.Value, resultEntity.Value);
+                Assert.Equal(expectedEntity.FkId, resultEntity.FkId);
             }
         }
 
@@ -52,7 +53,8 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
                     Text = "first entry",
                     Counter = 1,
                     Date = DateTime.Now,
-                    Value = 0.1f
+                    Value = 0.1f,
+                    FkId = "004c289b-b41f-401d-8957-83c1b54f0093"
                 },
                 new ModelA
                 {
@@ -60,7 +62,8 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
                     Text = "second entry",
                     Counter = 2,
                     Date = DateTime.Now,
-                    Value = 0.01f
+                    Value = 0.01f,
+                    FkId = "004c289b-b41f-401d-8957-83c1b54f0093"
                 },
                 new ModelA
                 {
@@ -96,6 +99,7 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
         {
             using (var context = GetContext(databaseName))
             {
+                await context.AddAsync(new ModelB() { Id = "004c289b-b41f-401d-8957-83c1b54f0093" });
                 await context.AddRangeAsync(entities);
                 await context.SaveChangesAsync();
             }

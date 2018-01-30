@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Equilaterus.Vortex.Services.MongoDB.Tests
 {    
-    public class MongoDbTests : DataStorageTests<TestModel>
+    public class MongoDbTests : DocumentDataStorageTests<TestModel>
     {
         protected  MongoDbRunner _runner;
         protected MongoDbContext _context;

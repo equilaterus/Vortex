@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Equilaterus.Vortex.Services.MongoDB.Tests
 {
-    public class TestModel : MongoDbEntity, ITestModel
+    public class TestModel : MongoDbEntity, IDataTestModel
     {
         public string Text { get; set; }
 
