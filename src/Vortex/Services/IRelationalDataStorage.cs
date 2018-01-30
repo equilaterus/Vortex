@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Services
 {
+    /// <summary>
+    ///  Represents the data storage for relational databases.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IRelationalDataStorage<T> : IDataStorage<T> where T : class
     {
         Task<List<T>> FindAllAsync(

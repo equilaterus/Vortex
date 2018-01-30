@@ -1,4 +1,5 @@
 using Equilaterus.Vortex.Services.MongoDB;
+using Microsoft.Extensions.Options;
 using Mongo2Go;
 using MongoDB.Driver;
 using System;

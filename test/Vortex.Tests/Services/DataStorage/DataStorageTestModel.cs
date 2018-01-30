@@ -24,39 +24,22 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
 
         public int Counter { get; set; }
 
-        public string ModelBId { get; set; }
-        [ForeignKey("ModelBId")]
-        public virtual ModelB ModelB { get; set; }
-
+        public float Value { get; set; }
+               
         public ModelA() : base() { }
     }
-
-    public class ModelB : BaseModel
-    {
-        public string OtherText { get; set; }
-
-        public ModelB() : base() { }
-    }
-
+    
     public static class TestModelHelpers
     {
         const string DEFAULT_TEXT = "random text";
 
         public static ModelA GetDefaultEntity(this DataStorageTests  ds)
         {
-            return new ModelA { Text = DEFAULT_TEXT, Counter = 0, Date = DateTime.Now };
+            return new ModelA { Text = DEFAULT_TEXT, Counter = 0, Date = DateTime.Now, Value = 0.1f };
         }
 
-        public static Tuple<List<ModelA>, List<ModelB>> GetSeed(this DataStorageTests ds)
-        {
-            var modelsB = new List<ModelB>() {
-                new ModelB
-                {
-                    Id = "79b291a8-b3b6-45b5-8e40-922f92a79b47",
-                    OtherText = "FK test"
-                }
-            };
-            
+        public static List<ModelA> GetSeedData(this DataStorageTests ds)
+        {   
             var modelsA = new List<ModelA>() {
                 new ModelA
                 {
@@ -64,7 +47,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
                     Text = "first entry",
                     Counter = 1,
                     Date = DateTime.Now,
-                    ModelBId = modelsB[0].Id
+                    Value = 0.1f
                 },
                 new ModelA
                 {
@@ -72,7 +55,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
                     Text = "second entry",
                     Counter = 2,
                     Date = DateTime.Now,
-                    ModelBId = modelsB[0].Id
+                    Value = 0.01f
                 },
                 new ModelA
                 {
@@ -80,7 +63,7 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
                     Text = "third entry",
                     Counter = 3,
                     Date = DateTime.Now,
-                    ModelBId = null
+                    Value = 0.001f
                 },
                 new ModelA
                 {
@@ -88,12 +71,12 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
                     Text = "fourth entry",
                     Counter = 4,
                     Date = DateTime.Now,
-                    ModelBId = null
+                    Value = 0.00001f
                 }
             };
 
 
-            return Tuple.Create(modelsA, modelsB);
+            return modelsA;
         }
     }
 }

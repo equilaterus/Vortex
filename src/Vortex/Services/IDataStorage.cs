@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Services
 {
+    /// <summary>
+    /// Represents the most generic data storage for Vortex.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IDataStorage<T> where T : class
     {
         Task<List<T>> FindAllAsync();

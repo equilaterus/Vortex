@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Services.EFCore
 {
-    public class EFCoreDataStorage<T> : IDataStorage<T> where T : class
+    public class EFCoreDataStorage<T> : IRelationalDataStorage<T> where T : class
     {
         protected readonly DbContext _dbContext;
         protected readonly DbSet<T> _dbSet;
+
+        public DbContext DbContext { get { return _dbContext; } }
 
         public EFCoreDataStorage(DbContext context)
         {
@@ -28,6 +30,11 @@ namespace Equilaterus.Vortex.Services.EFCore
             }
         }
 
+        public async Task<List<T>> FindAllAsync()
+        {
+            return await FindAllAsync(null);
+        }
+
         public async Task<List<T>> FindAllAsync(
             params string[] includeProperties)
         {
@@ -35,6 +42,15 @@ namespace Equilaterus.Vortex.Services.EFCore
             query = query.AddIncludes(includeProperties);
 
             return await query.ToListAsync();
+        }
+
+        public async Task<List<T>> FindAsync(
+            Expression<Func<T, bool>> filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            int skip = 0,
+            int take = 0)
+        {
+            return await FindAsync(filter, orderBy, skip, take, null);
         }
 
         public async Task<List<T>> FindAsync(
@@ -157,11 +173,6 @@ namespace Equilaterus.Vortex.Services.EFCore
             await _dbContext.SaveChangesAsync();
 
             DetachAll(entities);
-        }
-
-        public async Task<T> IncrementField(Expression<Func<T, bool>> filter, Expression<Func<T, int>> field, int quantity = 1)
-        {
-            throw new NotImplementedException();
-        }
+        }        
     }
 }

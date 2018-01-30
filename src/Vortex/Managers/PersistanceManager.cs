@@ -19,7 +19,8 @@ namespace Equilaterus.Vortex.Managers
 
         public async Task<List<T>> FindAllAsync(params string[] includeProperties)
         {
-            return await _dataStorage.FindAllAsync(includeProperties);
+            // return await _dataStorage.FindAllAsync(includeProperties);
+            return null;
         }
 
         public async Task<List<T>> FindAsync(
@@ -30,8 +31,9 @@ namespace Equilaterus.Vortex.Managers
             params string[] includeProperties)
         {
 
-            return await _dataStorage.FindAsync(
-                filter, orderBy, skip, take, includeProperties);
+            //return await _dataStorage.FindAsync(
+            //filter, orderBy, skip, take, includeProperties);
+            return null;
         }
 
         public async Task InsertAsync(T entity)
@@ -69,7 +71,7 @@ namespace Equilaterus.Vortex.Managers
             Expression<Func<T, int>> field, 
             int quantity = 1)
         {
-            await _dataStorage.IncrementField(filter, field, quantity);
+            //await _dataStorage.IncrementField(filter, field, quantity);
         }        
     }
 }

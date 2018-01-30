@@ -11,9 +11,7 @@ namespace Equilaterus.Vortex.Services.EFCore.Tests
     public class TestContext : DbContext
     {
         public DbSet<ModelA> ModelsA { get; set; }
-
-        public DbSet<ModelB> ModelsB { get; set; }
-
+        
         public TestContext()
         { }
 

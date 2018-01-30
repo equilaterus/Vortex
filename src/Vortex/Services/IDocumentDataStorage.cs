@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Services
 {
-    public interface INonRelationalDataStorage<T> : IDataStorage<T> where T : class
+    /// <summary>
+    /// Represents the data storage for document oriented databases.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public interface IDocumentDataStorage<T> : IDataStorage<T> where T : class
     {       
         Task<T> IncrementField(
             Expression<Func<T, bool>> filter, 

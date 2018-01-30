@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace Equilaterus.Vortex.Services.MongoDB
@@ -13,7 +14,10 @@ namespace Equilaterus.Vortex.Services.MongoDB
         {
             return db.GetCollection<T>(typeof(T).Name);
         }
-        
+
+        public MongoDbContext(IOptions<MongoDbSettings> settings) : this(settings.Value)
+        {  }
+
         public MongoDbContext(MongoDbSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);

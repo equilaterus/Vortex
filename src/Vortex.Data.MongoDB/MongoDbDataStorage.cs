@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Services.MongoDB
 {
-    public class MongoDbDataStorage<T> : IDataStorage<T> where T : class
+    public class MongoDbDataStorage<T> : IDocumentDataStorage<T> where T : class
     {
         protected readonly IMongoDbContext _context;
 
@@ -20,7 +20,7 @@ namespace Equilaterus.Vortex.Services.MongoDB
             _context = context;
         }
 
-        public async Task<List<T>> FindAllAsync(params string[] includeProperties)
+        public async Task<List<T>> FindAllAsync()
         {
             var result = await _context.GetCollection<T>().FindAsync(new BsonDocument());
             return await result.ToListAsync();
@@ -30,8 +30,7 @@ namespace Equilaterus.Vortex.Services.MongoDB
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, 
             int skip = 0, 
-            int take = 0, 
-            params string[] includeProperties)
+            int take = 0)
         {
             IQueryable<T> result =  _context.GetCollection<T>().AsQueryable().Where(filter);
             result = orderBy(result);
