@@ -35,33 +35,44 @@ public class BuildPaths
         var rootDir = (DirectoryPath)context.Directory("../");
         var artifacts = rootDir.Combine(".artifacts");
         var testResults = artifacts.Combine("Test-Results");
-        var testsPath = rootDir.Combine(context.Directory("test"));
-        
+		
+        var testsPath = rootDir.Combine(context.Directory("test"));        
         var efCoreTests = testsPath.Combine(
                 context.Directory("Vortex.Data.EFCore.Tests")); 
         var mongoDBTests = testsPath.Combine(
-                context.Directory("Vortex.Data.MongoDB.Tests ")); 
+                context.Directory("Vortex.Data.MongoDB.Tests "));
+		var azureFilesTests = testsPath.Combine(
+				context.Directory("Vortex.Files.Azure.Tests"));				
 
         var srcPath = rootDir.Combine(context.Directory("src"));
         var efCore = srcPath.Combine(
                 context.Directory("Vortex.Data.EFCore"));
         var mongoDB = srcPath.Combine(
                 context.Directory("Vortex.Data.MongoDB"));
+		var azureFiles = srcPath.Combine(
+				context.Directory("Vortex.Files.Azure"));
 
         var testDirs = new []{
                                 efCoreTests,
-                                mongoDBTests
+                                mongoDBTests,
+								azureFilesTests
                             };
         var toClean = new[] {
-                                 testResults,                                 
+                                 testResults,   
+								 
                                  efCoreTests.Combine("bin"),
                                  efCoreTests.Combine("obj"),
                                  mongoDBTests.Combine("bin"),
                                  mongoDBTests.Combine("obj"),
+								 azureFilesTests.Combine("bin"),
+                                 azureFilesTests.Combine("obj"),
+								 
                                  efCore.Combine("bin"),
                                  efCore.Combine("obj"),
                                  mongoDB.Combine("bin"),
                                  mongoDB.Combine("obj"),
+								 azureFiles.Combine("bin"),
+                                 azureFiles.Combine("obj")
                             };
         return new BuildDirectories(rootDir,
                                     artifacts,

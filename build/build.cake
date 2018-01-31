@@ -55,7 +55,7 @@ Task("Run-Tests")
         OldStyle = true,
         MergeOutput = true
     }
-    .WithFilter("+[*]* -[*.Tests*]*");
+    .WithFilter("+[*]* -[*.Tests*]* -[Microsoft.*]*");
 
     if(parameters.UseDotNetVsTest){
 
