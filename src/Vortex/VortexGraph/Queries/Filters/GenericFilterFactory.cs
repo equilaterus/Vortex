@@ -19,6 +19,14 @@ namespace Equilaterus.Vortex.VortexGraph.Queries.Filters
                 var instance = Activator.CreateInstance(genericType);
                 filters.Add((IQueryFilter<T>) instance);
             }
+            if (typeof(ISoftDeleteable).IsAssignableFrom(typeof(T)))
+            {
+                var filter = typeof(SoftDeleteableFilter<>);
+                Type[] typeArgs = { typeof(T) };
+                var genericType = filter.MakeGenericType(typeArgs);
+                var instance = Activator.CreateInstance(genericType);
+                filters.Add((IQueryFilter<T>)instance);
+            }
             return filters;
         }        
     }

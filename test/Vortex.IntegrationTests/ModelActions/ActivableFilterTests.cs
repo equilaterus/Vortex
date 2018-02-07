@@ -79,7 +79,9 @@ namespace Equilaterus.Vortex.Tests.Integration
             await context.GetCollection<ActivableTestModel>().InsertManyAsync(GetSeed<ActivableTestModel>());
             
 
-            var activableFilter = new ActivableFilter<ActivableTestModel>();
+            var factory = new GenericFilterFactory<ActivableTestModel>();
+            var activableFilter = factory.GetFilters()[0];
+
             var qparams = new QueryParams<ActivableTestModel>() { Filter = e => e.Counter > 0 };
             activableFilter.UpdateParams(qparams);
             Assert.NotNull(qparams);
