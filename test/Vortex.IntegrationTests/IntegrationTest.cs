@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Equilaterus.Vortex.Tests.Integration
+namespace Equilaterus.Vortex.Tests.IntegrationTests
 {
     public abstract class IntegrationTest<T> where T : class
     {        
@@ -24,10 +24,7 @@ namespace Equilaterus.Vortex.Tests.Integration
         protected class TestContext<TEntity> : DbContext where TEntity : class, T
         {
             public DbSet<TEntity> Models { get; set; }
-
-            public TestContext()
-            { }
-
+                        
             public TestContext(DbContextOptions<TestContext<TEntity>> options)
                 : base(options)
             { }

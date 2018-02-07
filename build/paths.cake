@@ -36,7 +36,11 @@ public class BuildPaths
         var artifacts = rootDir.Combine(".artifacts");
         var testResults = artifacts.Combine("Test-Results");
 		
-        var testsPath = rootDir.Combine(context.Directory("test"));        
+        var testsPath = rootDir.Combine(context.Directory("test")); 
+		var vortexTests = testsPath.Combine(
+				context.Directory("Vortex.Tests"));	
+		var vortexIntegrationTests = testsPath.Combine(
+				context.Directory("Vortex.IntegrationTests"));
         var efCoreTests = testsPath.Combine(
                 context.Directory("Vortex.Data.EFCore.Tests")); 
         var mongoDBTests = testsPath.Combine(
@@ -53,6 +57,8 @@ public class BuildPaths
 				context.Directory("Vortex.Files.Azure"));
 
         var testDirs = new []{
+								vortexTests,
+								vortexIntegrationTests,
                                 efCoreTests,
                                 mongoDBTests,
 								azureFilesTests
@@ -60,6 +66,10 @@ public class BuildPaths
         var toClean = new[] {
                                  testResults,   
 								 
+								 vortexTests.Combine("bin"),
+                                 vortexTests.Combine("obj"),
+                                 vortexIntegrationTests.Combine("bin"),
+                                 vortexIntegrationTests.Combine("obj"),
                                  efCoreTests.Combine("bin"),
                                  efCoreTests.Combine("obj"),
                                  mongoDBTests.Combine("bin"),

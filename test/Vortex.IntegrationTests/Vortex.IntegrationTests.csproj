@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <AssemblyName>Vortex.Tests.IntegrationTests</AssemblyName>
+
+    <RootNamespace>Equilaterus.Vortex.Tests.IntegrationTests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

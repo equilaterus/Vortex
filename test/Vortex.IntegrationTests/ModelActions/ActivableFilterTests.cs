@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Equilaterus.Vortex.Tests.Integration
+namespace Equilaterus.Vortex.Tests.IntegrationTests
 {
     public class ActivableTestModel : MongoDbEntity, IActivable
     {
