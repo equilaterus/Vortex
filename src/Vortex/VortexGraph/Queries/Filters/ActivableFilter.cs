@@ -6,15 +6,16 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Equilaterus.Vortex.ModelActions
+namespace Equilaterus.Vortex.VortexGraph.Queries.Filters
 {
-    public class ActivableFilter<T> : IQueryFilter<T> where T : IActivable
+    public class ActivableFilter<T> : IQueryFilter<T> where T : class, IActivable
     {
-        public Expression<Func<T, bool>> Do(Expression<Func<T, bool>> filter)
+        public void UpdateParams(QueryParams<T> queryParams)
         {
             var inner = PredicateBuilder.New<T>();
             inner = inner.Start(e => e.IsActive);
-            return inner.And(filter);
+
+            queryParams.Filter = inner.And(queryParams.Filter);
         }
     }
 }

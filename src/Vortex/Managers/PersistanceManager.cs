@@ -11,67 +11,54 @@ namespace Equilaterus.Vortex.Managers
     public class PersistanceManager<T> : IPersistanceManager<T> where T : class
     {
         protected readonly IDataStorage<T> _dataStorage;
-        
+
         public PersistanceManager(IDataStorage<T> dataStorage)
         {
             _dataStorage = dataStorage;
         }
 
-        public async Task<List<T>> FindAllAsync(params string[] includeProperties)
+        public Task<List<T>> FindAllAsync()
         {
-            // return await _dataStorage.FindAllAsync(includeProperties);
-            return null;
+            throw new NotImplementedException();
         }
 
-        public async Task<List<T>> FindAsync(
-            Expression<Func<T, bool>> filter = null, 
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, 
-            int skip = 0, 
-            int take = 0, 
-            params string[] includeProperties)
+        public Task<List<T>> FindAsync(
+            Expression<Func<T, bool>> filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            int skip = 0, int take = 0)
         {
-
-            //return await _dataStorage.FindAsync(
-            //filter, orderBy, skip, take, includeProperties);
-            return null;
+            throw new NotImplementedException();
         }
 
-        public async Task InsertAsync(T entity)
+
+        public Task DeleteAsync(T entity)
         {
-            await _dataStorage.InsertAsync(entity);
+            throw new NotImplementedException();
         }
 
-        public async Task InsertRangeAsync(IEnumerable<T> entities)
+        public Task DeleteRangeAsync(IEnumerable<T> entities)
         {
-            await _dataStorage.InsertRangeAsync(entities);
+            throw new NotImplementedException();
         }
 
-        public async Task UpdateAsync(T entity)
+        public Task InsertAsync(T entity)
         {
-            await _dataStorage.UpdateAsync(entity);
+            throw new NotImplementedException();
         }
 
-        public async Task UpdateRangeAsync(IEnumerable<T> entities)
+        public Task InsertRangeAsync(IEnumerable<T> entities)
         {
-            await _dataStorage.UpdateRangeAsync(entities);
+            throw new NotImplementedException();
         }
 
-        public async Task DeleteAsync(T entity)
+        public Task UpdateAsync(T entity)
         {
-            await _dataStorage.DeleteAsync(entity);
+            throw new NotImplementedException();
         }
 
-        public async Task DeleteRangeAsync(IEnumerable<T> entities)
+        public Task UpdateRangeAsync(IEnumerable<T> entities)
         {
-            await _dataStorage.DeleteRangeAsync(entities);
+            throw new NotImplementedException();
         }
-        
-        public async Task IncrementField(
-            Expression<Func<T, bool>> filter, 
-            Expression<Func<T, int>> field, 
-            int quantity = 1)
-        {
-            //await _dataStorage.IncrementField(filter, field, quantity);
-        }        
     }
 }

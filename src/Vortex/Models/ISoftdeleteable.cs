@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Equilaterus.Vortex.Models
 {
-    public interface ISoftdeleteable
+    public interface ISoftDeleteable
     {
         bool IsDeleted { get; set; }
     }

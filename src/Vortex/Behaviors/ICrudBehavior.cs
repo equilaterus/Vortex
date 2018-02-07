@@ -6,9 +6,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Equilaterus.Vortex.Managers
+namespace Equilaterus.Vortex.Behavior
 {
-    public interface IPersistanceManager<T>
+    public interface ICrudBehavior<T> where T : class
     {
         Task<List<T>> FindAllAsync();
 

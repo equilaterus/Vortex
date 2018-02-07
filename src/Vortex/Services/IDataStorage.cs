@@ -31,6 +31,6 @@ namespace Equilaterus.Vortex.Services
 
         Task DeleteAsync(T entity);
 
-        Task DeleteRangeAsync(IEnumerable<T> entities);        
+        Task DeleteRangeAsync(IEnumerable<T> entities);
     }
 }

@@ -8,7 +8,7 @@
     <Company>Equilaterus</Company>
     <AssemblyVersion>0.0.1.0</AssemblyVersion>
     <FileVersion>0.0.1.0</FileVersion>
-    <AssemblyName>Equilaterus.Vortex.Data.EFCore</AssemblyName>
+    <AssemblyName>Equilaterus.Vortex.Services.EFCore</AssemblyName>
     <RootNamespace>Equilaterus.Vortex.DataStorage.EFCore</RootNamespace>
   </PropertyGroup>
 

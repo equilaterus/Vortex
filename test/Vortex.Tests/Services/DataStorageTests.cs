@@ -6,7 +6,6 @@ using Xunit;
 
 namespace Equilaterus.Vortex.Services.DataStorage.Tests
 {
-
     public interface IDataTestModel
     {
         string Id { get; set; }

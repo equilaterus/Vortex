@@ -14,7 +14,7 @@ namespace Equilaterus.Vortex.Services.MongoDB.Tests
 {    
     public class MongoDbTests : DocumentDataStorageTests<TestModel>
     {
-        protected  MongoDbRunner _runner;
+        protected MongoDbRunner _runner;
         protected MongoDbContext _context;
 
         protected MongoDbContext GetContext(string databaseName)
