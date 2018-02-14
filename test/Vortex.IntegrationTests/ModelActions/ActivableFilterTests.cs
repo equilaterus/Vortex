@@ -1,8 +1,8 @@
+using Equilaterus.Vortex.Engine.Queries;
+using Equilaterus.Vortex.Engine.Queries.Filters;
 using Equilaterus.Vortex.Models;
 using Equilaterus.Vortex.Services.EFCore;
 using Equilaterus.Vortex.Services.MongoDB;
-using Equilaterus.Vortex.VortexGraph.Queries;
-using Equilaterus.Vortex.VortexGraph.Queries.Filters;
 using Microsoft.EntityFrameworkCore;
 using Mongo2Go;
 using System;

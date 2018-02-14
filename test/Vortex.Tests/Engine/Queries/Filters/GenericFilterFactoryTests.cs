@@ -1,11 +1,11 @@
 ﻿using Equilaterus.Vortex.Models;
-using Equilaterus.Vortex.VortexGraph.Queries.Filters;
+using Equilaterus.Vortex.Engine.Queries.Filters;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace Vortex.Tests.VortexGraph.Queries.Filters
+namespace Vortex.Tests.Engine.Queries.Filters
 {
     public class GenericFilterFactoryTests
     {

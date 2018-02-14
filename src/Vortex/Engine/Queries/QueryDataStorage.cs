@@ -1,11 +1,11 @@
 ﻿using Equilaterus.Vortex.Services;
-using Equilaterus.Vortex.VortexGraph.Queries;
+using Equilaterus.Vortex.Engine.Queries;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Equilaterus.Vortex.VortexGraph.Queries
+namespace Equilaterus.Vortex.Engine.Queries
 {
     public static class QueryDataStorage
     {

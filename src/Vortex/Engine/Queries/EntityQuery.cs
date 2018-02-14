@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Equilaterus.Vortex.VortexGraph.Queries
+namespace Equilaterus.Vortex.Engine.Queries
 {
     public class EntityQuery<T> : IEntityQuery<T> where T : class
     {

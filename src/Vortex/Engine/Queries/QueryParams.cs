@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Equilaterus.Vortex.VortexGraph.Queries
+namespace Equilaterus.Vortex.Engine.Queries
 {
     public class QueryParams<T>
     {

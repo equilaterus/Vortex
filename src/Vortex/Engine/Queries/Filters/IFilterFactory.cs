@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Equilaterus.Vortex.VortexGraph.Queries.Filters
+namespace Equilaterus.Vortex.Engine.Queries.Filters
 {
     public interface IFilterFactory<T> where T : class
     {

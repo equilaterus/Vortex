@@ -1,5 +1,5 @@
 ﻿using Equilaterus.Vortex.Services;
-using Equilaterus.Vortex.VortexGraph.Queries;
+using Equilaterus.Vortex.Engine.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;

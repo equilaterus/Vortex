@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Equilaterus.Vortex.VortexGraph.Queries.Filters
+namespace Equilaterus.Vortex.Engine.Queries.Filters
 {
     public interface IQueryFilter<T> where T : class
     {
