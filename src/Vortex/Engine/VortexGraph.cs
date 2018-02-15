@@ -6,7 +6,7 @@ using System.Text;
 namespace Equilaterus.Vortex.Engine
 {
     public class VortexGraph
-    {
+    {        
         /* {OnAction, {Interface, Action} }*/
         private Dictionary<string, Dictionary<string, SubClassOf<VortexAction>>> _graph;
 

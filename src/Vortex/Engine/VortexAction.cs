@@ -28,4 +28,11 @@ namespace Equilaterus.Vortex.Engine
 
         public abstract void Execute();        
     }
+
+    public abstract class GenericAction<T> : VortexAction where T : class
+    {
+        public GenericAction(VortexContext<T> context)
+        {            
+        }
+    }
 }

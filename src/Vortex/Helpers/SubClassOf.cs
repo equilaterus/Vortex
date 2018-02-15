@@ -4,8 +4,7 @@ using System.Text;
 
 namespace Equilaterus.Vortex.Helpers
 {
-    public class SubClassOf<T> 
-        where T : class        
+    public class SubClassOf<T> where T : class   
     {
         public Type TypeOf { get; private set; }
 

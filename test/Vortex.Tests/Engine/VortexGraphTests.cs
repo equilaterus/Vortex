@@ -9,24 +9,52 @@ namespace Vortex.Tests.Engine
 {
     public class VortexGraphTests
     {
-        interface IT1
+        public interface IT1
         {
             string T1 { get; set; }
         }
 
-        interface IT2
+        public interface IT2
         {
             string T2 { get; set; }
         }
 
-        class ClassTest : IT1, IT2
+        public class ClassTest : IT1, IT2
         {
             public string T1 { get; set; }
             public string T2 { get; set; }
         }
 
-        class Action1 : VortexAction
+        class BasicAction1 : VortexAction
         {
+            public override void Execute()
+            {
+                var entity = _params.GetMainEntityAs<IT1>();
+                if (entity != null)
+                {
+                    entity.T1 = "DONE";
+                }
+            }
+        }
+
+        class BasicAction2 : VortexAction
+        {
+            public override void Execute()
+            {
+                var entity = _params.GetMainEntityAs<IT2>();
+                if (entity != null)
+                {
+                    entity.T2 = "DONE";
+                }
+            }
+        }
+
+        class Action1<T> : GenericAction<T> where T : class
+        {
+            public Action1(VortexContext<T> context) : base(context)
+            {
+            }
+
             public string Value { get; set; }
 
             public override void Initialize() 
@@ -44,8 +72,12 @@ namespace Vortex.Tests.Engine
             }
         }
 
-        class Action2 : VortexAction
+        class Action2<T> : GenericAction<T> where T : class
         {
+            public Action2(VortexContext<T> context) : base(context)
+            {
+            }
+
             public override void Execute()
             {
                 var entity = _params.GetMainEntityAs<IT2>();
@@ -58,13 +90,13 @@ namespace Vortex.Tests.Engine
 
 
         [Fact]
-        public void SuccessExcecute()
+        public void SuccessExcecuteGenericAction()
         {
             VortexGraph g = new VortexGraph();
 
             g.CreateEvent("OnDelete");
-            g.Bind("OnDelete", nameof(IT1), SubClassOf<VortexAction>.GetFrom<Action1>());
-            g.Bind("OnDelete", nameof(IT2), SubClassOf<VortexAction>.GetFrom<Action2>());
+            g.Bind("OnDelete", nameof(IT1), SubClassOf<VortexAction>.GetFrom<Action1<ClassTest>>());
+            g.Bind("OnDelete", nameof(IT2), SubClassOf<VortexAction>.GetFrom<Action2<ClassTest>>());
 
             ClassTest objectTest = new ClassTest();
             var actions = g.GetActions("OnDelete", objectTest.GetType());
@@ -72,9 +104,11 @@ namespace Vortex.Tests.Engine
             Assert.Equal(2, actions.Count);
 
             var ActionParams = new ActionParams(objectTest);
+            VortexContext<ClassTest> context = new VortexContext<ClassTest>();
+
             foreach (var actionType in actions)
-            {
-                var action = (VortexAction)Activator.CreateInstance(actionType.TypeOf);
+            {                
+                var action = (VortexAction)Activator.CreateInstance(actionType.TypeOf, context);
                 action.Initialize();
                 action.SetParams(ActionParams);
                 action.Execute();
@@ -85,12 +119,40 @@ namespace Vortex.Tests.Engine
         }
 
         [Fact]
+        public void SuccessExcecuteVortexAction()
+        {
+            VortexGraph g = new VortexGraph();
+
+            g.CreateEvent("OnDelete");
+            g.Bind("OnDelete", nameof(IT1), SubClassOf<VortexAction>.GetFrom<BasicAction1>());
+            g.Bind("OnDelete", nameof(IT2), SubClassOf<VortexAction>.GetFrom<BasicAction2>());
+
+            ClassTest objectTest = new ClassTest();
+            var actions = g.GetActions("OnDelete", objectTest.GetType());
+
+            Assert.Equal(2, actions.Count);
+
+            var ActionParams = new ActionParams(objectTest);
+
+            foreach (var actionType in actions)
+            {
+                var action = (VortexAction)Activator.CreateInstance(actionType.TypeOf);
+                action.Initialize();
+                action.SetParams(ActionParams);
+                action.Execute();
+            }
+
+            Assert.Equal("DONE", objectTest.T1);
+            Assert.Equal("DONE", objectTest.T2);
+        }
+
+        [Fact]
         public void InterfaceWithoutAction()
         {
             VortexGraph g = new VortexGraph();
 
             g.CreateEvent("OnDelete");            
-            g.Bind("OnDelete", nameof(IT2), SubClassOf<VortexAction>.GetFrom<Action2>());
+            g.Bind("OnDelete", nameof(IT2), SubClassOf<VortexAction>.GetFrom<Action2<ClassTest>>());
 
             ClassTest objectTest = new ClassTest();
             var actions = g.GetActions("OnDelete", objectTest.GetType());
@@ -115,7 +177,7 @@ namespace Vortex.Tests.Engine
             VortexGraph g = new VortexGraph();
 
             Assert.Throws<Exception>(
-                () => g.Bind("OnDelete", nameof(IT1), SubClassOf<VortexAction>.GetFrom<Action1>())
+                () => g.Bind("OnDelete", nameof(IT1), SubClassOf<VortexAction>.GetFrom<Action1<ClassTest>>())
             );
         }
 
