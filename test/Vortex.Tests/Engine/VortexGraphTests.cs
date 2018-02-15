@@ -58,7 +58,7 @@ namespace Vortex.Tests.Engine
 
 
         [Fact]
-        public void FirstTest()
+        public void SuccessExcecute()
         {
             VortexGraph g = new VortexGraph();
 
@@ -81,6 +81,31 @@ namespace Vortex.Tests.Engine
             }
 
             Assert.Equal("TEST", objectTest.T1);
+            Assert.Equal("DONE", objectTest.T2);
+        }
+
+        [Fact]
+        public void InterfaceWithoutAction()
+        {
+            VortexGraph g = new VortexGraph();
+
+            g.CreateEvent("OnDelete");            
+            g.Bind("OnDelete", nameof(IT2), SubClassOf<VortexAction>.GetFrom<Action2>());
+
+            ClassTest objectTest = new ClassTest();
+            var actions = g.GetActions("OnDelete", objectTest.GetType());
+
+            Assert.Single(actions);
+
+            var ActionParams = new ActionParams(objectTest);
+            foreach (var actionType in actions)
+            {
+                var action = (VortexAction)Activator.CreateInstance(actionType.TypeOf);
+                action.Initialize();
+                action.SetParams(ActionParams);
+                action.Excecute();
+            }
+            
             Assert.Equal("DONE", objectTest.T2);
         }
 
@@ -109,7 +134,7 @@ namespace Vortex.Tests.Engine
         public void GetActionsFromNonExistentEvent()
         {
             VortexGraph g = new VortexGraph();
-            ClassTest objectTest = new ClassTest();            
+            ClassTest objectTest = new ClassTest();
 
             Assert.Throws<Exception>(
                 () => g.GetActions("OnDelete", objectTest.GetType())
