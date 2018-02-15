@@ -5,17 +5,27 @@ public class BuildPaths
     public BuildFiles Files { get; private set; }
     public BuildDirectories Directories { get; private set; }
 
-    public static BuildPaths GetPaths(ICakeContext context, BuildParameters parameters)
+    public static BuildPaths GetPaths(
+		ICakeContext context, 
+		BuildParameters parameters, 
+		bool integrationTests)
     {
         var configuration =  parameters.Configuration;
-        var buildDirectories = GetBuildDirectories(context);
-        var testAssemblies = buildDirectories.TestDirs
-                                             .Select(dir => dir.Combine("bin")
-                                                               .Combine(configuration)
-                                                               .Combine(parameters.TargetFramework)
-                                                               .CombineWithFilePath(dir.GetDirectoryName() + ".dll"))
-                                             .ToList();
-        var testProjects =  buildDirectories.TestDirs.Select(dir => dir.CombineWithFilePath(dir.GetDirectoryName() + ".csproj")).ToList();
+        var buildDirectories = GetBuildDirectories(context, integrationTests);		
+
+        var testAssemblies = buildDirectories
+			.TestDirs
+            .Select(dir => dir.Combine("bin")
+                            .Combine(configuration)
+                            .Combine(parameters.TargetFramework)
+                            .CombineWithFilePath(dir.GetDirectoryName() + ".dll"))
+            .ToList();
+
+        var testProjects =  buildDirectories
+			.TestDirs
+			.Select(dir => dir.CombineWithFilePath(
+							dir.GetDirectoryName() + ".csproj"))
+			.ToList();
 
         var buildFiles = new BuildFiles(
             buildDirectories.RootDir.CombineWithFilePath("Equilaterus.Vortex.sln"),
@@ -30,7 +40,9 @@ public class BuildPaths
         };
     }
 
-    public static BuildDirectories GetBuildDirectories(ICakeContext context)
+    public static BuildDirectories GetBuildDirectories(
+		ICakeContext context,
+		bool integrationTests)
     {
         var rootDir = (DirectoryPath)context.Directory("../");
         var artifacts = rootDir.Combine(".artifacts");
@@ -55,14 +67,17 @@ public class BuildPaths
                 context.Directory("Vortex.Data.MongoDB"));
 		var azureFiles = srcPath.Combine(
 				context.Directory("Vortex.Files.Azure"));
-
+		
         var testDirs = new []{
+								vortexTests								
+                            };
+		var integrationTestDirs = new []{
 								vortexTests,
 								vortexIntegrationTests,
                                 efCoreTests,
                                 mongoDBTests,
 								azureFilesTests
-                            };
+							};
         var toClean = new[] {
                                  testResults,   
 								 
@@ -87,7 +102,7 @@ public class BuildPaths
         return new BuildDirectories(rootDir,
                                     artifacts,
                                     testResults,
-                                    testDirs, 
+                                    integrationTests ? integrationTestDirs : testDirs, 
                                     toClean);
     }
 }
