@@ -26,6 +26,6 @@ namespace Equilaterus.Vortex.Engine
             Priority = 0;
         }
 
-        public abstract void Excecute();        
+        public abstract void Execute();        
     }
 }

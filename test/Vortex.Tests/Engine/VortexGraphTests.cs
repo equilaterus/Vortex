@@ -34,7 +34,7 @@ namespace Vortex.Tests.Engine
                 Value = "TEST";
             }
 
-            public override void Excecute()
+            public override void Execute()
             {
                 var entity = _params.GetMainEntityAs<IT1>();
                 if (entity != null)
@@ -46,7 +46,7 @@ namespace Vortex.Tests.Engine
 
         class Action2 : VortexAction
         {
-            public override void Excecute()
+            public override void Execute()
             {
                 var entity = _params.GetMainEntityAs<IT2>();
                 if (entity != null)
@@ -77,7 +77,7 @@ namespace Vortex.Tests.Engine
                 var action = (VortexAction)Activator.CreateInstance(actionType.TypeOf);
                 action.Initialize();
                 action.SetParams(ActionParams);
-                action.Excecute();
+                action.Execute();
             }
 
             Assert.Equal("TEST", objectTest.T1);
@@ -103,7 +103,7 @@ namespace Vortex.Tests.Engine
                 var action = (VortexAction)Activator.CreateInstance(actionType.TypeOf);
                 action.Initialize();
                 action.SetParams(ActionParams);
-                action.Excecute();
+                action.Execute();
             }
             
             Assert.Equal("DONE", objectTest.T2);
