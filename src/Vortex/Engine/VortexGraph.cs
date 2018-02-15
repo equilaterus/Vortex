@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Equilaterus.Vortex.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,14 +8,14 @@ namespace Equilaterus.Vortex.Engine
     public class VortexGraph
     {
         /* {OnAction, {Interface, Action} }*/
-        private Dictionary<string, Dictionary<string, Action>> _graph;
+        private Dictionary<string, Dictionary<string, SubClassOf<VortexAction>>> _graph;
 
         public VortexGraph()
         {
-            _graph = new Dictionary<string, Dictionary<string, Action>>();
+            _graph = new Dictionary<string, Dictionary<string, SubClassOf<VortexAction>>>();
         }
 
-        public void Bind(string instigatorEvent, string objectInterface, Action action)
+        public void Bind(string instigatorEvent, string objectInterface, SubClassOf<VortexAction> action)
         {
             if (!_graph.ContainsKey(instigatorEvent))
             {
@@ -31,17 +32,17 @@ namespace Equilaterus.Vortex.Engine
                 throw new Exception("The event already exist.");
             }
 
-            _graph.Add(instigatorEvent, new Dictionary<string, Action>());
+            _graph.Add(instigatorEvent, new Dictionary<string, SubClassOf<VortexAction>>());
         }
 
-        public List<Action> GetActions(string instigatorEvent, Type typeEntity)
+        public List<SubClassOf<VortexAction>> GetActions(string instigatorEvent, Type typeEntity)
         {
             if (!_graph.ContainsKey(instigatorEvent))
             {
                 throw new Exception("Instigator Event not found.");
             }
 
-            List<Action> actions = new List<Action>();
+            List<SubClassOf<VortexAction>> actions = new List<SubClassOf<VortexAction>>();
 
             var implementedInterfaces = typeEntity.GetInterfaces();            
             foreach (var tinterface in implementedInterfaces)
