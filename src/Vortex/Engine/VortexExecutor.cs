@@ -18,8 +18,28 @@ namespace Equilaterus.Vortex.Engine
 
         public void Execute(string vortexEvent, ActionParams actionParams)
         {
+            List<VortexAction> actionsToExecute = new List<VortexAction>();
             var actions = _graph.GetActions(vortexEvent, typeof(T));
-            //actions.Sort(a => a.)
+            foreach (var actionType in actions)
+            {
+                var vortexAction = (VortexAction)Activator.CreateInstance(actionType.TypeOf, _context);
+                vortexAction.Initialize();
+                vortexAction.SetParams(actionParams);
+                actionsToExecute.Add(vortexAction);
+            }
+
+            actionsToExecute.Sort((VortexAction x, VortexAction y) => {
+                return y.Priority.CompareTo(x.Priority);
+            });
+
+            foreach (var vortexAction in actionsToExecute)
+            {
+                vortexAction.Execute();
+                if (vortexAction.PreventDefault)
+                {
+                    break;
+                }
+            }
         }
     }
 }

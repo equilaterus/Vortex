@@ -8,7 +8,7 @@ namespace Equilaterus.Vortex.Engine
     {
         protected ActionParams _params;
 
-        public bool ExcecuteDefaultActions { get; protected set; }
+        public bool PreventDefault { get; protected set; }
 
         public bool IsDefaultAction { get; protected set; }
 
@@ -21,9 +21,7 @@ namespace Equilaterus.Vortex.Engine
 
         public virtual void Initialize()
         {
-            ExcecuteDefaultActions = true;
-            IsDefaultAction = false;
-            Priority = 0;
+            Priority = IsDefaultAction ? -1 : 0;            
         }
 
         public abstract void Execute();        
