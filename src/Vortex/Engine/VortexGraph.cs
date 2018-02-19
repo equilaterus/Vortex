@@ -6,7 +6,7 @@ using System.Text;
 namespace Equilaterus.Vortex.Engine
 {
     public class VortexGraph
-    {        
+    {
         /* {OnAction, {Interface, Action} }*/
         private Dictionary<string, Dictionary<string, SubClassOf<VortexAction>>> _graph;
 
@@ -19,7 +19,7 @@ namespace Equilaterus.Vortex.Engine
         {
             if (!_graph.ContainsKey(instigatorEvent))
             {
-                throw new Exception("Instigator Event not found.");                
+                throw new Exception("Instigator Event not found.");
             }
 
             _graph[instigatorEvent].Add(objectInterface, action);
@@ -43,8 +43,13 @@ namespace Equilaterus.Vortex.Engine
             }
 
             List<SubClassOf<VortexAction>> actions = new List<SubClassOf<VortexAction>>();
+            var defaultAction = GetDefaultAction(instigatorEvent);
+            if (defaultAction != null)
+            {
+                actions.Add(defaultAction);
+            }
 
-            var implementedInterfaces = typeEntity.GetInterfaces();            
+            var implementedInterfaces = typeEntity.GetInterfaces();
             foreach (var tinterface in implementedInterfaces)
             {
                 var interfaceName = tinterface.Name;
@@ -53,9 +58,29 @@ namespace Equilaterus.Vortex.Engine
                 {
                     var action = _graph[instigatorEvent][interfaceName];
                     actions.Add(action);
-                }                
+                }
             }
             return actions;
+        }
+
+        public SubClassOf<VortexAction> GetDefaultAction(string instigatorEvent)
+        {
+            if (!_graph.ContainsKey(instigatorEvent))
+            {
+                throw new Exception("Instigator Event not found.");
+            }
+
+            SubClassOf<VortexAction> defaultAction = null;
+
+            var interfaceName = "_default";
+            var graphEvent = _graph[instigatorEvent];
+            if (graphEvent.ContainsKey(interfaceName))
+            {
+                var action = _graph[instigatorEvent][interfaceName];
+                defaultAction = action;
+            }
+
+            return defaultAction;
         }
     }
 }
