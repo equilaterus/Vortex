@@ -4,8 +4,19 @@ using System.Text;
 
 namespace Equilaterus.Vortex.Engine.Actions
 {
-    public class ActionParams<T>
+    public class ActionParams
     {
-        public T Entity { get; set; }
+        public object Entity;
+
+        public T GetMainEntityAs<T>() 
+            where T : class
+        {
+            return Entity as T;
+        }
+
+        public ActionParams(object entity)
+        {
+            Entity = entity;
+        }
     }
 }
