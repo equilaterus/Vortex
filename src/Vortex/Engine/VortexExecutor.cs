@@ -16,7 +16,7 @@ namespace Equilaterus.Vortex.Engine
             _graph = graph;
         }
 
-        public void Execute(string vortexEvent, ActionParams actionParams)
+        public void Execute(string vortexEvent, VortexData actionParams)
         {
             List<VortexAction> actionsToExecute = new List<VortexAction>();
             var actions = _graph.GetActions(vortexEvent, typeof(T));
@@ -24,7 +24,7 @@ namespace Equilaterus.Vortex.Engine
             {
                 var vortexAction = (VortexAction)Activator.CreateInstance(actionType.TypeOf, _context);
                 vortexAction.Initialize();
-                vortexAction.SetParams(actionParams);
+                vortexAction.Params = actionParams;
                 actionsToExecute.Add(vortexAction);
             }
 

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Equilaterus.Vortex.Engine.Actions
+namespace Equilaterus.Vortex.Engine
 {
-    public class ActionParams
+    public class VortexData
     {
         public object Entity;
 
@@ -14,7 +14,7 @@ namespace Equilaterus.Vortex.Engine.Actions
             return Entity as T;
         }
 
-        public ActionParams(object entity)
+        public VortexData(object entity)
         {
             Entity = entity;
         }

@@ -1,6 +1,7 @@
 using Equilaterus.Vortex.Engine.Queries;
 using Equilaterus.Vortex.Engine.Queries.Filters;
 using Equilaterus.Vortex.Models;
+using Equilaterus.Vortex.Services;
 using Equilaterus.Vortex.Services.EFCore;
 using Equilaterus.Vortex.Services.MongoDB;
 using Microsoft.EntityFrameworkCore;

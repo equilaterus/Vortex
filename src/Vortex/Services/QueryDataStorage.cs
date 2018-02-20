@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Equilaterus.Vortex.Engine.Queries
+namespace Equilaterus.Vortex.Services
 {
-    public static class QueryDataStorage
+    public static class ExtendedDataStorageQueries
     {
         public static async Task<List<T>> FindAsync<T>(this IDataStorage<T> ds, QueryParams<T> queryParams) where T : class
         {

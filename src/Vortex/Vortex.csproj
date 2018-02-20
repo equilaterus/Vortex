@@ -18,4 +18,9 @@
     <PackageReference Include="LinqKit.Core" Version="1.1.12" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Engine\Configuration\" />
+    <Folder Include="Engine\Commands\" />
+  </ItemGroup>
+
 </Project>

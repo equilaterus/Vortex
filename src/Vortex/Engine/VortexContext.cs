@@ -11,6 +11,8 @@ namespace Equilaterus.Vortex.Engine
 
         public IFileStorage FileStorage { get; protected set; }
 
+        public VortexContext() { }
+
         public VortexContext(
             IDataStorage<T> dataStorage, 
             IFileStorage fileStorage) 

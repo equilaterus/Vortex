@@ -4,6 +4,7 @@ using System.Text;
 using Xunit;
 using Equilaterus.Vortex.Engine;
 using Equilaterus.Vortex.Helpers;
+using System.Threading.Tasks;
 
 namespace Vortex.Tests.Engine
 {
@@ -27,9 +28,9 @@ namespace Vortex.Tests.Engine
 
         class BasicAction1 : VortexAction
         {
-            public override void Execute()
+            public override async Task Execute()
             {
-                var entity = _params.GetMainEntityAs<IT1>();
+                var entity = Params.GetMainEntityAs<IT1>();
                 if (entity != null)
                 {
                     entity.T1 = "DONE";
@@ -39,9 +40,9 @@ namespace Vortex.Tests.Engine
 
         class BasicAction2 : VortexAction
         {
-            public override void Execute()
+            public override async Task Execute()
             {
-                var entity = _params.GetMainEntityAs<IT2>();
+                var entity = Params.GetMainEntityAs<IT2>();
                 if (entity != null)
                 {
                     entity.T2 = "DONE";
@@ -62,9 +63,9 @@ namespace Vortex.Tests.Engine
                 Value = "TEST";
             }
 
-            public override void Execute()
+            public override async Task Execute()
             {
-                var entity = _params.GetMainEntityAs<IT1>();
+                var entity = Params.GetMainEntityAs<IT1>();
                 if (entity != null)
                 {
                     entity.T1 = Value;
@@ -78,9 +79,9 @@ namespace Vortex.Tests.Engine
             {
             }
 
-            public override void Execute()
+            public override async Task Execute()
             {
-                var entity = _params.GetMainEntityAs<IT2>();
+                var entity = Params.GetMainEntityAs<IT2>();
                 if (entity != null)
                 {
                     entity.T2 = "DONE";
@@ -103,14 +104,14 @@ namespace Vortex.Tests.Engine
 
             Assert.Equal(2, actions.Count);
 
-            var ActionParams = new ActionParams(objectTest);
+            var ActionParams = new VortexData(objectTest);
             VortexContext<ClassTest> context = new VortexContext<ClassTest>();
 
             foreach (var actionType in actions)
             {                
                 var action = (VortexAction)Activator.CreateInstance(actionType.TypeOf, context);
                 action.Initialize();
-                action.SetParams(ActionParams);
+                action.Params = ActionParams;
                 action.Execute();
             }
 
@@ -132,13 +133,13 @@ namespace Vortex.Tests.Engine
 
             Assert.Equal(2, actions.Count);
 
-            var ActionParams = new ActionParams(objectTest);
+            var ActionParams = new VortexData(objectTest);
 
             foreach (var actionType in actions)
             {
                 var action = (VortexAction)Activator.CreateInstance(actionType.TypeOf);
                 action.Initialize();
-                action.SetParams(ActionParams);
+                action.Params = ActionParams;
                 action.Execute();
             }
 
@@ -159,12 +160,12 @@ namespace Vortex.Tests.Engine
 
             Assert.Single(actions);
 
-            var ActionParams = new ActionParams(objectTest);
+            var ActionParams = new VortexData(objectTest);
             foreach (var actionType in actions)
             {
-                var action = (VortexAction)Activator.CreateInstance(actionType.TypeOf);
+                var action = (VortexAction)Activator.CreateInstance(actionType.TypeOf, new VortexContext<ClassTest>());
                 action.Initialize();
-                action.SetParams(ActionParams);
+                action.Params = ActionParams;
                 action.Execute();
             }
             

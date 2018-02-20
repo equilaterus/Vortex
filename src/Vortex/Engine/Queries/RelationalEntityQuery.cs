@@ -7,39 +7,17 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Equilaterus.Vortex.Commands.Queries
+namespace Equilaterus.Vortex.Engine.Queries
 {
-    public class RelationalEntityQuery<T> : IEntityQuery<T> where T : class
+    public class RelationalQueryForEntities<T> : GenericAction<T> where T : class
     {
-        private readonly IRelationalDataStorage<T> _dataStorage;
-
-        private RelationalQueryParams<T> _queryParams;
-
-        public RelationalEntityQuery(IRelationalDataStorage<T> dataStorage)
+        public override async Task Execute()
         {
-            _dataStorage = dataStorage;
+            var result = Results.GetMainEntityAs<List<T>>();
+
+            result = await Context.DataStorage.FindAsync(Params.GetMainEntityAs<RelationalQueryParams<T>>());
         }
 
-        public void SetParams(QueryParams<T> queryParams)
-        {
-            if (queryParams is RelationalQueryParams<T> relParams)
-            {
-                _queryParams = relParams;
-            }
-            else
-            {
-                _queryParams = new RelationalQueryParams<T>(queryParams);
-            }           
-        }
-
-        public QueryParams<T> GetParams()
-        {
-            return _queryParams;
-        }
-
-        public async Task<List<T>> Execute()
-        {
-            return await _dataStorage.FindAsync(_queryParams);
-        }
+        public RelationalQueryForEntities(VortexContext<T> context) : base(context) { }
     }
 }

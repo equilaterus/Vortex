@@ -7,7 +7,10 @@ namespace Equilaterus.Vortex.Engine
 {
     public class VortexGraph
     {
-        /* {OnAction, {Interface, Action} }*/
+        /// <summary>
+        /// VortexGraph representation.
+        /// Dictionary {Event, {Inteface, Action }}
+        /// </summary>
         private Dictionary<string, Dictionary<string, SubClassOf<VortexAction>>> _graph;
 
         public VortexGraph()
