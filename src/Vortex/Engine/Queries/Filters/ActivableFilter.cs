@@ -8,14 +8,13 @@ using System.Text;
 
 namespace Equilaterus.Vortex.Engine.Queries.Filters
 {
-    public class ActivableFilter<T> : IQueryFilter<T> where T : class, IActivable
+    public class ActivableFilter<T> : QueryFilter<T> where T : class, IActivable
     {
-        public void UpdateParams(QueryParams<T> queryParams)
+        public override void UpdateParams(QueryParams<T> queryParams)
         {
-            var inner = PredicateBuilder.New<T>();
-            inner = inner.Start(e => e.IsActive);
+            var condition = NewCondition(e => e.IsActive);
 
-            queryParams.Filter = inner.And(queryParams.Filter);
+            queryParams.Filter = condition.And(queryParams.Filter);
         }
     }
 }

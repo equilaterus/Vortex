@@ -8,14 +8,13 @@ using System.Text;
 
 namespace Equilaterus.Vortex.Engine.Queries.Filters
 {
-    public class SoftDeleteableFilter<T> : IQueryFilter<T> where T : class, ISoftDeleteable
+    public class SoftDeleteableFilter<T> : QueryFilter<T> where T : class, ISoftDeleteable
     {
-        public void UpdateParams(QueryParams<T> queryParams)
+        public override void UpdateParams(QueryParams<T> queryParams)
         {
-            var inner = PredicateBuilder.New<T>();
-            inner = inner.Start(e => e.IsDeleted == false);
+            var condition = NewCondition(e => e.IsDeleted == false);
 
-            queryParams.Filter = inner.And(queryParams.Filter);
+            queryParams.Filter = condition.And(queryParams.Filter);
         }
     }
 }
