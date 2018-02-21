@@ -29,6 +29,10 @@ namespace Equilaterus.Vortex.Engine.Queries.Filters
                 Bindings.Add(modelInterface, new List<Type>());
             }
 
+            if (Bindings[modelInterface].Contains(filterImplementation))
+            {
+                throw new Exception("Binding already exists");
+            }
             Bindings[modelInterface].Add(filterImplementation);
         }
 
@@ -43,9 +47,8 @@ namespace Equilaterus.Vortex.Engine.Queries.Filters
                 {
                     foreach (var implementation in binding.Value)
                     {
-                        var filter = implementation;
                         Type[] typeArgs = { typeof(T) };
-                        var genericType = filter.MakeGenericType(typeArgs);
+                        var genericType = implementation.MakeGenericType(typeArgs);
                         var instance = Activator.CreateInstance(genericType);
                         filters.Add((QueryFilter<T>)instance);
                     }

@@ -4,6 +4,7 @@ using Equilaterus.Vortex.Models;
 using Equilaterus.Vortex.Services;
 using Equilaterus.Vortex.Services.EFCore;
 using Equilaterus.Vortex.Services.MongoDB;
+using Equilaterus.Vortex.Engine.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Mongo2Go;
 using System;
@@ -57,6 +58,8 @@ namespace Equilaterus.Vortex.Tests.IntegrationTests
             }
 
             var factory = new GenericFilterFactory();
+            factory.LoadDefaults();
+
             var activableFilter = factory.GetFilters<ActivableTestModel>()[0];
 
             var qparams = new QueryParams<ActivableTestModel>() { Filter = e => e.Counter > 0 };
@@ -81,6 +84,8 @@ namespace Equilaterus.Vortex.Tests.IntegrationTests
             
 
             var factory = new GenericFilterFactory();
+            factory.LoadDefaults();
+
             var activableFilter = factory.GetFilters<ActivableTestModel>()[0];
 
             var qparams = new QueryParams<ActivableTestModel>() { Filter = e => e.Counter > 0 };

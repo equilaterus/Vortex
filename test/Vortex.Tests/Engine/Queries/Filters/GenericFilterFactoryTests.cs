@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
+using Equilaterus.Vortex.Engine.Configuration;
 
 namespace Vortex.Tests.Engine.Queries.Filters
 {
@@ -26,11 +27,7 @@ namespace Vortex.Tests.Engine.Queries.Filters
             public bool IsDeleted { get; set; }
         }
 
-        private void SetBindings(GenericFilterFactory factory)
-        {
-            factory.Bind(typeof(IActivable), typeof(ActivableFilter<>));
-            factory.Bind(typeof(ISoftDeleteable), typeof(SoftDeleteableFilter<>));
-        }
+       
 
         [Fact]
         public void NullBindings()
@@ -45,7 +42,7 @@ namespace Vortex.Tests.Engine.Queries.Filters
         public void TestBindings()
         {
             GenericFilterFactory filterFactory = new GenericFilterFactory();
-            SetBindings(filterFactory);
+            filterFactory.LoadDefaults();
             
             Assert.True(2 == filterFactory.Bindings.Count);
             Assert.True(1 == filterFactory.Bindings[typeof(IActivable)].Count);
@@ -59,7 +56,7 @@ namespace Vortex.Tests.Engine.Queries.Filters
         public void TestMultipleBindings()
         {
             GenericFilterFactory filterFactory = new GenericFilterFactory();
-            SetBindings(filterFactory);
+            filterFactory.LoadDefaults();
             filterFactory.Bind(typeof(ISoftDeleteable), typeof(ActivableFilter<>));
 
             Assert.True(2 == filterFactory.Bindings.Count);
@@ -76,7 +73,7 @@ namespace Vortex.Tests.Engine.Queries.Filters
         public void GetFilterForVanilla()
         {
             GenericFilterFactory filterFactory = new GenericFilterFactory();
-            SetBindings(filterFactory);
+            filterFactory.LoadDefaults();
 
             var result = filterFactory.GetFilters<MyModel>();
 
@@ -88,7 +85,7 @@ namespace Vortex.Tests.Engine.Queries.Filters
         public void GetFilterForActivable()
         {
             GenericFilterFactory filterFactory = new GenericFilterFactory();
-            SetBindings(filterFactory);
+            filterFactory.LoadDefaults();
 
             var result = filterFactory.GetFilters<ActiveModel>();
 
@@ -101,7 +98,7 @@ namespace Vortex.Tests.Engine.Queries.Filters
         public void GetFilterForActivableAndSoftDeleteable()
         {
             GenericFilterFactory filterFactory = new GenericFilterFactory();
-            SetBindings(filterFactory);
+            filterFactory.LoadDefaults();
 
             var result = filterFactory.GetFilters<ActiveSoftDeleteableModel>();
 
