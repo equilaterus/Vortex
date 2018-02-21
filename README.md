@@ -1,6 +1,6 @@
 # Vortex
 
-Vortex is a .Net Standard framework currently in development.
+Vortex is an ASP Core framework focused on programmer's productivity.
 
 ## How to start
 
