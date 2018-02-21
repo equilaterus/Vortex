@@ -13,9 +13,10 @@ namespace Equilaterus.Vortex.Engine.Queries
     {
         public override async Task Execute()
         {
-            var result = Results.GetMainEntityAs<List<T>>();
+            var result = await Context.DataStorage.FindAsync(
+                Params.GetMainEntityAs<RelationalQueryParams<T>>());
 
-            result = await Context.DataStorage.FindAsync(Params.GetMainEntityAs<RelationalQueryParams<T>>());
+            Results = new VortexData(result);
         }
 
         public RelationalQueryForEntities(VortexContext<T> context) : base(context) { }
