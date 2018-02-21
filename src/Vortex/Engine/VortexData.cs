@@ -6,7 +6,7 @@ namespace Equilaterus.Vortex.Engine
 {
     public class VortexData
     {
-        public object Entity;
+        public object Entity { get; protected set; }
 
         public T GetMainEntityAs<T>() 
             where T : class
