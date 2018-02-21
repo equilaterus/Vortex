@@ -11,8 +11,8 @@ namespace Equilaterus.Vortex.Engine
         /// VortexGraph representation.
         /// Dictionary {Event, {Inteface, Action }}
         /// </summary>
-        private Dictionary<string, Dictionary<string, SubClassOf<VortexAction>>> _graph;
-
+        protected Dictionary<string, Dictionary<string, SubClassOf<VortexAction>>> _graph;
+                
         public VortexGraph()
         {
             _graph = new Dictionary<string, Dictionary<string, SubClassOf<VortexAction>>>();

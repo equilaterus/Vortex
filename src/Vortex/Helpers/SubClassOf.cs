@@ -4,26 +4,28 @@ using System.Text;
 
 namespace Equilaterus.Vortex.Helpers
 {
-    public class SubClassOf<T> where T : class   
+    public class SubClassOf<T> where T : class
     {
         public Type TypeOf { get; private set; }
 
-        public void Initialize<Q>()
-            where Q : T
+        public static SubClassOf<T> GetFrom<Q>() where Q : T
         {
-            TypeOf = typeof(Q);
+            return new SubClassOf<T>(typeof(Q));
         }
 
-        public static SubClassOf<T> GetFrom<Q>()
-            where Q : T
+        public static SubClassOf<T> GetFrom(Type type)
         {
-            var subclass = new SubClassOf<T>();
-            subclass.Initialize<Q>();
-            return subclass;
+            if (!typeof(T).IsAssignableFrom(type))
+            {
+                throw new Exception($"{nameof(type)} is not a subclass of <T>");
+            }
+
+            return new SubClassOf<T>(type);
         }
 
-        private SubClassOf()
+        private SubClassOf(Type type)
         {
+            TypeOf = type;
         }
     }
 }

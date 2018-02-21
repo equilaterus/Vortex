@@ -13,7 +13,9 @@ namespace Equilaterus.Vortex.Engine.Queries
     {
         public override async Task Execute()
         {
-            var result = await Context.DataStorage.FindAsync(
+            var dataStorage = Context.DataStorage as IRelationalDataStorage<T>;
+
+            var result = await dataStorage.FindAsync(
                 Params.GetMainEntityAs<RelationalQueryParams<T>>());
 
             Results = new VortexData(result);

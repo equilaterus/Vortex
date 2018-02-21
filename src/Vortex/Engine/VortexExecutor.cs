@@ -22,7 +22,17 @@ namespace Equilaterus.Vortex.Engine
             var actions = _graph.GetActions(vortexEvent, typeof(T));
             foreach (var actionType in actions)
             {
-                var vortexAction = (VortexAction)Activator.CreateInstance(actionType.TypeOf, _context);
+                VortexAction vortexAction;
+                if (actionType.TypeOf.ContainsGenericParameters)
+                {
+                    Type[] typeArgs = { typeof(T) };
+                    var genericType = actionType.TypeOf.MakeGenericType(typeArgs);
+                    vortexAction = (VortexAction)Activator.CreateInstance(genericType, _context);
+                }
+                else
+                {
+                    vortexAction = (VortexAction)Activator.CreateInstance(actionType.TypeOf, _context);
+                }
                 vortexAction.Initialize();
                 vortexAction.Params = actionParams;
                 actionsToExecute.Add(vortexAction);

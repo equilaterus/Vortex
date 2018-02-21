@@ -26,8 +26,7 @@ namespace Vortex.Tests.Engine.Queries.Filters
             public bool IsActive { get; set; }
             public bool IsDeleted { get; set; }
         }
-
-       
+             
 
         [Fact]
         public void NullBindings()
