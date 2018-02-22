@@ -1,6 +1,7 @@
 ﻿using Equilaterus.Vortex.Engine;
 using Equilaterus.Vortex.Engine.Commands;
 using Equilaterus.Vortex.Engine.Configuration;
+using Equilaterus.Vortex.Engine.Queries;
 using Equilaterus.Vortex.Helpers;
 using System;
 using System.Collections.Generic;
@@ -31,9 +32,12 @@ namespace Vortex.Tests.Engine.Queries.Configuration
                 .GetValue(vortexGraph) as Dictionary<string, Dictionary<string, SubClassOf<VortexAction>>>;
 
             Assert.NotNull(graph);
-            Assert.Single(graph);
+            Assert.Equal(2, graph.Count);
             Assert.Single(graph[nameof(VortexEvents.InsertEntity)]);
             Assert.Equal(typeof(InsertEntity<>), graph[nameof(VortexEvents.InsertEntity)]["_default"].TypeOf);
+
+            Assert.Single(graph[nameof(VortexEvents.RelationalQueryForEntities)]);
+            Assert.Equal(typeof(RelationalQueryForEntities<>), graph[nameof(VortexEvents.RelationalQueryForEntities)]["_default"].TypeOf);
         }        
     }
 }
