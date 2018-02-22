@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Engine
 {
@@ -10,13 +11,17 @@ namespace Equilaterus.Vortex.Engine
 
         protected VortexGraph _graph;
 
-        public VortexExecutor(VortexContext<T> context, VortexGraph graph)
-        {
-            _context = context;
+        public VortexExecutor(VortexGraph graph)
+        {            
             _graph = graph;
         }
 
-        public void Execute(string vortexEvent, VortexData actionParams)
+        public void Initialize(VortexContext<T> vortexContext)
+        {
+            _context = vortexContext;
+        }
+
+        public async Task<VortexData> Execute(string vortexEvent, VortexData actionParams)
         {
             List<VortexAction> actionsToExecute = new List<VortexAction>();
             var actions = _graph.GetActions(vortexEvent, typeof(T));
@@ -44,12 +49,13 @@ namespace Equilaterus.Vortex.Engine
 
             foreach (var vortexAction in actionsToExecute)
             {
-                vortexAction.Execute();
+                await vortexAction.Execute();
                 if (vortexAction.PreventDefault)
                 {
-                    break;
+                    return vortexAction.Results;
                 }
             }
+            return null;
         }
     }
 }

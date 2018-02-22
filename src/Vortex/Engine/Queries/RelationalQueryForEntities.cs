@@ -11,6 +11,12 @@ namespace Equilaterus.Vortex.Engine.Queries
 {
     public class RelationalQueryForEntities<T> : GenericAction<T> where T : class
     {
+        public override void Initialize()
+        {
+            PreventDefault = true;
+            base.Initialize();            
+        }
+
         public override async Task Execute()
         {
             var dataStorage = Context.DataStorage as IRelationalDataStorage<T>;

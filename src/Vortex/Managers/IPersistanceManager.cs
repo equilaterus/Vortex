@@ -10,24 +10,12 @@ namespace Equilaterus.Vortex.Managers
 {
     public interface IPersistanceManager<T>
     {
-        Task<List<T>> FindAllAsync();
-
-        Task<List<T>> FindAsync(
+        Task<List<T>> ExecuteQuery(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             int skip = 0,
             int take = 0);
 
-        Task InsertAsync(T entity);
-
-        Task InsertRangeAsync(IEnumerable<T> entities);
-
-        Task UpdateAsync(T entity);
-
-        Task UpdateRangeAsync(IEnumerable<T> entities);
-
-        Task DeleteAsync(T entity);
-
-        Task DeleteRangeAsync(IEnumerable<T> entities);
+        Task ExecuteCommand(string vortexEvent, T entity);
     }
 }

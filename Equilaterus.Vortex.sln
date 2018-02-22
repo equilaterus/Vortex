@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vortex", "src\Vortex\Vortex.csproj", "{2CC14F42-9F27-4E1A-AA4E-DBFDBE43BA45}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vortex.Data.MongoDB.Tests", "test\Vortex.Data.MongoDB.Tests\Vortex.Data.MongoDB.Tests.csproj", "{E85E4850-0FBE-4AC2-B295-D748FA91EC4D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vortex.IntegrationTests", "test\Vortex.IntegrationTests\Vortex.IntegrationTests.csproj", "{0DD38A69-5BB6-4E7F-8331-2D85B341E1F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vortex.SimplePerfTests", "experiments\Vortex.SimplePerfTests\Vortex.SimplePerfTests.csproj", "{B288E518-E16C-4356-94E4-7F8AA1A70D6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{0DD38A69-5BB6-4E7F-8331-2D85B341E1F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DD38A69-5BB6-4E7F-8331-2D85B341E1F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DD38A69-5BB6-4E7F-8331-2D85B341E1F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B288E518-E16C-4356-94E4-7F8AA1A70D6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B288E518-E16C-4356-94E4-7F8AA1A70D6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B288E518-E16C-4356-94E4-7F8AA1A70D6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B288E518-E16C-4356-94E4-7F8AA1A70D6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
