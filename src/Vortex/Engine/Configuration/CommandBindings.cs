@@ -11,12 +11,6 @@ namespace Equilaterus.Vortex.Engine.Configuration
 {
     public static class CommandBindings
     {
-        public enum VortexEvents
-        {
-            InsertEntity,
-            RelationalQueryForEntities
-        }
-
         public static void LoadDefaults(this VortexGraph graph)
         {
             graph.CreateEvent(VortexEvents.InsertEntity.ToString());

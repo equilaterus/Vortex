@@ -84,6 +84,7 @@ namespace Vortex.SimplePerfTests
                 {
                     throw new Exception();
                 }
+                context.Database.EnsureDeleted();
             }
             return swEfCore.Elapsed;
         }
@@ -124,6 +125,7 @@ namespace Vortex.SimplePerfTests
                 {
                     throw new Exception();
                 }
+                context.Database.EnsureDeleted();
             }
             return swVortex.Elapsed;
         }

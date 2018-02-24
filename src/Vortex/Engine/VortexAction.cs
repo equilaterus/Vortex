@@ -15,6 +15,8 @@ namespace Equilaterus.Vortex.Engine
 
         public bool IsDefaultAction { get; protected set; }
 
+        public bool IsReturnAction { get; protected set; }
+
         public int Priority { get; protected set; }        
 
         public virtual void Initialize()

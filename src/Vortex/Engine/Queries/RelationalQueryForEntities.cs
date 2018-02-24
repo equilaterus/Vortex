@@ -13,7 +13,7 @@ namespace Equilaterus.Vortex.Engine.Queries
     {
         public override void Initialize()
         {
-            PreventDefault = true;
+            IsReturnAction = true;
             base.Initialize();            
         }
 

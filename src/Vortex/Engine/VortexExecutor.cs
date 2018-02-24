@@ -50,9 +50,15 @@ namespace Equilaterus.Vortex.Engine
             foreach (var vortexAction in actionsToExecute)
             {
                 await vortexAction.Execute();
-                if (vortexAction.PreventDefault)
+
+                if (vortexAction.IsReturnAction)
                 {
                     return vortexAction.Results;
+                }
+
+                if (vortexAction.PreventDefault)
+                {
+                    break;
                 }
             }
             return null;
