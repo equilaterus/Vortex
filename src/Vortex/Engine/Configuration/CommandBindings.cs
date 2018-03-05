@@ -18,9 +18,6 @@ namespace Equilaterus.Vortex.Engine.Configuration
             graph.CreateEvent(VortexEvents.DeleteEntity);
             graph.CreateEvent(VortexEvents.QueryForEntities);
             graph.CreateEvent(VortexEvents.RelationalQueryForEntities);
-            graph.CreateEvent(VortexEvents.InsertAdjuntable);
-            graph.CreateEvent(VortexEvents.UpdateAdjuntable);
-            graph.CreateEvent(VortexEvents.DeleteAdjuntable);
 
             graph.Bind(
                 nameof(VortexEvents.InsertEntity),
@@ -47,18 +44,20 @@ namespace Equilaterus.Vortex.Engine.Configuration
                 "_default",
                 SubClassOf<VortexAction>.GetFrom(typeof(RelationalQueryForEntities<>)));
 
+
+            // Adjuntables
             graph.Bind(
-                nameof(VortexEvents.InsertAdjuntable),
+                nameof(VortexEvents.InsertEntity),
                 nameof(IAdjuntable),
                 SubClassOf<VortexAction>.GetFrom(typeof(InsertAdjuntable<>)));
 
             graph.Bind(
-                nameof(VortexEvents.UpdateAdjuntable),
+                nameof(VortexEvents.UpdateEntity),
                 nameof(IAdjuntable),
                 SubClassOf<VortexAction>.GetFrom(typeof(UpdateAdjuntable<>)));
 
             graph.Bind(
-                nameof(VortexEvents.DeleteAdjuntable),
+                nameof(VortexEvents.DeleteEntity),
                 nameof(IAdjuntable),
                 SubClassOf<VortexAction>.GetFrom(typeof(DeleteAdjuntable<>)));
 
