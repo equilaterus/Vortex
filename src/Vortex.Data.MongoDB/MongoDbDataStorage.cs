@@ -65,7 +65,19 @@ namespace Equilaterus.Vortex.Services.MongoDB
             }
             
             return await ((IMongoQueryable<T>)result).ToListAsync();
-        }        
+        }
+
+        public async Task<int> Count(Expression<Func<T, bool>> filter = null)
+        {
+            var result = _context.GetCollection<T>().AsQueryable();
+
+            if (filter != null)
+            {
+                result = result.Where(filter);
+            }
+
+            return await result.CountAsync();
+        }
 
         public async Task InsertAsync(T entity)
         {

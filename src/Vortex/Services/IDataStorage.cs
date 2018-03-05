@@ -19,7 +19,9 @@ namespace Equilaterus.Vortex.Services
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             int skip = 0,
-            int take = 0);    
+            int take = 0);
+
+        Task<int> Count(Expression<Func<T, bool>> filter = null);
 
         Task InsertAsync(T entity);
 

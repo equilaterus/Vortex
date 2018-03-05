@@ -97,6 +97,18 @@ namespace Equilaterus.Vortex.Services.EFCore
             return await query.ToListAsync();
         }
 
+        public async Task<int> Count(Expression<Func<T, bool>> filter = null)
+        {
+            IQueryable<T> query = _dbSet.AsNoTracking();
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            return await query.CountAsync();
+        }
+
         public async Task InsertAsync(T entity)
         {
             if (entity == null)
