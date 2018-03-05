@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Vortex.Files.Azure</AssemblyName>
-    <RootNamespace>Equilaterus.Vortex.Services.AzureStorage.</RootNamespace>
+    <RootNamespace>Equilaterus.Vortex.Services.AzureStorage</RootNamespace>
     <Copyright>Daniel Cañizares and Juan Felipe Cañizares © 2017</Copyright>
     <Authors>Equilaterus</Authors>
     <Company>Equilaterus</Company>

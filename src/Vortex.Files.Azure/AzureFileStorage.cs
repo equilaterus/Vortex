@@ -46,7 +46,12 @@ namespace Equilaterus.Vortex.Services.AzureStorage
 
         public async Task<string> StoreFileAsync(Stream stream, string extension)
         {
-            string fileName = GenerateFileName() + extension; ;
+            if (stream == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            string fileName = GenerateFileName() + extension;
             CloudBlockBlob blockBlob = Container.GetBlockBlobReference(fileName);
 
             await blockBlob.UploadFromStreamAsync(stream);            
