@@ -1,5 +1,6 @@
 ﻿using Equilaterus.Vortex.Engine;
 using Equilaterus.Vortex.Engine.Configuration;
+using Equilaterus.Vortex.Engine.Queries;
 using Equilaterus.Vortex.Managers;
 using Equilaterus.Vortex.Models;
 using Equilaterus.Vortex.Services.EFCore;
@@ -46,10 +47,11 @@ namespace Equilaterus.Vortex.Tests.IntegrationTests.Managers
                     new PersistanceManager<PersistanceTestModel>(dataStorage, null, executor);
 
                 await persistanceManager.ExecuteCommand(
-                    VortexEvents.InsertEntity.ToString(), 
-                    new PersistanceTestModel());
+                    VortexEvents.InsertEntity, 
+                    new VortexData(new PersistanceTestModel()));
 
-                var result = await persistanceManager.ExecuteQuery();
+                var result = await persistanceManager.ExecuteQueryForEntities(
+                    VortexEvents.QueryForEntities, new VortexData(new QueryParams<PersistanceTestModel>()));
 
                 Assert.NotEmpty(result);
             }

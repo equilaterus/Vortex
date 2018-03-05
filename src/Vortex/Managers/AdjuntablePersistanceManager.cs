@@ -13,22 +13,36 @@ namespace Equilaterus.Vortex.Managers
 {
     public static class AdjuntablePersistanceManager
     {
-        public static async Task<List<T>> InsertEntity<T>(
+        public static async Task InsertEntity<T>(
             this PersistanceManager<T> p,
-            Stream stream)
+            T entity, 
+            FileStream stream,
+            string extension)
             where T : class, IAdjuntable
         {
-            return await p.ExecuteCommand(
+            await p.ExecuteCommand(
                 VortexEvents.InsertEntity, 
-                new VortexData(
-                    new RelationalQueryParams<T>()
-                    {
-                        Filter = filter,
-                        OrderBy = orderBy,
-                        Skip = skip,
-                        Take = take,
-                        IncludeProperties = includeProperties
-                    }
+                new VortexDataAdjuntable(
+                    entity, 
+                    stream, 
+                    extension
+                )
+            );
+        }
+
+        public static async Task UpdateEntity<T>(
+            this PersistanceManager<T> p,
+            T entity,
+            FileStream stream,
+            string extension)
+            where T : class, IAdjuntable
+        {
+            await p.ExecuteCommand(
+                VortexEvents.UpdateEntity,
+                new VortexDataAdjuntable(
+                    entity,
+                    stream,
+                    extension
                 )
             );
         }

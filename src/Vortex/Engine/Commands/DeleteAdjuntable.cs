@@ -8,6 +8,12 @@ namespace Equilaterus.Vortex.Engine.Commands
 {
     public class DeleteAdjuntable<T> : GenericAction<T> where T : class, IAdjuntable
     {
+        public override void Initialize()
+        {
+            PreventDefault = true;
+            base.Initialize();
+        }
+
         public override async Task Execute()
         {
             await Context.FileStorage.DeleteFileAsync(

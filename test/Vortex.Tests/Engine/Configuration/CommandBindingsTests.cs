@@ -3,6 +3,7 @@ using Equilaterus.Vortex.Engine.Commands;
 using Equilaterus.Vortex.Engine.Configuration;
 using Equilaterus.Vortex.Engine.Queries;
 using Equilaterus.Vortex.Helpers;
+using Equilaterus.Vortex.Models;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -34,14 +35,17 @@ namespace Vortex.Tests.Engine.Configuration
             Assert.NotNull(graph);
             Assert.Equal(5, graph.Count);
 
-            Assert.Single(graph[nameof(VortexEvents.InsertEntity)]);
+            Assert.Equal(2, graph[nameof(VortexEvents.InsertEntity)].Count);
             Assert.Equal(typeof(InsertEntity<>), graph[nameof(VortexEvents.InsertEntity)]["_default"].TypeOf);
+            Assert.Equal(typeof(InsertAdjuntable<>), graph[nameof(VortexEvents.InsertEntity)][nameof(IAdjuntable)].TypeOf);
 
-            Assert.Single(graph[nameof(VortexEvents.UpdateEntity)]);
+            Assert.Equal(2, graph[nameof(VortexEvents.UpdateEntity)].Count);
             Assert.Equal(typeof(UpdateEntity<>), graph[nameof(VortexEvents.UpdateEntity)]["_default"].TypeOf);
+            Assert.Equal(typeof(UpdateAdjuntable<>), graph[nameof(VortexEvents.UpdateEntity)][nameof(IAdjuntable)].TypeOf);
 
-            Assert.Single(graph[nameof(VortexEvents.DeleteEntity)]);
+            Assert.Equal(2, graph[nameof(VortexEvents.DeleteEntity)].Count);
             Assert.Equal(typeof(DeleteEntity<>), graph[nameof(VortexEvents.DeleteEntity)]["_default"].TypeOf);
+            Assert.Equal(typeof(DeleteAdjuntable<>), graph[nameof(VortexEvents.DeleteEntity)][nameof(IAdjuntable)].TypeOf);
 
             Assert.Single(graph[nameof(VortexEvents.QueryForEntities)]);
             Assert.Equal(typeof(QueryForEntities<>), graph[nameof(VortexEvents.QueryForEntities)]["_default"].TypeOf);
