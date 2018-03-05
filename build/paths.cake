@@ -58,7 +58,9 @@ public class BuildPaths
         var mongoDBTests = testsPath.Combine(
                 context.Directory("Vortex.Data.MongoDB.Tests "));
 		var azureFilesTests = testsPath.Combine(
-				context.Directory("Vortex.Files.Azure.Tests"));				
+				context.Directory("Vortex.Files.Azure.Tests"));			
+		var localFilesTests = testsPath.Combine(
+				context.Directory("Vortex.Files.Local.Tests"));			
 
         var srcPath = rootDir.Combine(context.Directory("src"));
         var efCore = srcPath.Combine(
@@ -67,6 +69,8 @@ public class BuildPaths
                 context.Directory("Vortex.Data.MongoDB"));
 		var azureFiles = srcPath.Combine(
 				context.Directory("Vortex.Files.Azure"));
+		var localFiles = srcPath.Combine(
+				context.Directory("Vortex.Files.Local"));
 		
         var testDirs = new []{
 								vortexTests								
@@ -76,7 +80,8 @@ public class BuildPaths
 								vortexIntegrationTests,
                                 efCoreTests,
                                 mongoDBTests,
-								azureFilesTests
+								azureFilesTests,
+								localFilesTests
 							};
         var toClean = new[] {
                                  testResults,   
@@ -91,13 +96,17 @@ public class BuildPaths
                                  mongoDBTests.Combine("obj"),
 								 azureFilesTests.Combine("bin"),
                                  azureFilesTests.Combine("obj"),
+								 localFilesTests.Combine("bin"),
+                                 localFilesTests.Combine("obj"),
 								 
                                  efCore.Combine("bin"),
                                  efCore.Combine("obj"),
                                  mongoDB.Combine("bin"),
                                  mongoDB.Combine("obj"),
 								 azureFiles.Combine("bin"),
-                                 azureFiles.Combine("obj")
+                                 azureFiles.Combine("obj"),
+								 localFiles.Combine("bin"),
+                                 localFiles.Combine("obj")
                             };
         return new BuildDirectories(rootDir,
                                     artifacts,

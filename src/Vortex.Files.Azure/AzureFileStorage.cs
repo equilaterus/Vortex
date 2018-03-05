@@ -35,10 +35,14 @@ namespace Equilaterus.Vortex.Services.AzureStorage
 
         public async Task<bool> DeleteFileAsync(string path)
         {
+            if (string.IsNullOrEmpty(path))
+            {
+                return false;
+            }
             CloudBlockBlob blockBlob = Container.GetBlockBlobReference(GetFileNameFromPath(path));
             return await blockBlob.DeleteIfExistsAsync();
         }
-
+                
         public string GenerateFileName()
         {
             return Guid.NewGuid().ToString("N");
@@ -67,7 +71,6 @@ namespace Equilaterus.Vortex.Services.AzureStorage
             }
             var splitedPath = path.Split('/');
             return splitedPath[splitedPath.Length - 1];
-        }
-        
+        }       
     }
 }
