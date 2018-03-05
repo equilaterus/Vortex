@@ -15,8 +15,7 @@ namespace Equilaterus.Vortex.Managers
     {
         protected readonly IDataStorage<T> _dataStorage;
         protected readonly VortexExecutor<T> _vortexExecutor;
-
-
+        
         public PersistanceManager(
             IDataStorage<T> dataStorage, 
             IFileStorage fileStorage, 
@@ -27,20 +26,20 @@ namespace Equilaterus.Vortex.Managers
             _vortexExecutor.Initialize(new VortexContext<T>(dataStorage, fileStorage));
         }
 
-        public async Task ExecuteCommand(string vortexEvent, T entity)
+        public async Task ExecuteCommand(
+            string vortexEvent, 
+            VortexData entity)
         {
-             await _vortexExecutor.Execute(vortexEvent, new VortexData(entity));
+             await _vortexExecutor.Execute(vortexEvent, entity);
         }
 
-        public async Task<List<T>> ExecuteQuery(
-            Expression<Func<T, bool>> filter = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            int skip = 0,
-            int take = 0)
+        public async Task<List<T>> ExecuteQueryForEntities(
+            string vortexEvent, 
+            VortexData queryParams)
         {
             var result = await _vortexExecutor.Execute(
-                VortexEvents.RelationalQueryForEntities.ToString(),
-                new VortexData(new QueryParams<T>()));
+                vortexEvent,
+                queryParams);
 
             return result.GetMainEntityAs<List<T>>();
         }

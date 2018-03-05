@@ -114,7 +114,7 @@ namespace Vortex.SimplePerfTests
                 {
                     await persistanceManager.ExecuteCommand(
                     VortexEvents.InsertEntity.ToString(),
-                    entity);
+                    new VortexData(entity));
                 }
             }
             swVortex.Stop();
