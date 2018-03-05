@@ -16,23 +16,51 @@ namespace Equilaterus.Vortex.Services.Tests
         {
             IFileStorage service = await GetService();
 
-            string fileName = "";            
+            string fileUrl = "";            
 
             using (var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes("whatever")))
             {
-                fileName = await service.StoreFileAsync(memoryStream, ".txt");
+                fileUrl = await service.StoreFileAsync(memoryStream, ".txt");                
             }
 
-            Assert.True(fileName != null && fileName.Length > 0);
+            Assert.True(fileUrl != null && fileUrl.Length > 0);
         }
-        /*
+        
         [Fact]
-        public async Task AFSTests_FileNameFromPathNull()
+        public async Task AFSTests_StoreFileFromNullStream()
+        {
+            IFileStorage service = await GetService();
+            
+            await Assert.ThrowsAsync<ArgumentNullException>( () => service.StoreFileAsync(null, null));
+        }
+
+        [Fact]
+        public async Task AFSTests_CreateAndDeleteFile()
         {
             IFileStorage service = await GetService();
 
-            string path = null;
-            Assert.Throws<ArgumentNullException>(() => AzureFileStorage.GetFileNameFromPath(path));
-        }*/
+            string fileUrl = "";
+
+            using (var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes("whatever")))
+            {
+                fileUrl = await service.StoreFileAsync(memoryStream, ".txt");
+            }
+
+            Assert.True(fileUrl != null && fileUrl.Length > 0);
+
+            bool deleteResult = await service.DeleteFileAsync(fileUrl);
+
+            Assert.True(deleteResult);
+        }
+
+        [Fact]
+        public async Task AFSTests_DeleteNonExistentFile()
+        {
+            IFileStorage service = await GetService();
+                        
+            bool deleteResult = await service.DeleteFileAsync("");
+
+            Assert.True(!deleteResult);
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace Equilaterus.Vortex.Services.LocalStorage
 
         public LocalFileStorage(IOptions<LocalStorageConfig> configuration)
         {            
-            Path = Configuration.LocalPath;
+            Path = configuration.Value.LocalPath;
         }
 
         public async Task<bool> DeleteFileAsync(string path)
@@ -35,7 +35,7 @@ namespace Equilaterus.Vortex.Services.LocalStorage
 
         public async Task<string> StoreFileAsync(Stream stream, string extension)
         {
-            if (stream == null)
+            if (stream == null || extension == null)
             {
                 throw new ArgumentNullException();
             }
