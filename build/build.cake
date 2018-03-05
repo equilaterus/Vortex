@@ -56,7 +56,7 @@ Task("Run-Tests")
         OldStyle = true,
         MergeOutput = true
     }
-    .WithFilter("+[*]* -[*.Tests*]* -[Microsoft.*]* -[Equilaterus.Vortex.Tests.*]*");
+    .WithFilter("+[Equilaterus.*]* -[*.Tests*]* -[Microsoft.*]* -[Equilaterus.Vortex.Tests.*]* -[Moq.*]*");
 
     if(parameters.UseDotNetVsTest){
 
