@@ -13,6 +13,9 @@ using Vortex.SampleMvc.Models;
 using Vortex.SampleMvc.Services;
 using Equilaterus.Vortex.Services;
 using Equilaterus.Vortex.Services.EFCore;
+using Equilaterus.Vortex.Engine;
+using Equilaterus.Vortex.Engine.Configuration;
+using Equilaterus.Vortex.Managers;
 
 namespace Vortex.SampleMvc
 {
@@ -38,8 +41,18 @@ namespace Vortex.SampleMvc
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddScoped<DbContext, ApplicationDbContext>();
+
+            #region VortexConfiguration
+            
+            // Inject DbContext to VortexServices
+            services.AddScoped<DbContext>(p => p.GetRequiredService<ApplicationDbContext>());
+            services.AddSingleton<VortexGraph>();
+            services.AddScoped(typeof(VortexExecutor<>), typeof(VortexExecutor<>));
             services.AddScoped(typeof(IDataStorage<>), typeof(EFCoreDataStorage<>));
+            services.AddScoped(typeof(IPersistanceManager<>), typeof(PersistanceManager<>));
+
+            #endregion
+
 
             services.AddMvc();
         }
@@ -47,6 +60,14 @@ namespace Vortex.SampleMvc
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            #region VortexGraphConfiguration
+
+            // Vortex Graph
+            var vortexGraph = app.ApplicationServices.GetService<VortexGraph>();
+            vortexGraph.LoadDefaults();
+
+            #endregion
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
