@@ -15,7 +15,16 @@ namespace Equilaterus.Vortex.Managers
     {
         protected readonly IDataStorage<T> _dataStorage;
         protected readonly VortexExecutor<T> _vortexExecutor;
-        
+
+        public PersistanceManager(
+            IDataStorage<T> dataStorage,
+            VortexExecutor<T> vortexExecutor)
+        {
+            _dataStorage = dataStorage;
+            _vortexExecutor = vortexExecutor;
+            _vortexExecutor.Initialize(new VortexContext<T>(dataStorage, null));
+        }
+
         public PersistanceManager(
             IDataStorage<T> dataStorage, 
             IFileStorage fileStorage, 
