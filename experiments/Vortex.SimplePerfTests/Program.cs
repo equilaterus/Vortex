@@ -143,9 +143,11 @@ namespace Vortex.SimplePerfTests
             {
                 Console.WriteLine("Inserting: {0} entities for each test", ENTITIES);
 
-                Console.WriteLine("EfCore Test {0} -> {1}", i, EFCoreTest(i).Result);
+                var efResult = EFCoreTest(i).Result;
+                Console.WriteLine("EfCore Test {0} -> {1}", i, efResult);
 
-                Console.WriteLine("Vortex Test {0} -> {1}", i, VortexTest(i).Result);
+                var vortexResult = VortexTest(i).Result;
+                Console.WriteLine("Vortex Test {0} -> {1}", i, vortexResult);
 
                 Console.WriteLine("----");
             }
