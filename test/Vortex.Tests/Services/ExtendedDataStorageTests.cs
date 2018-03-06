@@ -37,7 +37,7 @@ namespace Vortex.Tests.Services
                 });
 
             // Checking that it sends correctly all values 
-            // (Order By was not fully supported vy verify method)
+            // (Order By was not fully supported by verify method)
 
             ds.Verify(d => d.FindAsync(f => f.Id > 0,
                     It.IsNotNull<Func<IQueryable<TestModel>, IOrderedQueryable<TestModel>>>(),
@@ -70,7 +70,7 @@ namespace Vortex.Tests.Services
                 });
 
             // Checking that it sends correctly all values 
-            // (Order By was not fully supported vy verify method)
+            // (Order By was not fully supported by verify method)
 
             ds.Verify(d => d.FindAsync(f => f.Id > 0,
                     It.IsNotNull<Func<IQueryable<TestModel>, IOrderedQueryable<TestModel>>>(),
