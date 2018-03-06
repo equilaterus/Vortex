@@ -18,7 +18,6 @@ namespace Vortex.Tests.Engine.Queries
             ThrowsOnNullFileStorage = false;
         }
 
-
         protected override GenericAction<TestModel> GetCommand(VortexContext<TestModel> context)
         {
             return new QueryCount<TestModel>(context);

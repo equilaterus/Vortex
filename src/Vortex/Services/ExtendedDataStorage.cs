@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Services
 {
-    public static class ExtendedDataStorageQueries
+    public static class ExtendedDataStorage
     {
         public static async Task<List<T>> FindAsync<T>(this IDataStorage<T> ds, QueryParams<T> queryParams) where T : class
         {
