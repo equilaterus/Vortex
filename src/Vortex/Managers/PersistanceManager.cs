@@ -52,5 +52,14 @@ namespace Equilaterus.Vortex.Managers
 
             return result.GetMainEntityAs<List<T>>();
         }
+
+        public async Task<int> ExecuteQueryForInt(string vortexEvent, VortexData queryParams)
+        {
+            var result = await _vortexExecutor.Execute(
+                vortexEvent,
+                queryParams);
+
+            return result.GetAsInt();
+        }
     }
 }

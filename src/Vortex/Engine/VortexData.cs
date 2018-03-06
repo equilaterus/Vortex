@@ -14,6 +14,11 @@ namespace Equilaterus.Vortex.Engine
             return Entity as T;
         }
 
+        public int GetAsInt()
+        {
+            return (int)Entity;
+        }
+
         public VortexData(object entity)
         {
             Entity = entity;

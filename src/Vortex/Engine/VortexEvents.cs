@@ -11,5 +11,7 @@ namespace Equilaterus.Vortex.Engine
         public const string DeleteEntity = "DeleteEntity";
         public const string RelationalQueryForEntities = "RelationalQueryForEntities";
         public const string QueryForEntities = "QueryForEntities";
+
+        public const string QueryCount = "QueryCount";
     }
 }
