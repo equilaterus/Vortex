@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Vortex.Tests.Engine.Commands
+namespace Vortex.Tests.Engine
 {
-    public abstract class BaseCommandTest<T> where T : class
+    public abstract class BaseActionTest<T> where T : class
     {
         protected abstract GenericAction<T> GetCommand(VortexContext<T> context);
         protected abstract VortexData GetData();

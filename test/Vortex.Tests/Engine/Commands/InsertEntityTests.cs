@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Vortex.Tests.Engine.Commands
 {
-    public class InsertEntityTests : BaseCommandTest<TestModel>
+    public class InsertEntityTests : BaseActionTest<TestModel>
     {
         public InsertEntityTests()
         {

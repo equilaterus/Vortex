@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Vortex.Tests.Engine.Commands
 {
-    public class UpdateAdjuntableTests : BaseCommandTest<AdjuntableTestModel>
+    public class UpdateAdjuntableTests : BaseActionTest<AdjuntableTestModel>
     {
         public UpdateAdjuntableTests()
         {

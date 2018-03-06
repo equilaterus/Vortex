@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Vortex.Tests.Engine.Commands
 {
-    public class DeleteAdjuntableTests : BaseCommandTest<AdjuntableTestModel>
+    public class DeleteAdjuntableTests : BaseActionTest<AdjuntableTestModel>
     {
         public DeleteAdjuntableTests()
         {

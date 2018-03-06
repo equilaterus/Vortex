@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Vortex.Tests.Engine.Commands
 {
-    public class InsertAdjuntableTests : BaseCommandTest<AdjuntableTestModel>
+    public class InsertAdjuntableTests : BaseActionTest<AdjuntableTestModel>
     {
         public InsertAdjuntableTests()
         {
