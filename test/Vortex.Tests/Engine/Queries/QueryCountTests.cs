@@ -13,7 +13,12 @@ namespace Vortex.Tests.Engine.Queries
 {
     public class QueryCountTests : BaseActionTest<TestModel>
     {
-        
+        public QueryCountTests()
+        {
+            ThrowsOnNullFileStorage = false;
+        }
+
+
         protected override GenericAction<TestModel> GetCommand(VortexContext<TestModel> context)
         {
             return new QueryCount<TestModel>(context);
