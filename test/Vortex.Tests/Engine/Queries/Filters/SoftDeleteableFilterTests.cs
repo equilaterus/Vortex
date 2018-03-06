@@ -1,0 +1,46 @@
+﻿using Equilaterus.Vortex.Models;
+using Equilaterus.Vortex.Engine.Queries.Filters;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Xunit;
+using Equilaterus.Vortex.Engine.Configuration;
+using Equilaterus.Vortex.Engine.Queries;
+using System.Linq.Expressions;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Vortex.Tests.Engine.Queries.Filters
+{
+    public class SoftDeleteableFilterTests : BaseFilterTests<SoftDeleteableTestModel>
+    {
+        public override QueryFilter<SoftDeleteableTestModel> GetFilter()
+        {
+            return new SoftDeleteableFilter<SoftDeleteableTestModel>();
+        }
+
+        [Fact]
+        public void UpdateFilter()
+        {
+            var items = new List<SoftDeleteableTestModel>()
+            {
+                new SoftDeleteableTestModel(){ Id = -1, IsDeleted = true },
+                new SoftDeleteableTestModel(){ Id = 0, IsDeleted = true },
+                new SoftDeleteableTestModel(){ Id = 1, IsDeleted = false },
+                new SoftDeleteableTestModel(){ Id = 1, IsDeleted = true },
+                new SoftDeleteableTestModel(){ Id = 2, IsDeleted = false },
+                new SoftDeleteableTestModel(){ Id = 2, IsDeleted = true }
+            };
+
+            var activableFilter = GetFilter();
+
+            var queryParams = 
+                new QueryParams<SoftDeleteableTestModel>()
+                {  Filter = e => e.Id > 0 };
+
+            activableFilter.UpdateParams(queryParams);
+
+            Assert.Equal(items.Where(e=> e.IsDeleted == false && e.Id > 0).Count(), items.AsQueryable().Where(queryParams.Filter).Count());
+        }        
+    }
+}

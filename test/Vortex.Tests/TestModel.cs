@@ -22,4 +22,18 @@ namespace Vortex.Tests
 
         public AdjuntableTestModel() { }
     }
+
+    public class ActivableTestModel : IActivable
+    {
+        public int Id { get; set; }
+
+        public bool IsActive { get; set; }
+    }
+
+    public class SoftDeleteableTestModel : ISoftDeleteable
+    {
+        public int Id { get; set; }
+        
+        public bool IsDeleted { get; set; }
+    }
 }
