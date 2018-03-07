@@ -12,6 +12,14 @@ namespace Vortex.Tests.Engine
 {
     public abstract class BaseActionTest<T> where T : class
     {
+        virtual protected VortexContext<T> GetContext()
+        {
+            var dataStorageMock = new Mock<IDataStorage<T>>();
+            var fileStorageMock = new Mock<IFileStorage>();
+
+            return new VortexContext<T>(dataStorageMock.Object, fileStorageMock.Object);
+        }
+
         protected abstract GenericAction<T> GetCommand(VortexContext<T> context);
         protected abstract VortexData GetData();
 
@@ -27,10 +35,8 @@ namespace Vortex.Tests.Engine
             var data = new VortexData(null);
 
             // Prepare objects
-            var dataStorageMock = new Mock<IDataStorage<T>>();
-            var fileStorageMock = new Mock<IFileStorage>();
+            var context = GetContext();
 
-            var context = new VortexContext<T>(dataStorageMock.Object, fileStorageMock.Object);
             var command = GetCommand(context);
             command.Params = data;
             command.Initialize();
@@ -47,10 +53,8 @@ namespace Vortex.Tests.Engine
         public async Task NullDataStorage()
         {
             // Prepare objects
-            var fileStorageMock = new Mock<IFileStorage>();
+            var context = new VortexContext<T>(null, GetContext().FileStorage);
 
-            // Prepare objects
-            var context = new VortexContext<T>(null, fileStorageMock.Object);
             var command = GetCommand(context);
             command.Params = GetData();
             command.Initialize();
@@ -66,10 +70,7 @@ namespace Vortex.Tests.Engine
         public async Task NullFileStorage()
         {
             // Prepare objects
-            var dataStorageMock = new Mock<IDataStorage<T>>();
-
-            // Prepare objects
-            var context = new VortexContext<T>(dataStorageMock.Object, null);
+            var context = new VortexContext<T>(GetContext().DataStorage, null);
             var command = GetCommand(context);
             command.Params = GetData();
             command.Initialize();
