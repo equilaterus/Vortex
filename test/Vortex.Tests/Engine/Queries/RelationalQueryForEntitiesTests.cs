@@ -156,7 +156,7 @@ namespace Vortex.Tests.Engine.Queries
             // one without that param
             // CALLED: mock.Verify(m => m.FindAsync(t => t.Id == 1, null, 0, 0), Times.Once);
             // VERIFIED: mock.Verify(m => m.FindAsync(t => t.Id == 1, null, 0, 0, []), Times.Once);
-            // Even with a setup it does not works.
+            // Even with a setup it does not work.
             mock.VerifyAll();
         }
 
