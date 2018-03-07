@@ -33,7 +33,7 @@ namespace Vortex.Tests.Engine.Configuration
                 .GetValue(vortexGraph) as Dictionary<string, Dictionary<string, SubClassOf<VortexAction>>>;
 
             Assert.NotNull(graph);
-            Assert.Equal(5, graph.Count);
+            Assert.Equal(6, graph.Count);
 
             Assert.Equal(2, graph[nameof(VortexEvents.InsertEntity)].Count);
             Assert.Equal(typeof(InsertEntity<>), graph[nameof(VortexEvents.InsertEntity)]["_default"].TypeOf);
@@ -52,6 +52,9 @@ namespace Vortex.Tests.Engine.Configuration
 
             Assert.Single(graph[nameof(VortexEvents.RelationalQueryForEntities)]);
             Assert.Equal(typeof(RelationalQueryForEntities<>), graph[nameof(VortexEvents.RelationalQueryForEntities)]["_default"].TypeOf);
+
+            Assert.Single(graph[nameof(VortexEvents.QueryCount)]);
+            Assert.Equal(typeof(QueryCount<>), graph[nameof(VortexEvents.QueryCount)]["_default"].TypeOf);
         }        
     }
 }

@@ -301,6 +301,51 @@ namespace Equilaterus.Vortex.Services.DataStorage.Tests
         }
 
         [Fact]
+        public async Task CountAll()
+        {
+            // Prepare
+            var databaseName = nameof(CountAll);
+            var seed = GetSeedData();
+            await SeedAsync(seed, databaseName);
+
+            var expected = seed.Count();
+
+            // Execute
+            var service = GetService(databaseName);
+            var result = await service.Count();
+
+            // Check
+            Assert.Equal(expected, result);
+
+            // End
+            ClearOrDispose(service);
+        }
+
+        [Fact]
+        public async Task CountFilter()
+        {
+            // Prepare
+            var databaseName = nameof(CountFilter);
+            var seed = GetSeedData();
+            await SeedAsync(seed, databaseName);
+
+            var expected = seed.
+                Where(e => e.Counter > 1).ToList();
+            Assert.NotEqual(seed.Count, expected.Count);
+
+            // Execute
+            var service = GetService(databaseName);
+            var result = await service.Count(
+                   filter: e => e.Counter > 1);
+
+            // Check
+            Assert.Equal(expected.Count, result);
+
+            // End
+            ClearOrDispose(service);
+        }
+
+        [Fact]
         public async Task Insert()
         {
             // Prepare

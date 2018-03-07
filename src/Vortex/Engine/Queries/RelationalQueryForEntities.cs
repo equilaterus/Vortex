@@ -21,8 +21,23 @@ namespace Equilaterus.Vortex.Engine.Queries
         {
             var dataStorage = Context.DataStorage as IRelationalDataStorage<T>;
 
-            var result = await dataStorage.FindAsync(
-                Params.GetMainEntityAs<RelationalQueryParams<T>>());
+            List<T> result;
+
+            var relationalParams = Params.GetMainEntityAs<RelationalQueryParams<T>>();
+            if (relationalParams != null)
+            {
+                result = await dataStorage.FindAsync(
+                    relationalParams
+                );
+            }
+            else
+            {
+                // Try to get basic params
+                var queryParams = Params.GetMainEntityAs<QueryParams<T>>();
+                result = await dataStorage.FindAsync(
+                   queryParams
+               );
+            }       
 
             Results = new VortexData(result);
         }

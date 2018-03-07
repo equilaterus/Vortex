@@ -54,5 +54,19 @@ namespace Equilaterus.Vortex.Managers
                 )
             );
         }
+
+        public static async Task<int> Count<T>(this PersistanceManager<T> p,
+            Expression<Func<T, bool>> filter = null) where T : class
+        {
+            return await p.ExecuteQueryForInt(
+                VortexEvents.QueryCount,
+                new VortexData(
+                    new QueryParams<T>()
+                    {
+                        Filter = filter
+                    }
+                )
+            );
+        }
     }
 }
