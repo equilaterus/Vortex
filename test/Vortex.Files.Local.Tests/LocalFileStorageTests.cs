@@ -21,6 +21,15 @@ namespace Equilaterus.Vortex.Services.LocalStorage.Tests
             return Options.Create(config);
         }
 
+        protected override async Task<Stream> GetFileStream(IFileStorage service, string path)
+        {
+            if (File.Exists(path))
+            {
+                return File.Open(path, FileMode.Open);
+            }
+            return null;
+        }
+
         protected override async Task<IFileStorage> GetService()
         {
             Directory.CreateDirectory(Environment.CurrentDirectory + @"\LocalFiles");

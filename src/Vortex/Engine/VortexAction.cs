@@ -21,7 +21,8 @@ namespace Equilaterus.Vortex.Engine
 
         public virtual void Initialize()
         {
-            Priority = IsDefaultAction ? -1 : 0;            
+            if (Priority == 0)
+                Priority = IsDefaultAction ? -1 : 0;            
         }
 
         public abstract Task Execute();        
@@ -34,6 +35,11 @@ namespace Equilaterus.Vortex.Engine
         public GenericAction(VortexContext<T> context)
         {
             Context = context;
+        }
+
+        public GenericAction()
+        {
+
         }
     }
 }

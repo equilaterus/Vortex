@@ -1,4 +1,5 @@
-﻿using Equilaterus.Vortex.Services;
+﻿using Equilaterus.Vortex.Engine.Queries.Filters;
+using Equilaterus.Vortex.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,14 +12,18 @@ namespace Equilaterus.Vortex.Engine
 
         public IFileStorage FileStorage { get; protected set; }
 
+        public GenericFilterFactory FilterFactory { get; protected set; }
+
         public VortexContext() { }
 
         public VortexContext(
             IDataStorage<T> dataStorage, 
-            IFileStorage fileStorage) 
+            IFileStorage fileStorage,
+            GenericFilterFactory filterFactory) 
         {
             DataStorage = dataStorage;
             FileStorage = fileStorage;
+            FilterFactory = filterFactory;
         }
     }
 }

@@ -203,5 +203,15 @@ namespace Vortex.Tests.Engine
                 () => g.GetActions("OnDelete", objectTest.GetType())
             );
         }
+
+        [Fact]
+        public void GetDefaultActionsWithNonExistentEvent()
+        {
+            VortexGraph g = new VortexGraph();
+
+            Assert.Throws<Exception>(
+                () => g.GetDefaultActions("OnDelete")
+            );
+        }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using Equilaterus.Vortex.Services.Tests;
 using Microsoft.Extensions.Options;
+using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -21,7 +23,22 @@ namespace Equilaterus.Vortex.Services.AzureStorage.Tests
             };
             return Options.Create(config);
         }
-        
+
+        protected override async Task<Stream> GetFileStream(IFileStorage service, string path)
+        {
+            var container = service.GetType()
+                .GetField("_container", BindingFlags.Instance | BindingFlags.NonPublic)
+                .GetValue(service) as CloudBlobContainer;
+
+            if (container == null)
+            {
+                return null;
+            }
+
+            var blob = container.GetBlobReference(AzureFileStorage.GetFileNameFromPath(path));
+            return await blob.OpenReadAsync();
+        }
+
         protected override async Task<IFileStorage> GetService()
         {
             using (Process process = new Process())                

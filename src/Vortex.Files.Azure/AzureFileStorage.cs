@@ -12,24 +12,24 @@ namespace Equilaterus.Vortex.Services.AzureStorage
 {
     public class AzureFileStorage : IFileStorage
     {
-        private AzureStorageConfig Configuration;
-        private CloudStorageAccount StorageAccount;
-        private CloudBlobClient BlobClient;
-        private CloudBlobContainer Container;
+        private AzureStorageConfig _configuration;
+        private CloudStorageAccount _storageAccount;
+        private CloudBlobClient _blobClient;
+        private CloudBlobContainer _container;
 
         public AzureFileStorage(IOptions<AzureStorageConfig> configuration)
-        {            
-            Configuration = configuration.Value;
+        {
+            _configuration = configuration.Value;
 
-            StorageAccount = CloudStorageAccount.Parse(
-                Configuration.ConnectionString);
+            _storageAccount = CloudStorageAccount.Parse(
+                _configuration.ConnectionString);
 
-            BlobClient = StorageAccount.CreateCloudBlobClient();
-            Container = BlobClient.GetContainerReference(Configuration.ContainerName);
+            _blobClient = _storageAccount.CreateCloudBlobClient();
+            _container = _blobClient.GetContainerReference(_configuration.ContainerName);
 
-            if(Configuration.CreateIfNotExist)
+            if(_configuration.CreateIfNotExist)
             {
-                Container.CreateIfNotExistsAsync().Wait();
+                _container.CreateIfNotExistsAsync().Wait();
             }
         }
 
@@ -39,7 +39,7 @@ namespace Equilaterus.Vortex.Services.AzureStorage
             {
                 return false;
             }
-            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(GetFileNameFromPath(path));
+            CloudBlockBlob blockBlob = _container.GetBlockBlobReference(GetFileNameFromPath(path));
             return await blockBlob.DeleteIfExistsAsync();
         }
                 
@@ -56,7 +56,7 @@ namespace Equilaterus.Vortex.Services.AzureStorage
             }
 
             string fileName = GenerateFileName() + extension;
-            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(fileName);
+            CloudBlockBlob blockBlob = _container.GetBlockBlobReference(fileName);
 
             await blockBlob.UploadFromStreamAsync(stream);            
 
