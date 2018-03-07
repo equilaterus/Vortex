@@ -40,9 +40,19 @@ namespace Equilaterus.Vortex.Engine.Configuration
                 SubClassOf<VortexAction>.GetFrom(typeof(QueryForEntities<>)));
 
             graph.Bind(
+                nameof(VortexEvents.QueryForEntities),
+                "_default",
+                SubClassOf<VortexAction>.GetFrom(typeof(UpdateQueryFilter<>)));
+
+            graph.Bind(
                 nameof(VortexEvents.RelationalQueryForEntities),
                 "_default",
                 SubClassOf<VortexAction>.GetFrom(typeof(RelationalQueryForEntities<>)));
+
+            graph.Bind(
+               nameof(VortexEvents.RelationalQueryForEntities),
+               "_default",
+               SubClassOf<VortexAction>.GetFrom(typeof(UpdateQueryFilter<>)));
 
 
             // Adjuntables

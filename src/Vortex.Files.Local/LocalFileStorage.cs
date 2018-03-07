@@ -41,7 +41,7 @@ namespace Equilaterus.Vortex.Services.LocalStorage
             }
 
             string fileName = GenerateFileName() + extension;
-            string filePath = Path + fileName;
+            string filePath = Path + "\\" + fileName;
             
             using (var fileStream = File.Create(filePath))
             {
