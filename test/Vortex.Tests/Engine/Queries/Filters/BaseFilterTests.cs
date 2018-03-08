@@ -3,6 +3,7 @@ using Equilaterus.Vortex.Engine.Queries.Filters;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Vortex.Tests.Engine.Queries.Filters
@@ -22,7 +23,9 @@ namespace Vortex.Tests.Engine.Queries.Filters
         public void NullFilterParams()
         {
             var filter = GetFilter();
-            Assert.Throws<NullReferenceException>(() => filter.UpdateParams(new QueryParams<T>() { Filter = null }));
+            var queryParams = new QueryParams<T>() { Filter = null };
+            filter.UpdateParams(queryParams);
+            Assert.NotNull(queryParams.Filter);
         }
     }
 }

@@ -11,19 +11,15 @@ namespace Equilaterus.Vortex.Engine
         public IDataStorage<T> DataStorage { get; protected set; }
 
         public IFileStorage FileStorage { get; protected set; }
-
-        public GenericFilterFactory FilterFactory { get; protected set; }
-
+        
         public VortexContext() { }
 
         public VortexContext(
-            IDataStorage<T> dataStorage, 
-            IFileStorage fileStorage,
-            GenericFilterFactory filterFactory) 
+            IDataStorage<T> dataStorage,
+            IFileStorage fileStorage)
         {
             DataStorage = dataStorage;
             FileStorage = fileStorage;
-            FilterFactory = filterFactory;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Equilaterus.Vortex.Models;
+﻿using Equilaterus.Vortex.Engine.Configuration;
+using Equilaterus.Vortex.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -8,6 +9,13 @@ namespace Equilaterus.Vortex.Engine.Queries.Filters
 {
     public class GenericFilterFactory
     {
+        private static GenericFilterFactory _instance = new GenericFilterFactory();
+
+        public static GenericFilterFactory GetInstance()
+        {
+            return _instance;
+        }
+
         /// <summary>
         /// Binds a Type of Model Interface with its filter implementation.
         /// </summary>
@@ -58,9 +66,11 @@ namespace Equilaterus.Vortex.Engine.Queries.Filters
             return filters;
         }
 
-        public GenericFilterFactory()
+        private GenericFilterFactory()
         {
             Bindings = new Dictionary<Type, List<Type>>();
+
+            this.LoadDefaults();
         }
     }
 }

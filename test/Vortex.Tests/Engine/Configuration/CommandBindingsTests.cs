@@ -26,35 +26,37 @@ namespace Vortex.Tests.Engine.Configuration
             VortexGraph vortexGraph = new VortexGraph();
             vortexGraph.LoadDefaults();
 
-            Dictionary<string, Dictionary<string, SubClassOf<VortexAction>>> graph = null;
+            Dictionary<string, Dictionary<string, List<SubClassOf<VortexAction>>>> graph = null;
 
             graph = vortexGraph.GetType()
                 .GetField("_graph", BindingFlags.Instance | BindingFlags.NonPublic)
-                .GetValue(vortexGraph) as Dictionary<string, Dictionary<string, SubClassOf<VortexAction>>>;
+                .GetValue(vortexGraph) as Dictionary<string, Dictionary<string, List<SubClassOf<VortexAction>>>>;
 
             Assert.NotNull(graph);
             Assert.Equal(6, graph.Count);
 
             Assert.Equal(2, graph[nameof(VortexEvents.InsertEntity)].Count);
-            Assert.Equal(typeof(InsertEntity<>), graph[nameof(VortexEvents.InsertEntity)]["_default"].TypeOf);
-            Assert.Equal(typeof(InsertAdjuntable<>), graph[nameof(VortexEvents.InsertEntity)][nameof(IAdjuntable)].TypeOf);
+            Assert.Equal(typeof(InsertEntity<>), graph[nameof(VortexEvents.InsertEntity)]["_default"][0].TypeOf);
+            Assert.Equal(typeof(InsertAdjuntable<>), graph[nameof(VortexEvents.InsertEntity)][nameof(IAdjuntable)][0].TypeOf);
 
             Assert.Equal(2, graph[nameof(VortexEvents.UpdateEntity)].Count);
-            Assert.Equal(typeof(UpdateEntity<>), graph[nameof(VortexEvents.UpdateEntity)]["_default"].TypeOf);
-            Assert.Equal(typeof(UpdateAdjuntable<>), graph[nameof(VortexEvents.UpdateEntity)][nameof(IAdjuntable)].TypeOf);
+            Assert.Equal(typeof(UpdateEntity<>), graph[nameof(VortexEvents.UpdateEntity)]["_default"][0].TypeOf);
+            Assert.Equal(typeof(UpdateAdjuntable<>), graph[nameof(VortexEvents.UpdateEntity)][nameof(IAdjuntable)][0].TypeOf);
 
             Assert.Equal(2, graph[nameof(VortexEvents.DeleteEntity)].Count);
-            Assert.Equal(typeof(DeleteEntity<>), graph[nameof(VortexEvents.DeleteEntity)]["_default"].TypeOf);
-            Assert.Equal(typeof(DeleteAdjuntable<>), graph[nameof(VortexEvents.DeleteEntity)][nameof(IAdjuntable)].TypeOf);
+            Assert.Equal(typeof(DeleteEntity<>), graph[nameof(VortexEvents.DeleteEntity)]["_default"][0].TypeOf);
+            Assert.Equal(typeof(DeleteAdjuntable<>), graph[nameof(VortexEvents.DeleteEntity)][nameof(IAdjuntable)][0].TypeOf);
 
             Assert.Single(graph[nameof(VortexEvents.QueryForEntities)]);
-            Assert.Equal(typeof(QueryForEntities<>), graph[nameof(VortexEvents.QueryForEntities)]["_default"].TypeOf);
+            Assert.Equal(typeof(QueryForEntities<>), graph[nameof(VortexEvents.QueryForEntities)]["_default"][0].TypeOf);
+            Assert.Equal(typeof(UpdateQueryFilter<>), graph[nameof(VortexEvents.QueryForEntities)]["_default"][1].TypeOf);
 
             Assert.Single(graph[nameof(VortexEvents.RelationalQueryForEntities)]);
-            Assert.Equal(typeof(RelationalQueryForEntities<>), graph[nameof(VortexEvents.RelationalQueryForEntities)]["_default"].TypeOf);
+            Assert.Equal(typeof(RelationalQueryForEntities<>), graph[nameof(VortexEvents.RelationalQueryForEntities)]["_default"][0].TypeOf);
+            Assert.Equal(typeof(UpdateQueryFilter<>), graph[nameof(VortexEvents.RelationalQueryForEntities)]["_default"][1].TypeOf);
 
             Assert.Single(graph[nameof(VortexEvents.QueryCount)]);
-            Assert.Equal(typeof(QueryCount<>), graph[nameof(VortexEvents.QueryCount)]["_default"].TypeOf);
+            Assert.Equal(typeof(QueryCount<>), graph[nameof(VortexEvents.QueryCount)]["_default"][0].TypeOf);
         }        
     }
 }

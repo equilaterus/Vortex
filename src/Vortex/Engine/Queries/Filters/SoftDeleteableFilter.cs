@@ -13,8 +13,7 @@ namespace Equilaterus.Vortex.Engine.Queries.Filters
         public override void UpdateParams(QueryParams<T> queryParams)
         {
             var condition = NewCondition(e => e.IsDeleted == false);
-
-            queryParams.Filter = condition.And(queryParams.Filter);
+            queryParams.Filter = queryParams.Filter.Bind(condition);
         }
     }
 }

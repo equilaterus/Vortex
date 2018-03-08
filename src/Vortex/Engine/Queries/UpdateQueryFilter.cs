@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Equilaterus.Vortex.Engine.Queries.Filters;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace Equilaterus.Vortex.Engine.Queries
 
         public override async Task Execute()
         {
-            var filters = Context.FilterFactory.GetFilters<T>();
+            var filters = GenericFilterFactory.GetInstance().GetFilters<T>();
             foreach (var filter in filters)
             {
                 filter.UpdateParams(Params.GetMainEntityAs<QueryParams<T>>());

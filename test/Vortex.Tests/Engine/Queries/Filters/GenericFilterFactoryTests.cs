@@ -31,7 +31,7 @@ namespace Vortex.Tests.Engine.Queries.Filters
         [Fact]
         public void NullBindings()
         {
-            GenericFilterFactory filterFactory = new GenericFilterFactory();
+            GenericFilterFactory filterFactory = GenericFilterFactory.GetInstance();
             Assert.Throws<ArgumentNullException>(() => filterFactory.Bind(typeof(IActivable), null));
             Assert.Throws<ArgumentNullException>(() => filterFactory.Bind(null, typeof(ActivableFilter<>)));
             Assert.Throws<ArgumentNullException>(() => filterFactory.Bind(null, null));
@@ -40,9 +40,8 @@ namespace Vortex.Tests.Engine.Queries.Filters
         [Fact]
         public void TestBindings()
         {
-            GenericFilterFactory filterFactory = new GenericFilterFactory();
-            filterFactory.LoadDefaults();
-            
+            GenericFilterFactory filterFactory = GenericFilterFactory.GetInstance();
+                        
             Assert.True(2 == filterFactory.Bindings.Count);
             Assert.True(1 == filterFactory.Bindings[typeof(IActivable)].Count);
             Assert.True(typeof(ActivableFilter<>) == filterFactory.Bindings[typeof(IActivable)][0]);
@@ -54,8 +53,8 @@ namespace Vortex.Tests.Engine.Queries.Filters
         [Fact]
         public void TestMultipleBindings()
         {
-            GenericFilterFactory filterFactory = new GenericFilterFactory();
-            filterFactory.LoadDefaults();
+            GenericFilterFactory filterFactory = GenericFilterFactory.GetInstance();
+            
             filterFactory.Bind(typeof(ISoftDeleteable), typeof(ActivableFilter<>));
 
             Assert.True(2 == filterFactory.Bindings.Count);
@@ -71,9 +70,8 @@ namespace Vortex.Tests.Engine.Queries.Filters
         [Fact]
         public void GetFilterForVanilla()
         {
-            GenericFilterFactory filterFactory = new GenericFilterFactory();
-            filterFactory.LoadDefaults();
-
+            GenericFilterFactory filterFactory = GenericFilterFactory.GetInstance();
+           
             var result = filterFactory.GetFilters<MyModel>();
 
             Assert.NotNull(result);
@@ -83,9 +81,8 @@ namespace Vortex.Tests.Engine.Queries.Filters
         [Fact]
         public void GetFilterForActivable()
         {
-            GenericFilterFactory filterFactory = new GenericFilterFactory();
-            filterFactory.LoadDefaults();
-
+            GenericFilterFactory filterFactory = GenericFilterFactory.GetInstance();
+            
             var result = filterFactory.GetFilters<ActiveModel>();
 
             Assert.NotNull(result);
@@ -96,9 +93,8 @@ namespace Vortex.Tests.Engine.Queries.Filters
         [Fact]
         public void GetFilterForActivableAndSoftDeleteable()
         {
-            GenericFilterFactory filterFactory = new GenericFilterFactory();
-            filterFactory.LoadDefaults();
-
+            GenericFilterFactory filterFactory = GenericFilterFactory.GetInstance();
+            
             var result = filterFactory.GetFilters<ActiveSoftDeleteableModel>();
 
 

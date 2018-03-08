@@ -57,8 +57,7 @@ namespace Equilaterus.Vortex.Tests.IntegrationTests
                 await context.SaveChangesAsync();
             }
 
-            var factory = new GenericFilterFactory();
-            factory.LoadDefaults();
+            var factory = GenericFilterFactory.GetInstance();
 
             var activableFilter = factory.GetFilters<ActivableTestModel>()[0];
 
@@ -81,10 +80,9 @@ namespace Equilaterus.Vortex.Tests.IntegrationTests
 
             var context = GetMongoContext(dbName);            
             await context.GetCollection<ActivableTestModel>().InsertManyAsync(GetSeed<ActivableTestModel>());
-            
 
-            var factory = new GenericFilterFactory();
-            factory.LoadDefaults();
+
+            var factory = GenericFilterFactory.GetInstance();
 
             var activableFilter = factory.GetFilters<ActivableTestModel>()[0];
 
