@@ -46,8 +46,8 @@ namespace Vortex.SampleMvc
             
             // Inject DbContext to VortexServices
             services.AddScoped<DbContext>(p => p.GetRequiredService<ApplicationDbContext>());
-            services.AddSingleton<VortexGraph>();
-            services.AddScoped(typeof(VortexExecutor<>), typeof(VortexExecutor<>));
+            services.AddSingleton(typeof(IVortexGraph), typeof(VortexGraph));
+            services.AddScoped(typeof(IVortexExecutor<>), typeof(VortexExecutor<>));
             services.AddScoped(typeof(IDataStorage<>), typeof(EFCoreDataStorage<>));
             services.AddScoped(typeof(IPersistanceManager<>), typeof(PersistanceManager<>));
 
@@ -63,7 +63,7 @@ namespace Vortex.SampleMvc
             #region VortexGraphConfiguration
 
             // Vortex Graph
-            var vortexGraph = app.ApplicationServices.GetService<VortexGraph>();
+            var vortexGraph = app.ApplicationServices.GetService<IVortexGraph>();
             vortexGraph.LoadDefaults();
 
             #endregion

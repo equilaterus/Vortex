@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Equilaterus.Vortex.Engine
 {
-    public class VortexGraph
+    public class VortexGraph : IVortexGraph
     {
         /// <summary>
         /// VortexGraph representation.

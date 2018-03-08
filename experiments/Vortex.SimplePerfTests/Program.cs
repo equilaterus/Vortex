@@ -112,7 +112,7 @@ namespace Vortex.SimplePerfTests
                 swVortex.Start();
                 foreach (var entity in vortexEntities)
                 {
-                    await persistanceManager.ExecuteCommand(
+                    await persistanceManager.ExecuteCommandAsync(
                     VortexEvents.InsertEntity.ToString(),
                     new VortexData(entity));
                 }

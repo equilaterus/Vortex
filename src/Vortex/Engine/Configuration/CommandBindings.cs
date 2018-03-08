@@ -11,7 +11,7 @@ namespace Equilaterus.Vortex.Engine.Configuration
 {
     public static class CommandBindings
     {
-        public static void LoadDefaults(this VortexGraph graph)
+        public static void LoadDefaults(this IVortexGraph graph)
         {
             graph.CreateEvent(VortexEvents.InsertEntity);
             graph.CreateEvent(VortexEvents.UpdateEntity);

@@ -46,11 +46,11 @@ namespace Equilaterus.Vortex.Tests.IntegrationTests.Managers
                 IPersistanceManager<PersistanceTestModel> persistanceManager =
                     new PersistanceManager<PersistanceTestModel>(dataStorage, null, executor);
 
-                await persistanceManager.ExecuteCommand(
+                await persistanceManager.ExecuteCommandAsync(
                     VortexEvents.InsertEntity,
                     new VortexData(new PersistanceTestModel() { IsActive = true }));
 
-                var result = await persistanceManager.ExecuteQueryForEntities(
+                var result = await persistanceManager.ExecuteQueryForEntitiesAsync(
                     VortexEvents.QueryForEntities, new VortexData(new QueryParams<PersistanceTestModel>()));
 
                 Assert.NotEmpty(result);

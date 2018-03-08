@@ -20,7 +20,7 @@ namespace Equilaterus.Vortex.Managers
             string extension)
             where T : class, IAdjuntable
         {
-            await p.ExecuteCommand(
+            await p.ExecuteCommandAsync(
                 VortexEvents.InsertEntity, 
                 new VortexDataAdjuntable(
                     entity, 
@@ -37,7 +37,7 @@ namespace Equilaterus.Vortex.Managers
             string extension)
             where T : class, IAdjuntable
         {
-            await p.ExecuteCommand(
+            await p.ExecuteCommandAsync(
                 VortexEvents.UpdateEntity,
                 new VortexDataAdjuntable(
                     entity,

@@ -11,15 +11,15 @@ namespace Equilaterus.Vortex.Managers
 {
     public interface IPersistanceManager<T>
     {
-        Task ExecuteCommand(
+        Task ExecuteCommandAsync(
             string vortexEvent, 
             VortexData entity);
 
-        Task<List<T>> ExecuteQueryForEntities(
+        Task<List<T>> ExecuteQueryForEntitiesAsync(
             string vortexEvent,
             VortexData queryParams);
 
-        Task<int> ExecuteQueryForInt(
+        Task<int> ExecuteQueryForIntAsync(
             string vortexEvent,
             VortexData queryParams);
     }
