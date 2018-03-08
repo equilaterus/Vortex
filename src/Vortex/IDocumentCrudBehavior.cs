@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Equilaterus.Vortex.Behavior
+namespace Equilaterus.Vortex
 {
     public interface IDocumentCrudBehavior<T> : ICrudBehavior<T> where T : class
     {
