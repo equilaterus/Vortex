@@ -18,7 +18,7 @@ namespace Equilaterus.Vortex.Managers
             int take = 0,
             params string[] includeProperties) where T : class
         {
-            return await p.ExecuteQueryForEntities(
+            return await p.ExecuteQueryForEntitiesAsync(
                 VortexEvents.RelationalQueryForEntities, 
                 new VortexData(
                     new RelationalQueryParams<T>()

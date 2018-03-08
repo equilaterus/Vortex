@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Engine
 {
-    public class VortexExecutor<T> where T : class
+    public class VortexExecutor<T> : IVortexExecutor<T> where T : class
     {
         protected VortexContext<T> _context;
 
         protected VortexGraph _graph;
+
+        public VortexExecutor() { }
 
         public VortexExecutor(VortexGraph graph)
         {            
@@ -21,7 +23,7 @@ namespace Equilaterus.Vortex.Engine
             _context = vortexContext;
         }
 
-        public async Task<VortexData> Execute(string vortexEvent, VortexData actionParams)
+        public async Task<VortexData> ExecuteAsync(string vortexEvent, VortexData actionParams)
         {
             List<VortexAction> actionsToExecute = new List<VortexAction>();
             var actions = _graph.GetActions(vortexEvent, typeof(T));

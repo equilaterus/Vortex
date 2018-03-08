@@ -24,7 +24,7 @@ namespace Vortex.SampleMvc.Controllers
         public async Task<IActionResult> Index()
         {
             return View(
-                await _persistanceManager.ExecuteQueryForEntities(
+                await _persistanceManager.ExecuteQueryForEntitiesAsync(
                     VortexEvents.RelationalQueryForEntities, 
                     new VortexData(
                         new RelationalQueryParams<ExampleModel>())));
@@ -32,7 +32,7 @@ namespace Vortex.SampleMvc.Controllers
 
         public async Task<IActionResult> Add()
         {
-            await _persistanceManager.ExecuteCommand(
+            await _persistanceManager.ExecuteCommandAsync(
                 VortexEvents.InsertEntity,
                 new VortexData(
                 new ExampleModel

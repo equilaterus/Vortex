@@ -14,11 +14,11 @@ namespace Equilaterus.Vortex.Managers
     public class PersistanceManager<T> : IPersistanceManager<T> where T : class
     {
         protected readonly IDataStorage<T> _dataStorage;
-        protected readonly VortexExecutor<T> _vortexExecutor;
+        protected readonly IVortexExecutor<T> _vortexExecutor;
 
         public PersistanceManager(
             IDataStorage<T> dataStorage,
-            VortexExecutor<T> vortexExecutor)
+            IVortexExecutor<T> vortexExecutor)
         {
             _dataStorage = dataStorage;
             _vortexExecutor = vortexExecutor;
@@ -28,34 +28,49 @@ namespace Equilaterus.Vortex.Managers
         public PersistanceManager(
             IDataStorage<T> dataStorage, 
             IFileStorage fileStorage, 
-            VortexExecutor<T> vortexExecutor)
+            IVortexExecutor<T> vortexExecutor)
         {
             _dataStorage = dataStorage;
             _vortexExecutor = vortexExecutor;
             _vortexExecutor.Initialize(new VortexContext<T>(dataStorage, fileStorage));
         }
 
-        public async Task ExecuteCommand(
+        public async Task ExecuteCommandAsync(
             string vortexEvent, 
             VortexData entity)
         {
-             await _vortexExecutor.Execute(vortexEvent, entity);
+            if (string.IsNullOrEmpty(vortexEvent))
+            {
+                throw new ArgumentNullException(nameof(vortexEvent));
+            }
+            
+            await _vortexExecutor.ExecuteAsync(vortexEvent, entity);
         }
 
-        public async Task<List<T>> ExecuteQueryForEntities(
+        public async Task<List<T>> ExecuteQueryForEntitiesAsync(
             string vortexEvent, 
             VortexData queryParams)
         {
-            var result = await _vortexExecutor.Execute(
+            if (string.IsNullOrEmpty(vortexEvent))
+            {
+                throw new ArgumentNullException(nameof(vortexEvent));
+            }
+
+            var result = await _vortexExecutor.ExecuteAsync(
                 vortexEvent,
                 queryParams);
 
             return result.GetMainEntityAs<List<T>>();
         }
 
-        public async Task<int> ExecuteQueryForInt(string vortexEvent, VortexData queryParams)
+        public async Task<int> ExecuteQueryForIntAsync(string vortexEvent, VortexData queryParams)
         {
-            var result = await _vortexExecutor.Execute(
+            if (string.IsNullOrEmpty(vortexEvent))
+            {
+                throw new ArgumentNullException(nameof(vortexEvent));
+            }
+
+            var result = await _vortexExecutor.ExecuteAsync(
                 vortexEvent,
                 queryParams);
 
