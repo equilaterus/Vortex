@@ -124,12 +124,8 @@ namespace Vortex.Tests.Engine.Queries
             // Execute
             await command.Execute();
 
-            // It can not explicitly verify this call
-            // cause it adds [] and tries to verify an
-            // overloaded method, but action calls the
-            // one without that param
-            // mock.Verify(m => m.FindAllAsync());
-            mock.VerifyAll();
+            mock.As<IDataStorage<TestModel>>()
+                .Verify(m => m.FindAllAsync(), Times.Once);
         }
 
         [Fact]
@@ -150,14 +146,8 @@ namespace Vortex.Tests.Engine.Queries
             // Execute
             await command.Execute();
 
-            // It can not explicitly verify this call
-            // cause it adds [] and tries to verify an
-            // overloaded method, but action calls the
-            // one without that param
-            // CALLED: mock.Verify(m => m.FindAsync(t => t.Id == 1, null, 0, 0), Times.Once);
-            // VERIFIED: mock.Verify(m => m.FindAsync(t => t.Id == 1, null, 0, 0, []), Times.Once);
-            // Even with a setup it does not work.
-            mock.VerifyAll();
+            mock.As<IDataStorage<TestModel>>()
+                .Verify(m => m.FindAsync(t => t.Id == 1, null, 0, 0), Times.Once);
         }
 
         [Fact]
