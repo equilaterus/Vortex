@@ -13,10 +13,10 @@ namespace Equilaterus.Vortex.Managers
 {
     public static class AdjuntablePersistanceManager
     {
-        public static async Task InsertEntity<T>(
-            this PersistanceManager<T> p,
+        public static async Task InsertEntityAsync<T>(
+            this IPersistanceManager<T> p,
             T entity, 
-            FileStream stream,
+            Stream stream,
             string extension)
             where T : class, IAdjuntable
         {
@@ -30,10 +30,10 @@ namespace Equilaterus.Vortex.Managers
             );
         }
 
-        public static async Task UpdateEntity<T>(
-            this PersistanceManager<T> p,
+        public static async Task UpdateEntityAsync<T>(
+            this IPersistanceManager<T> p,
             T entity,
-            FileStream stream,
+            Stream stream,
             string extension)
             where T : class, IAdjuntable
         {

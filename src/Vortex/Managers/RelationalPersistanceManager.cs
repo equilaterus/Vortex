@@ -11,7 +11,7 @@ namespace Equilaterus.Vortex.Managers
 {
     public static class RelationalPersistanceManager
     {
-        public static async Task<List<T>> Find<T>(this PersistanceManager<T> p,
+        public static async Task<List<T>> FindAsync<T>(this IPersistanceManager<T> p,
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             int skip = 0,
@@ -19,7 +19,7 @@ namespace Equilaterus.Vortex.Managers
             params string[] includeProperties) where T : class
         {
             return await p.ExecuteQueryForEntitiesAsync(
-                VortexEvents.RelationalQueryForEntities, 
+                VortexEvents.RelationalQueryForEntities,
                 new VortexData(
                     new RelationalQueryParams<T>()
                     {
@@ -31,6 +31,12 @@ namespace Equilaterus.Vortex.Managers
                     }
                 )
             );
+        }
+
+        public static async Task<List<T>> FindAllAsync<T>(this IPersistanceManager<T> p,
+            params string[] includeProperties) where T : class
+        {
+            return await p.FindAsync(null, null, 0, 0, includeProperties);
         }
     }
 }

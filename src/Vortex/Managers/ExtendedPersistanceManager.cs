@@ -11,31 +11,31 @@ namespace Equilaterus.Vortex.Managers
 {
     public static class ExtendedPersistanceManager
     {
-        public static async Task InsertEntity<T>(this IPersistanceManager<T> p, T entity) where T : class
+        public static async Task InsertEntityAsync<T>(this IPersistanceManager<T> p, T entity) where T : class
         {
             await p.ExecuteCommandAsync(
                 VortexEvents.InsertEntity, new VortexData(entity));
         }
 
-        public static async Task UpdateEntity<T>(this IPersistanceManager<T> p, T entity) where T : class
+        public static async Task UpdateEntityAsync<T>(this IPersistanceManager<T> p, T entity) where T : class
         {
             await p.ExecuteCommandAsync(
                 VortexEvents.UpdateEntity, new VortexData(entity));
         }
 
-        public static async Task DeleteEntity<T>(this IPersistanceManager<T> p, T entity) where T : class
+        public static async Task DeleteEntityAsync<T>(this IPersistanceManager<T> p, T entity) where T : class
         {
             await p.ExecuteCommandAsync(
                 VortexEvents.DeleteEntity, new VortexData(entity));
         }
 
-        public static async Task<List<T>> FindAll<T>(this IPersistanceManager<T> p) where T : class
+        public static async Task<List<T>> FindAllAsync<T>(this IPersistanceManager<T> p) where T : class
         {
             return await p.ExecuteQueryForEntitiesAsync(
                 VortexEvents.QueryForEntities, new VortexData(new QueryParams<T>()));
         }
 
-        public static async Task<List<T>> Find<T>(this IPersistanceManager<T> p,
+        public static async Task<List<T>> FindAsync<T>(this IPersistanceManager<T> p,
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             int skip = 0,
@@ -55,7 +55,7 @@ namespace Equilaterus.Vortex.Managers
             );
         }
 
-        public static async Task<int> Count<T>(this IPersistanceManager<T> p,
+        public static async Task<int> CountAsync<T>(this IPersistanceManager<T> p,
             Expression<Func<T, bool>> filter = null) where T : class
         {
             return await p.ExecuteQueryForIntAsync(

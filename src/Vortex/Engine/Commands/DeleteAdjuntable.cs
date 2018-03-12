@@ -10,7 +10,7 @@ namespace Equilaterus.Vortex.Engine.Commands
     {
         public override void Initialize()
         {
-            PreventDefault = true;
+            PreventDefault = false;
             base.Initialize();
         }
 

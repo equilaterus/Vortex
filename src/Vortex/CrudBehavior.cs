@@ -12,42 +12,45 @@ namespace Equilaterus.Vortex
     {
         protected IPersistanceManager<T> PersistanceManager { get; private set; }
 
-        public Task DeleteAsync(T entity)
+        public virtual async Task DeleteAsync(T entity)
+        {
+            await PersistanceManager.DeleteEntityAsync(entity);
+        }
+
+        public virtual async Task DeleteRangeAsync(IEnumerable<T> entities)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteRangeAsync(IEnumerable<T> entities)
+        public virtual async Task<List<T>> FindAllAsync()
+        {
+            return await PersistanceManager.FindAllAsync();
+        }
+
+        public virtual async Task<List<T>> FindAsync(Expression<Func<T, bool>> filter = null, 
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, 
+            int skip = 0, 
+            int take = 0)
+        {
+            return await PersistanceManager.FindAsync(filter, orderBy, skip, take);
+        }
+         
+        public virtual async Task InsertAsync(T entity)
+        {
+            await PersistanceManager.InsertEntityAsync(entity);
+        }
+
+        public virtual async Task InsertRangeAsync(IEnumerable<T> entities)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<T>> FindAllAsync()
+        public virtual async Task UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            await PersistanceManager.UpdateEntityAsync(entity);
         }
 
-        public Task<List<T>> FindAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, int skip = 0, int take = 0)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task InsertAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task InsertRangeAsync(IEnumerable<T> entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateRangeAsync(IEnumerable<T> entities)
+        public virtual async Task UpdateRangeAsync(IEnumerable<T> entities)
         {
             throw new NotImplementedException();
         }
