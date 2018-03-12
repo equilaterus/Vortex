@@ -39,7 +39,8 @@ namespace Equilaterus.Vortex.Managers
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             int skip = 0,
-            int take = 0) where T : class
+            int take = 0,
+            bool skipFilters = false) where T : class
         {
             return await p.ExecuteQueryForEntitiesAsync(
                 VortexEvents.QueryForEntities, 
@@ -49,7 +50,8 @@ namespace Equilaterus.Vortex.Managers
                         Filter = filter,
                         OrderBy = orderBy,
                         Skip = skip,
-                        Take = take
+                        Take = take,
+                        SkipFilters = skipFilters
                     }
                 )
             );

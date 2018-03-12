@@ -15,6 +15,8 @@ namespace Equilaterus.Vortex.Engine.Queries
         public int Skip { get; set; } = 0;
 
         public int Take { get; set; } = 0;
+
+        public bool SkipFilters { get; set; }
     }
 
     public class RelationalQueryParams<T> : QueryParams<T>
@@ -31,7 +33,9 @@ namespace Equilaterus.Vortex.Engine.Queries
 
             Skip = q.Skip;
 
-            Take = q.Take;            
+            Take = q.Take;
+
+            SkipFilters = q.SkipFilters;
         }
     }
 }

@@ -15,6 +15,11 @@ namespace Equilaterus.Vortex.Engine.Queries
 
         public override async Task Execute()
         {
+            if (Params.GetMainEntityAs<QueryParams<T>>().SkipFilters)
+            {
+                return;
+            }
+
             var filters = GenericFilterFactory.GetInstance().GetFilters<T>();
             foreach (var filter in filters)
             {

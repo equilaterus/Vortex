@@ -74,6 +74,7 @@ namespace Vortex.Tests.Engine.Queries
             mock.Verify(m => m.FindAsync(t => t.Id == 1, null, 0, 0), Times.Once);
         }
 
+        
         [Fact]
         public async Task ExecuteNullParams()
         {
