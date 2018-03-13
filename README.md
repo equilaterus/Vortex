@@ -11,4 +11,4 @@ Clone this repo and open the solution on VS2017. At this moment the unique IDE t
 | **Branch** | Build status | Version |
 | ------------- |:-------------:| -----:|
 | **Master**        | [![Build Status](https://travis-ci.org/equilaterus/Vortex.svg?branch=master)](https://travis-ci.org/equilaterus/Vortex) | 0.0-prealpha.1  |
-| **Dev**        | [![Build Status](https://travis-ci.org/equilaterus/Vortex.svg?branch=dev)](https://travis-ci.org/equilaterus/Vortex) | 0.1-alpha.0  |
+| **Dev**        | [![Build Status](https://travis-ci.org/equilaterus/Vortex.svg?branch=dev)](https://travis-ci.org/equilaterus/Vortex) | 0.1-alpha.1  |
