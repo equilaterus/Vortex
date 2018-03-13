@@ -16,7 +16,7 @@ namespace Equilaterus.Vortex.Engine.Queries
 
         public int Take { get; set; } = 0;
 
-        public bool SkipFilters { get; set; }
+        public bool SkipFilters { get; set; } = false;
     }
 
     public class RelationalQueryParams<T> : QueryParams<T>

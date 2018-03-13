@@ -16,6 +16,7 @@ using Equilaterus.Vortex.Services.EFCore;
 using Equilaterus.Vortex.Engine;
 using Equilaterus.Vortex.Engine.Configuration;
 using Equilaterus.Vortex.Managers;
+using Equilaterus.Vortex;
 
 namespace Vortex.SampleMvc
 {
@@ -49,7 +50,9 @@ namespace Vortex.SampleMvc
             services.AddSingleton(typeof(IVortexGraph), typeof(VortexGraph));
             services.AddScoped(typeof(IVortexExecutor<>), typeof(VortexExecutor<>));
             services.AddScoped(typeof(IDataStorage<>), typeof(EFCoreDataStorage<>));
+            services.AddScoped(typeof(IRelationalDataStorage<>), typeof(EFCoreDataStorage<>));
             services.AddScoped(typeof(IPersistanceManager<>), typeof(PersistanceManager<>));
+            services.AddScoped(typeof(ICrudBehavior<>), typeof(CrudBehavior<>));
 
             #endregion
 

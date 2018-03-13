@@ -13,16 +13,19 @@ namespace Equilaterus.Vortex
         IRelationalCrudBehavior<T>        
         where T : class
     {
+        public RelationalCrudBehavior(IPersistanceManager<T> persistanceManager) : base(persistanceManager)
+        {  }
+
         public async Task<List<T>> FindAllAsync(params string[] includeProperties)
         {
-            return await PersistanceManager.FindAllAsync(includeProperties);
+            return await _persistanceManager.FindAllAsync(includeProperties);
         }
 
         public async Task<List<T>> FindAsync(Expression<Func<T, bool>> filter = null, 
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, 
             int skip = 0, int take = 0, params string[] includeProperties)
         {
-            return await PersistanceManager.FindAsync(filter, orderBy, skip, take, includeProperties);
+            return await _persistanceManager.FindAsync(filter, orderBy, skip, take, includeProperties);
         }
     }
 }

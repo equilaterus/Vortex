@@ -16,7 +16,8 @@ namespace Equilaterus.Vortex
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             int skip = 0,
-            int take = 0);
+            int take = 0,
+            bool skipFilters = false);
 
         Task InsertAsync(T entity);
 

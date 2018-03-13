@@ -12,21 +12,26 @@ namespace Equilaterus.Vortex
     public class AdjuntableBehavior<T> : IAdjuntableBehavior<T>
         where T : class, IAdjuntable
     {
-        protected IPersistanceManager<T> PersistanceManager { get; private set; }
+        protected readonly IPersistanceManager<T> _persistanceManager;
+
+        public AdjuntableBehavior(IPersistanceManager<T> persistanceManager)
+        {
+            _persistanceManager = persistanceManager;
+        }
 
         public virtual async Task DeleteAsync(T entity)
         {
-            await PersistanceManager.DeleteEntityAsync(entity);
+            await _persistanceManager.DeleteEntityAsync(entity);
         }
 
         public virtual async Task InsertAsync(T entity, Stream stream, string extension)
         {
-            await PersistanceManager.InsertEntityAsync(entity, stream, extension);
+            await _persistanceManager.InsertEntityAsync(entity, stream, extension);
         }
 
         public virtual async Task UpdateAsync(T entity, Stream stream, string extension)
         {
-            await PersistanceManager.UpdateEntityAsync(entity, stream, extension);
+            await _persistanceManager.UpdateEntityAsync(entity, stream, extension);
         }
     }
 }

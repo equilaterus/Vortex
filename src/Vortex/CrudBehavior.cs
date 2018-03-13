@@ -10,11 +10,16 @@ namespace Equilaterus.Vortex
 {
     public class CrudBehavior<T> : ICrudBehavior<T> where T : class
     {
-        protected IPersistanceManager<T> PersistanceManager { get; private set; }
+        protected readonly IPersistanceManager<T> _persistanceManager;
 
+        public CrudBehavior(IPersistanceManager<T> persistanceManager)
+        {
+            _persistanceManager = persistanceManager;
+        }
+        
         public virtual async Task DeleteAsync(T entity)
         {
-            await PersistanceManager.DeleteEntityAsync(entity);
+            await _persistanceManager.DeleteEntityAsync(entity);
         }
 
         public virtual async Task DeleteRangeAsync(IEnumerable<T> entities)
@@ -24,20 +29,21 @@ namespace Equilaterus.Vortex
 
         public virtual async Task<List<T>> FindAllAsync()
         {
-            return await PersistanceManager.FindAllAsync();
+            return await _persistanceManager.FindAllAsync();
         }
 
         public virtual async Task<List<T>> FindAsync(Expression<Func<T, bool>> filter = null, 
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, 
             int skip = 0, 
-            int take = 0)
+            int take = 0,
+            bool skipFilters = false)
         {
-            return await PersistanceManager.FindAsync(filter, orderBy, skip, take);
+            return await _persistanceManager.FindAsync(filter, orderBy, skip, take, skipFilters);
         }
          
         public virtual async Task InsertAsync(T entity)
         {
-            await PersistanceManager.InsertEntityAsync(entity);
+            await _persistanceManager.InsertEntityAsync(entity);
         }
 
         public virtual async Task InsertRangeAsync(IEnumerable<T> entities)
@@ -47,7 +53,7 @@ namespace Equilaterus.Vortex
 
         public virtual async Task UpdateAsync(T entity)
         {
-            await PersistanceManager.UpdateEntityAsync(entity);
+            await _persistanceManager.UpdateEntityAsync(entity);
         }
 
         public virtual async Task UpdateRangeAsync(IEnumerable<T> entities)

@@ -9,7 +9,7 @@ namespace Equilaterus.Vortex.Helpers
     static class ExtendedExpression
     {
         public static Expression<Func<T,bool>> Bind<T>(
-            this Expression<Func<T, bool>> expressionA,
+            Expression<Func<T, bool>> expressionA,
             Expression<Func<T, bool>> expressionB) 
             where T : class
         {

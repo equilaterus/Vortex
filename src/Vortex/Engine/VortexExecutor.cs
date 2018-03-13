@@ -9,11 +9,11 @@ namespace Equilaterus.Vortex.Engine
     {
         protected VortexContext<T> _context;
 
-        protected VortexGraph _graph;
+        protected IVortexGraph _graph;
 
         public VortexExecutor() { }
 
-        public VortexExecutor(VortexGraph graph)
+        public VortexExecutor(IVortexGraph graph)
         {            
             _graph = graph;
         }
