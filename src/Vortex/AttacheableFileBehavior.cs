@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex
 {
-    public class AdjuntableBehavior<T> : IAdjuntableBehavior<T>
-        where T : class, IAdjuntable
+    public class AttacheableFileBehavior<T> : IAttacheableFileBehavior<T>
+        where T : class, IAttacheableFile
     {
         protected readonly IPersistanceManager<T> _persistanceManager;
 
-        public AdjuntableBehavior(IPersistanceManager<T> persistanceManager)
+        public AttacheableFileBehavior(IPersistanceManager<T> persistanceManager)
         {
             _persistanceManager = persistanceManager;
         }

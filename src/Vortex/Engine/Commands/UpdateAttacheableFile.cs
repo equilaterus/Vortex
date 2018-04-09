@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Engine.Commands
 {
-    public class UpdateAdjuntable<T> : GenericAction<T> where T : class, IAdjuntable
+    public class UpdateAttacheableFile<T> : GenericAction<T> where T : class, IAttacheableFile
     {
         public override async Task Execute()
         {
@@ -31,6 +31,6 @@ namespace Equilaterus.Vortex.Engine.Commands
             Params.GetMainEntityAs<T>().FileUrl = fileUrl;
         }
 
-        public UpdateAdjuntable(VortexContext<T> context) : base(context) { }
+        public UpdateAttacheableFile(VortexContext<T> context) : base(context) { }
     }
 }

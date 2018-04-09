@@ -10,7 +10,7 @@ namespace Vortex.Tests
         public int Id { get; set; }
     }
 
-    public class AdjuntableTestModel : IAdjuntable
+    public class AdjuntableTestModel : IAttacheableFile
     {
         public int Id { get; set; }
         public string FileUrl { get; set; }

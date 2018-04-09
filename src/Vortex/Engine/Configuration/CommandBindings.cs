@@ -59,18 +59,18 @@ namespace Equilaterus.Vortex.Engine.Configuration
             // Adjuntables
             graph.Bind(
                 nameof(VortexEvents.InsertEntity),
-                nameof(IAdjuntable),
-                SubClassOf<VortexAction>.GetFrom(typeof(InsertAdjuntable<>)));
+                nameof(IAttacheableFile),
+                SubClassOf<VortexAction>.GetFrom(typeof(InsertAttacheableFile<>)));
 
             graph.Bind(
                 nameof(VortexEvents.UpdateEntity),
-                nameof(IAdjuntable),
-                SubClassOf<VortexAction>.GetFrom(typeof(UpdateAdjuntable<>)));
+                nameof(IAttacheableFile),
+                SubClassOf<VortexAction>.GetFrom(typeof(UpdateAttacheableFile<>)));
 
             graph.Bind(
                 nameof(VortexEvents.DeleteEntity),
-                nameof(IAdjuntable),
-                SubClassOf<VortexAction>.GetFrom(typeof(DeleteAdjuntable<>)));
+                nameof(IAttacheableFile),
+                SubClassOf<VortexAction>.GetFrom(typeof(DeleteAttacheableFile<>)));
 
             graph.Bind(
                 nameof(VortexEvents.QueryCount),

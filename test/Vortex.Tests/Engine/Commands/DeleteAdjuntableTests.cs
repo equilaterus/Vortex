@@ -19,7 +19,7 @@ namespace Vortex.Tests.Engine.Commands
 
         protected override GenericAction<AdjuntableTestModel> GetCommand(VortexContext<AdjuntableTestModel> context)
         {
-            return new DeleteAdjuntable<AdjuntableTestModel>(context);
+            return new DeleteAttacheableFile<AdjuntableTestModel>(context);
         }
 
         protected override VortexData GetData()

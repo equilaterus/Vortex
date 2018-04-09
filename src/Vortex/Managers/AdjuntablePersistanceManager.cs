@@ -18,7 +18,7 @@ namespace Equilaterus.Vortex.Managers
             T entity, 
             Stream stream,
             string extension)
-            where T : class, IAdjuntable
+            where T : class, IAttacheableFile
         {
             await p.ExecuteCommandAsync(
                 VortexEvents.InsertEntity, 
@@ -35,7 +35,7 @@ namespace Equilaterus.Vortex.Managers
             T entity,
             Stream stream,
             string extension)
-            where T : class, IAdjuntable
+            where T : class, IAttacheableFile
         {
             await p.ExecuteCommandAsync(
                 VortexEvents.UpdateEntity,

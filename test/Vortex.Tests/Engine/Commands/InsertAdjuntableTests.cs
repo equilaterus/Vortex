@@ -20,7 +20,7 @@ namespace Vortex.Tests.Engine.Commands
 
         protected override GenericAction<AdjuntableTestModel> GetCommand(VortexContext<AdjuntableTestModel> context)
         {
-            return new InsertAdjuntable<AdjuntableTestModel>(context);
+            return new InsertAttacheableFile<AdjuntableTestModel>(context);
         }
 
         protected override VortexData GetData()

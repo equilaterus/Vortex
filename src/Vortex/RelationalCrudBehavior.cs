@@ -9,9 +9,7 @@ using System.Threading.Tasks;
 namespace Equilaterus.Vortex
 {
     public class RelationalCrudBehavior<T>
-        : CrudBehavior<T>,
-        IRelationalCrudBehavior<T>        
-        where T : class
+        : CrudBehavior<T>, IRelationalCrudBehavior<T>  where T : class
     {
         public RelationalCrudBehavior(IPersistanceManager<T> persistanceManager) : base(persistanceManager)
         {  }

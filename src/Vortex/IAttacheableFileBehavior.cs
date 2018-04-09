@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex
 {
-    public interface IAdjuntableBehavior<T>
-        where T : IAdjuntable
+    public interface IAttacheableFileBehavior<T>
+        where T : IAttacheableFile
     {
         Task InsertAsync(T entity, Stream stream, string extension);
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Engine.Commands
 {
-    public class DeleteAdjuntable<T> : GenericAction<T> where T : class, IAdjuntable
+    public class DeleteAttacheableFile<T> : GenericAction<T> where T : class, IAttacheableFile
     {
         public override void Initialize()
         {
@@ -22,6 +22,6 @@ namespace Equilaterus.Vortex.Engine.Commands
             Params.GetMainEntityAs<T>().FileUrl = null;
         }
 
-        public DeleteAdjuntable(VortexContext<T> context) : base(context) { }
+        public DeleteAttacheableFile(VortexContext<T> context) : base(context) { }
     }
 }

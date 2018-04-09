@@ -37,15 +37,15 @@ namespace Vortex.Tests.Engine.Configuration
 
             Assert.Equal(2, graph[nameof(VortexEvents.InsertEntity)].Count);
             Assert.Equal(typeof(InsertEntity<>), graph[nameof(VortexEvents.InsertEntity)]["_default"][0].TypeOf);
-            Assert.Equal(typeof(InsertAdjuntable<>), graph[nameof(VortexEvents.InsertEntity)][nameof(IAdjuntable)][0].TypeOf);
+            Assert.Equal(typeof(InsertAttacheableFile<>), graph[nameof(VortexEvents.InsertEntity)][nameof(IAttacheableFile)][0].TypeOf);
 
             Assert.Equal(2, graph[nameof(VortexEvents.UpdateEntity)].Count);
             Assert.Equal(typeof(UpdateEntity<>), graph[nameof(VortexEvents.UpdateEntity)]["_default"][0].TypeOf);
-            Assert.Equal(typeof(UpdateAdjuntable<>), graph[nameof(VortexEvents.UpdateEntity)][nameof(IAdjuntable)][0].TypeOf);
+            Assert.Equal(typeof(UpdateAttacheableFile<>), graph[nameof(VortexEvents.UpdateEntity)][nameof(IAttacheableFile)][0].TypeOf);
 
             Assert.Equal(2, graph[nameof(VortexEvents.DeleteEntity)].Count);
             Assert.Equal(typeof(DeleteEntity<>), graph[nameof(VortexEvents.DeleteEntity)]["_default"][0].TypeOf);
-            Assert.Equal(typeof(DeleteAdjuntable<>), graph[nameof(VortexEvents.DeleteEntity)][nameof(IAdjuntable)][0].TypeOf);
+            Assert.Equal(typeof(DeleteAttacheableFile<>), graph[nameof(VortexEvents.DeleteEntity)][nameof(IAttacheableFile)][0].TypeOf);
 
             Assert.Single(graph[nameof(VortexEvents.QueryForEntities)]);
             Assert.Equal(typeof(QueryForEntities<>), graph[nameof(VortexEvents.QueryForEntities)]["_default"][0].TypeOf);

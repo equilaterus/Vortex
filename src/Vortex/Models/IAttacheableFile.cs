@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Equilaterus.Vortex.Models
 {
-    public interface IAdjuntable
+    public interface IAttacheableFile
     {
         string FileUrl { get; set; }
     }

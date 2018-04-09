@@ -14,42 +14,42 @@ using Xunit;
 
 namespace Equilaterus.Vortex.Tests.IntegrationTests
 {
-    public class ActivableTestModel : MongoDbEntity, IActivable
+    public class SoftDeleteableTestModel : MongoDbEntity, ISoftDeleteable
     {
-        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
         public int Counter { get; set; }
 
-        public ActivableTestModel() : base() { }
+        public SoftDeleteableTestModel() : base() { }
     }       
 
-    public class ActivableFilterTests : IntegrationTest<ActivableTestModel>
+    public class SoftDeleteableFilterTests : IntegrationTest<SoftDeleteableTestModel>
     {
-        protected override List<ActivableTestModel> GetSeed()
+        protected override List<SoftDeleteableTestModel> GetSeed()
         {
-            return new List<ActivableTestModel>()
+            return new List<SoftDeleteableTestModel>()
                 {
-                    new ActivableTestModel { IsActive = true, Counter = 1},
-                    new ActivableTestModel { IsActive = false, Counter = 1},
-                    new ActivableTestModel { IsActive = true, Counter = 0},
-                    new ActivableTestModel { IsActive = false, Counter = 0},
-                    new ActivableTestModel { IsActive = true, Counter = 1}
+                    new SoftDeleteableTestModel { IsDeleted = true, Counter = 1},
+                    new SoftDeleteableTestModel { IsDeleted = false, Counter = 1},
+                    new SoftDeleteableTestModel { IsDeleted = true, Counter = 0},
+                    new SoftDeleteableTestModel { IsDeleted = false, Counter = 0},
+                    new SoftDeleteableTestModel { IsDeleted = false, Counter = 1}
                 };
         }
 
-        private void Check(List<ActivableTestModel> result)
+        private void Check(List<SoftDeleteableTestModel> result)
         {
             Assert.Equal(2, result.Count);
             foreach (var entity in result)
             {
-                Assert.True(entity.IsActive);
+                Assert.False(entity.IsDeleted);
                 Assert.True(entity.Counter > 0);
             }
         }
 
         [Fact]
-        public async Task ActivableFilterTestsEFCore()
+        public async Task SoftDeleteableFilterTestsEFCore()
         {            
-            var dbName = nameof(ActivableFilterTestsEFCore);
+            var dbName = nameof(SoftDeleteableFilterTestsEFCore);
 
             using (var context = GetEfCoreContext(dbName))
             {
@@ -59,38 +59,38 @@ namespace Equilaterus.Vortex.Tests.IntegrationTests
 
             var factory = GenericFilterFactory.GetInstance();
 
-            var activableFilter = factory.GetFilters<ActivableTestModel>()[0];
+            var activableFilter = factory.GetFilters<SoftDeleteableTestModel>()[0];
 
-            var qparams = new QueryParams<ActivableTestModel>() { Filter = e => e.Counter > 0 };
+            var qparams = new QueryParams<SoftDeleteableTestModel>() { Filter = e => e.Counter > 0 };
             activableFilter.UpdateParams(qparams);
             Assert.NotNull(qparams);
 
             using (var context = GetEfCoreContext(dbName))
             {
-                var service = new EFCoreDataStorage<ActivableTestModel>(context);
+                var service = new EFCoreDataStorage<SoftDeleteableTestModel>(context);
                 var result = await service.FindAsync(qparams);
                 Check(result);
             }                
         }
 
         [Fact]
-        public async Task ActivableFilterTestsMongoDB()
+        public async Task SoftDeleteableTestsMongoDB()
         {
-            var dbName = nameof(ActivableFilterTestsMongoDB);
+            var dbName = nameof(SoftDeleteableTestsMongoDB);
 
             var context = GetMongoContext(dbName);            
-            await context.GetCollection<ActivableTestModel>().InsertManyAsync(GetSeed());
+            await context.GetCollection<SoftDeleteableTestModel>().InsertManyAsync(GetSeed());
 
 
             var factory = GenericFilterFactory.GetInstance();
 
-            var activableFilter = factory.GetFilters<ActivableTestModel>()[0];
+            var activableFilter = factory.GetFilters<SoftDeleteableTestModel>()[0];
 
-            var qparams = new QueryParams<ActivableTestModel>() { Filter = e => e.Counter > 0 };
+            var qparams = new QueryParams<SoftDeleteableTestModel>() { Filter = e => e.Counter > 0 };
             activableFilter.UpdateParams(qparams);
             Assert.NotNull(qparams);
             
-            var service = new MongoDbDataStorage<ActivableTestModel>(context);
+            var service = new MongoDbDataStorage<SoftDeleteableTestModel>(context);
             var result = await service.FindAsync(qparams);
 
             Check(result);

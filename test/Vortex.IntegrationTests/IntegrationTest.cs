@@ -10,9 +10,9 @@ using Xunit;
 
 namespace Equilaterus.Vortex.Tests.IntegrationTests
 {
-    public abstract class IntegrationTest<T> where T : class
+    public abstract class IntegrationTest<T> where T : class, new()
     {        
-        protected static TestContext<T> GetContext(string databaseName)
+        protected static TestContext<T> GetEfCoreContext(string databaseName)
         {
             var options = new DbContextOptionsBuilder<TestContext<T>>()
               .UseInMemoryDatabase(databaseName: databaseName)
@@ -42,6 +42,6 @@ namespace Equilaterus.Vortex.Tests.IntegrationTests
             return new MongoDbContext(mongoDbSettings);
         }
 
-        protected abstract List<TEntity> GetSeed<TEntity>() where TEntity : T, new();     
+        protected abstract List<T> GetSeed();     
     }
 }

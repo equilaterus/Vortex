@@ -24,7 +24,7 @@ namespace Equilaterus.Vortex.Tests.IntegrationTests.Managers
 
     public class PersistanceManagerTests : IntegrationTest<PersistanceTestModel>
     {
-        protected override List<PersistanceTestModel> GetSeed<PersistanceTestModel>()
+        protected override List<PersistanceTestModel> GetSeed()
         {
             return null;
         }
@@ -37,7 +37,7 @@ namespace Equilaterus.Vortex.Tests.IntegrationTests.Managers
             VortexGraph vortexGraph = new VortexGraph();
             vortexGraph.LoadDefaults();
 
-            using (var context = GetContext(dbName))
+            using (var context = GetEfCoreContext(dbName))
             {
                 var dataStorage = new EFCoreDataStorage<PersistanceTestModel>(context);
 
