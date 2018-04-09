@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using Equilaterus.Vortex.Engine.Configuration;
+using System.Reflection;
 
 namespace Vortex.Tests.Engine.Queries.Filters
 {
@@ -31,47 +32,47 @@ namespace Vortex.Tests.Engine.Queries.Filters
         [Fact]
         public void NullBindings()
         {
-            GenericFilterFactory filterFactory = GenericFilterFactory.GetInstance();
+            GenericFilterFactory filterFactory = new GenericFilterFactory();
+            filterFactory.LoadDefaults();
+
             Assert.Throws<ArgumentNullException>(() => filterFactory.Bind(typeof(IActivable), null));
             Assert.Throws<ArgumentNullException>(() => filterFactory.Bind(null, typeof(ActivableFilter<>)));
             Assert.Throws<ArgumentNullException>(() => filterFactory.Bind(null, null));
         }
-
-        [Fact]
-        public void TestBindings()
-        {
-            GenericFilterFactory filterFactory = GenericFilterFactory.GetInstance();
-                        
-            Assert.True(2 == filterFactory.Bindings.Count);
-            Assert.True(1 == filterFactory.Bindings[typeof(IActivable)].Count);
-            Assert.True(typeof(ActivableFilter<>) == filterFactory.Bindings[typeof(IActivable)][0]);
-
-            Assert.True(1 == filterFactory.Bindings[typeof(ISoftDeleteable)].Count);
-            Assert.True(typeof(SoftDeleteableFilter<>) == filterFactory.Bindings[typeof(ISoftDeleteable)][0]);
-        }
-
+        
         [Fact]
         public void TestMultipleBindings()
         {
-            GenericFilterFactory filterFactory = GenericFilterFactory.GetInstance();
-            
+            GenericFilterFactory filterFactory = new GenericFilterFactory();
+            filterFactory.LoadDefaults();
+
+            // DO EXTRA BINDING
             filterFactory.Bind(typeof(ISoftDeleteable), typeof(ActivableFilter<>));
 
-            Assert.True(2 == filterFactory.Bindings.Count);
-            Assert.True(1 == filterFactory.Bindings[typeof(IActivable)].Count);
-            Assert.True(typeof(ActivableFilter<>) == filterFactory.Bindings[typeof(IActivable)][0]);
+            Dictionary<Type, List<Type>> bindings = null;
+
+            bindings = filterFactory.GetType()
+                .GetField("_bindings", BindingFlags.Instance | BindingFlags.NonPublic)
+                .GetValue(filterFactory) as Dictionary<Type, List<Type>>;
+
+            Assert.NotNull(bindings);            
+
+            Assert.True(2 == bindings.Count);
+            Assert.True(1 == bindings[typeof(IActivable)].Count);
+            Assert.True(typeof(ActivableFilter<>) == bindings[typeof(IActivable)][0]);
             
-            Assert.True(2 == filterFactory.Bindings[typeof(ISoftDeleteable)].Count);
-            Assert.True(typeof(SoftDeleteableFilter<>) == filterFactory.Bindings[typeof(ISoftDeleteable)][0]);
-            Assert.True(typeof(ActivableFilter<>) == filterFactory.Bindings[typeof(ISoftDeleteable)][1]);
+            Assert.True(2 == bindings[typeof(ISoftDeleteable)].Count);
+            Assert.True(typeof(SoftDeleteableFilter<>) == bindings[typeof(ISoftDeleteable)][0]);
+            Assert.True(typeof(ActivableFilter<>) == bindings[typeof(ISoftDeleteable)][1]);
         }
 
 
         [Fact]
         public void GetFilterForVanilla()
         {
-            GenericFilterFactory filterFactory = GenericFilterFactory.GetInstance();
-           
+            GenericFilterFactory filterFactory = new GenericFilterFactory();
+            filterFactory.LoadDefaults();
+
             var result = filterFactory.GetFilters<MyModel>();
 
             Assert.NotNull(result);
@@ -81,8 +82,9 @@ namespace Vortex.Tests.Engine.Queries.Filters
         [Fact]
         public void GetFilterForActivable()
         {
-            GenericFilterFactory filterFactory = GenericFilterFactory.GetInstance();
-            
+            GenericFilterFactory filterFactory = new GenericFilterFactory();
+            filterFactory.LoadDefaults();
+
             var result = filterFactory.GetFilters<ActiveModel>();
 
             Assert.NotNull(result);
@@ -93,8 +95,9 @@ namespace Vortex.Tests.Engine.Queries.Filters
         [Fact]
         public void GetFilterForActivableAndSoftDeleteable()
         {
-            GenericFilterFactory filterFactory = GenericFilterFactory.GetInstance();
-            
+            GenericFilterFactory filterFactory = new GenericFilterFactory();
+            filterFactory.LoadDefaults();
+
             var result = filterFactory.GetFilters<ActiveSoftDeleteableModel>();
 
 

@@ -1,4 +1,5 @@
-﻿using Equilaterus.Vortex.Engine.Queries.Filters;
+﻿using Equilaterus.Vortex.Engine.Configuration;
+using Equilaterus.Vortex.Engine.Queries.Filters;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,7 +21,10 @@ namespace Equilaterus.Vortex.Engine.Queries
                 return;
             }
 
-            var filters = GenericFilterFactory.GetInstance().GetFilters<T>();
+            IGenericFilterFactory factory = new GenericFilterFactory();
+            factory.LoadDefaults();
+
+            var filters = factory.GetFilters<T>();
             foreach (var filter in filters)
             {
                 filter.UpdateParams(Params.GetMainEntityAs<QueryParams<T>>());

@@ -7,19 +7,17 @@ using System.Text;
 
 namespace Equilaterus.Vortex.Engine.Queries.Filters
 {
-    public class GenericFilterFactory
+    public class GenericFilterFactory : IGenericFilterFactory
     {
-        private static GenericFilterFactory _instance = new GenericFilterFactory();
-
-        public static GenericFilterFactory GetInstance()
+        public GenericFilterFactory()
         {
-            return _instance;
+            _bindings = new Dictionary<Type, List<Type>>();
         }
 
         /// <summary>
         /// Binds a Type of Model Interface with its filter implementation.
         /// </summary>
-        public Dictionary<Type, List<Type>> Bindings { get; protected set; }
+        protected Dictionary<Type, List<Type>> _bindings;
 
         public void Bind(Type modelInterface, Type filterImplementation)
         {
@@ -32,16 +30,16 @@ namespace Equilaterus.Vortex.Engine.Queries.Filters
                 throw new ArgumentNullException(nameof(filterImplementation));
             }
 
-            if (!Bindings.ContainsKey(modelInterface))
+            if (!_bindings.ContainsKey(modelInterface))
             {
-                Bindings.Add(modelInterface, new List<Type>());
+                _bindings.Add(modelInterface, new List<Type>());
             }
 
-            if (Bindings[modelInterface].Contains(filterImplementation))
+            if (_bindings[modelInterface].Contains(filterImplementation))
             {
                 throw new Exception("Binding already exists");
             }
-            Bindings[modelInterface].Add(filterImplementation);
+            _bindings[modelInterface].Add(filterImplementation);
         }
 
         public List<QueryFilter<T>> GetFilters<T>() where T : class
@@ -49,7 +47,7 @@ namespace Equilaterus.Vortex.Engine.Queries.Filters
             var filters = new List<QueryFilter<T>>();
 
             var ttype = typeof(T);
-            foreach (var binding in Bindings)
+            foreach (var binding in _bindings)
             {
                 if (binding.Key.IsAssignableFrom(ttype))
                 {
@@ -64,13 +62,6 @@ namespace Equilaterus.Vortex.Engine.Queries.Filters
             }
 
             return filters;
-        }
-
-        private GenericFilterFactory()
-        {
-            Bindings = new Dictionary<Type, List<Type>>();
-
-            this.LoadDefaults();
         }
     }
 }

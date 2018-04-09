@@ -17,6 +17,7 @@ using Equilaterus.Vortex.Engine;
 using Equilaterus.Vortex.Engine.Configuration;
 using Equilaterus.Vortex.Managers;
 using Equilaterus.Vortex;
+using Equilaterus.Vortex.Engine.Queries.Filters;
 
 namespace Vortex.SampleMvc
 {
@@ -48,6 +49,7 @@ namespace Vortex.SampleMvc
             // Inject DbContext to VortexServices
             services.AddScoped<DbContext>(p => p.GetRequiredService<ApplicationDbContext>());
             services.AddSingleton(typeof(IVortexGraph), typeof(VortexGraph));
+            services.AddSingleton(typeof(IGenericFilterFactory), typeof(GenericFilterFactory));
             services.AddScoped(typeof(IVortexExecutor<>), typeof(VortexExecutor<>));
             services.AddScoped(typeof(IDataStorage<>), typeof(EFCoreDataStorage<>));
             services.AddScoped(typeof(IRelationalDataStorage<>), typeof(EFCoreDataStorage<>));
@@ -68,6 +70,10 @@ namespace Vortex.SampleMvc
             // Vortex Graph
             var vortexGraph = app.ApplicationServices.GetService<IVortexGraph>();
             vortexGraph.LoadDefaults();
+
+            // Filter Factory
+            var filterFactory = app.ApplicationServices.GetService<IGenericFilterFactory>();
+            filterFactory.LoadDefaults();
 
             #endregion
 

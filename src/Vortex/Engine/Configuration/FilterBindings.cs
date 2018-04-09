@@ -8,7 +8,7 @@ namespace Equilaterus.Vortex.Engine.Configuration
 {
     public static class FilterBindings
     {
-        public static void LoadDefaults(this GenericFilterFactory factory)
+        public static void LoadDefaults(this IGenericFilterFactory factory)
         {
             factory.Bind(typeof(IActivable), typeof(ActivableFilter<>));
             factory.Bind(typeof(ISoftDeleteable), typeof(SoftDeleteableFilter<>));

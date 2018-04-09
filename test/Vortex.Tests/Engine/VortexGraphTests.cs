@@ -6,6 +6,7 @@ using Equilaterus.Vortex.Engine;
 using Equilaterus.Vortex.Helpers;
 using System.Threading.Tasks;
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 namespace Vortex.Tests.Engine
 {
     public class VortexGraphTests
@@ -28,7 +29,9 @@ namespace Vortex.Tests.Engine
 
         class BasicAction1 : VortexAction
         {
+
             public override async Task Execute()
+
             {
                 var entity = Params.GetMainEntityAs<IT1>();
                 if (entity != null)
@@ -215,3 +218,4 @@ namespace Vortex.Tests.Engine
         }
     }
 }
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously

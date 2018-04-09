@@ -57,7 +57,8 @@ namespace Equilaterus.Vortex.Tests.IntegrationTests
                 await context.SaveChangesAsync();
             }
 
-            var factory = GenericFilterFactory.GetInstance();
+            var factory = new GenericFilterFactory();
+            factory.LoadDefaults();
 
             var activableFilter = factory.GetFilters<ActivableTestModel>()[0];
 
@@ -82,7 +83,8 @@ namespace Equilaterus.Vortex.Tests.IntegrationTests
             await context.GetCollection<ActivableTestModel>().InsertManyAsync(GetSeed());
 
 
-            var factory = GenericFilterFactory.GetInstance();
+            var factory = new GenericFilterFactory();
+            factory.LoadDefaults();
 
             var activableFilter = factory.GetFilters<ActivableTestModel>()[0];
 
@@ -96,8 +98,6 @@ namespace Equilaterus.Vortex.Tests.IntegrationTests
             Check(result);
 
             _runner.Dispose();            
-        }
-
-       
+        }       
     }
 }
