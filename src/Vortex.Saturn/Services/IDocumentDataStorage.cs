@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Equilaterus.Vortex.Services
+namespace Equilaterus.Vortex.Saturn.Services
 {
     /// <summary>
     /// Represents the data storage for document oriented databases.

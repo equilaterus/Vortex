@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Equilaterus.Vortex.Engine
+namespace Equilaterus.Vortex
 {
     public abstract class VortexAction
     {
@@ -30,9 +30,9 @@ namespace Equilaterus.Vortex.Engine
 
     public abstract class GenericAction<T> : VortexAction where T : class
     {
-        public VortexContext<T> Context { get; protected set; }
+        public IVortexContext<T> Context { get; protected set; }
 
-        public GenericAction(VortexContext<T> context)
+        public GenericAction(IVortexContext<T> context)
         {
             Context = context;
         }

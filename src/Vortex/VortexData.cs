@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Equilaterus.Vortex.Engine
+namespace Equilaterus.Vortex
 {
     public class VortexData
     {
@@ -12,11 +12,6 @@ namespace Equilaterus.Vortex.Engine
             where T : class
         {
             return Entity as T;
-        }
-
-        public int GetAsInt()
-        {
-            return (int)Entity;
         }
 
         public VortexData(object entity)

@@ -3,27 +3,23 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Equilaterus.Vortex.Engine
+namespace Equilaterus.Vortex
 {
-    public class VortexExecutor<T> : IVortexExecutor<T> where T : class
+    public class VortexEngine<T> : IVortexEngine<T> where T : class
     {
-        protected VortexContext<T> _context;
+        protected IVortexContext<T> _context;
 
         protected IVortexGraph _graph;
 
-        public VortexExecutor() { }
+        public VortexEngine() { }
 
-        public VortexExecutor(IVortexGraph graph)
+        public VortexEngine(IVortexGraph graph, IVortexContext<T> vortexContext)
         {            
             _graph = graph;
-        }
-
-        public void Initialize(VortexContext<T> vortexContext)
-        {
             _context = vortexContext;
         }
 
-        public async Task<VortexData> ExecuteAsync(string vortexEvent, VortexData actionParams)
+        public async Task<VortexData> RaiseEventAsync(string vortexEvent, VortexData actionParams)
         {
             List<VortexAction> actionsToExecute = new List<VortexAction>();
             var actions = _graph.GetActions(vortexEvent, typeof(T));

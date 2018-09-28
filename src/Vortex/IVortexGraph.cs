@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Equilaterus.Vortex.Helpers;
 
-namespace Equilaterus.Vortex.Engine
+namespace Equilaterus.Vortex
 {
     public interface IVortexGraph
     {

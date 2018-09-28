@@ -1,11 +1,10 @@
-﻿using Equilaterus.Vortex.Services;
-using Equilaterus.Vortex.Engine.Queries;
+﻿using Equilaterus.Vortex.Engine.Queries;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Equilaterus.Vortex.Services
+namespace Equilaterus.Vortex.Saturn.Services
 {
     public static class ExtendedDataStorage
     {

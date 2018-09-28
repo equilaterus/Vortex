@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Equilaterus.Vortex.Services
+namespace Equilaterus.Vortex.Saturn.Services
 {
     public interface IFileStorage
     {
