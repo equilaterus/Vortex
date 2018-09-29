@@ -5,6 +5,38 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Commands\**" />
+    <Compile Remove="Configuration\**" />
+    <Compile Remove="Models\**" />
+    <Compile Remove="Queries\**" />
+    <EmbeddedResource Remove="Commands\**" />
+    <EmbeddedResource Remove="Configuration\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="Queries\**" />
+    <None Remove="Commands\**" />
+    <None Remove="Configuration\**" />
+    <None Remove="Models\**" />
+    <None Remove="Queries\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="AdjuntablePersistanceManager.cs" />
+    <Compile Remove="ExtendedPersistanceManager.cs" />
+    <Compile Remove="IPersistanceManager.cs" />
+    <Compile Remove="PersistanceManager.cs" />
+    <Compile Remove="RelationalPersistanceManager.cs" />
+    <Compile Remove="Services\ExtendedDataStorage.cs" />
+    <Compile Remove="VortexContext.cs" />
+    <Compile Remove="VortexDataAdjuntable.cs" />
+    <Compile Remove="VortexEvents.cs" />
+    <Compile Remove="VortexRelationalContext.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Models\IBaseModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Vortex\Vortex.csproj" />
   </ItemGroup>
 
