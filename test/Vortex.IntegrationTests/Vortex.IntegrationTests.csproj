@@ -11,6 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Engine\**" />
+    <EmbeddedResource Remove="Engine\**" />
+    <None Remove="Engine\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="Mongo2Go" Version="2.2.1" />
@@ -20,8 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Vortex.Data.EFCore\Vortex.Data.EFCore.csproj" />
-    <ProjectReference Include="..\..\src\Vortex.Data.MongoDB\Vortex.Data.MongoDB.csproj" />
+    <ProjectReference Include="..\..\src\Vortex.Saturn.Data.EFCore\Vortex.Saturn.Data.EFCore.csproj" />
+    <ProjectReference Include="..\..\src\Vortex.Saturn.Data.MongoDB\Vortex.Saturn.Data.MongoDB.csproj" />
+    <ProjectReference Include="..\..\src\Vortex.Saturn\Vortex.Saturn.csproj" />
     <ProjectReference Include="..\..\src\Vortex\Vortex.csproj" />
   </ItemGroup>
 
@@ -29,10 +36,6 @@
     <None Update="xunit.runner.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Engine\Commands\" />
   </ItemGroup>
 
 </Project>

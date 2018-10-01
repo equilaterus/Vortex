@@ -1,18 +1,15 @@
-﻿using Equilaterus.Vortex.Engine;
-using Equilaterus.Vortex.Engine.Configuration;
-using Equilaterus.Vortex.Engine.Queries;
-using Equilaterus.Vortex.Managers;
-using Equilaterus.Vortex.Models;
-using Equilaterus.Vortex.Services.EFCore;
-using Equilaterus.Vortex.Services.MongoDB;
+﻿using Equilaterus.Vortex.Saturn;
+using Equilaterus.Vortex.Saturn.Configuration;
+using Equilaterus.Vortex.Saturn.Models;
+using Equilaterus.Vortex.Saturn.Queries;
+using Equilaterus.Vortex.Saturn.Services.EFCore;
+using Equilaterus.Vortex.Saturn.Services.MongoDB;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using static Equilaterus.Vortex.Engine.Configuration.CommandBindings;
-
-namespace Equilaterus.Vortex.Tests.IntegrationTests.Managers
+namespace Equilaterus.Vortex.IntegrationTests.Managers
 {
     public class PersistanceTestModel : MongoDbEntity, IActivable
     {
@@ -41,7 +38,7 @@ namespace Equilaterus.Vortex.Tests.IntegrationTests.Managers
             {
                 var dataStorage = new EFCoreDataStorage<PersistanceTestModel>(context);
 
-                var executor = new VortexExecutor<PersistanceTestModel>(vortexGraph);
+                var executor = new VortexEngine<PersistanceTestModel>(vortexGraph, new VortexRelationalContext<PersistanceTestModel>(dataStorage, null));
 
                 IPersistanceManager<PersistanceTestModel> persistanceManager =
                     new PersistanceManager<PersistanceTestModel>(dataStorage, null, executor);

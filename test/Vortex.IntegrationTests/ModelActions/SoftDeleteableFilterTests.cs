@@ -1,10 +1,10 @@
-using Equilaterus.Vortex.Engine.Queries;
-using Equilaterus.Vortex.Engine.Queries.Filters;
-using Equilaterus.Vortex.Models;
-using Equilaterus.Vortex.Services;
-using Equilaterus.Vortex.Services.EFCore;
-using Equilaterus.Vortex.Services.MongoDB;
-using Equilaterus.Vortex.Engine.Configuration;
+using Equilaterus.Vortex.Saturn.Configuration;
+using Equilaterus.Vortex.Saturn.Models;
+using Equilaterus.Vortex.Saturn.Queries;
+using Equilaterus.Vortex.Saturn.Queries.Filters;
+using Equilaterus.Vortex.Saturn.Services;
+using Equilaterus.Vortex.Saturn.Services.EFCore;
+using Equilaterus.Vortex.Saturn.Services.MongoDB;
 using Microsoft.EntityFrameworkCore;
 using Mongo2Go;
 using System;
@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Equilaterus.Vortex.Tests.IntegrationTests
+namespace Equilaterus.Vortex.IntegrationTests
 {
     public class SoftDeleteableTestModel : MongoDbEntity, ISoftDeleteable
     {

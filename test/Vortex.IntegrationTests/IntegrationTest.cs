@@ -1,6 +1,4 @@
-using Equilaterus.Vortex.Models;
-using Equilaterus.Vortex.Services.EFCore;
-using Equilaterus.Vortex.Services.MongoDB;
+using Equilaterus.Vortex.Saturn.Services.MongoDB;
 using Microsoft.EntityFrameworkCore;
 using Mongo2Go;
 using System;
@@ -8,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Equilaterus.Vortex.Tests.IntegrationTests
+namespace Equilaterus.Vortex.IntegrationTests
 {
     public abstract class IntegrationTest<T> where T : class, new()
     {        
