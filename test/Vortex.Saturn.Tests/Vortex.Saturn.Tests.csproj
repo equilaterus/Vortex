@@ -7,26 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Engine\**" />
-    <Compile Remove="Managers\**" />
-    <Compile Remove="Services\**" />
-    <EmbeddedResource Remove="Engine\**" />
-    <EmbeddedResource Remove="Managers\**" />
-    <EmbeddedResource Remove="Services\**" />
-    <None Remove="Engine\**" />
-    <None Remove="Managers\**" />
-    <None Remove="Services\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="TestModel.cs" />
     <Compile Remove="UnitTest1.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="Moq" Version="4.8.2" />
     <PackageReference Include="xunit" Version="2.3.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Vortex.Saturn\Vortex.Saturn.csproj" />
+    <ProjectReference Include="..\..\src\Vortex\Vortex.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="xunit.runner.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

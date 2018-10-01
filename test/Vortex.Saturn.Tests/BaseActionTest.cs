@@ -1,6 +1,4 @@
-﻿using Equilaterus.Vortex.Engine;
-using Equilaterus.Vortex.Engine.Commands;
-using Equilaterus.Vortex.Services;
+﻿using Equilaterus.Vortex.Saturn.Services;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -8,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Vortex.Tests.Engine
+namespace Equilaterus.Vortex.Saturn.Tests
 {
     public abstract class BaseActionTest<T> where T : class
     {

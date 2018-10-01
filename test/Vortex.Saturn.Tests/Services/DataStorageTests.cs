@@ -1,10 +1,11 @@
+using Equilaterus.Vortex.Saturn.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Equilaterus.Vortex.Services.DataStorage.Tests
+namespace Equilaterus.Vortex.Saturn.Tests.Services
 {
     public interface IDataTestModel
     {

@@ -1,17 +1,14 @@
-﻿using Equilaterus.Vortex.Engine;
-using Equilaterus.Vortex.Engine.Commands;
-using Equilaterus.Vortex.Engine.Configuration;
-using Equilaterus.Vortex.Engine.Queries;
+﻿
 using Equilaterus.Vortex.Helpers;
-using Equilaterus.Vortex.Models;
-using System;
+using Equilaterus.Vortex.Saturn.Commands;
+using Equilaterus.Vortex.Saturn.Configuration;
+using Equilaterus.Vortex.Saturn.Models;
+using Equilaterus.Vortex.Saturn.Queries;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using Xunit;
-using static Equilaterus.Vortex.Engine.Configuration.CommandBindings;
 
-namespace Vortex.Tests.Engine.Configuration
+namespace Equilaterus.Vortex.Saturn.Tests.Configuration
 {
     public class CommandBindingsTests
     {

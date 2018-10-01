@@ -1,6 +1,5 @@
-﻿using Equilaterus.Vortex.Engine;
-using Equilaterus.Vortex.Engine.Commands;
-using Equilaterus.Vortex.Services;
+﻿using Equilaterus.Vortex.Saturn.Commands;
+using Equilaterus.Vortex.Saturn.Services;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -8,11 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Vortex.Tests.Engine.Commands
+namespace Equilaterus.Vortex.Saturn.Tests.Services.Commands
 {
-    public class DeleteEntityTests : BaseActionTest<TestModel>
+    public class InsertEntityTests : BaseActionTest<TestModel>
     {
-        public DeleteEntityTests()
+        public InsertEntityTests()
         {
             ThrowsOnNullFileStorage = false;
 
@@ -22,7 +21,7 @@ namespace Vortex.Tests.Engine.Commands
 
         protected override GenericAction<TestModel> GetCommand(VortexContext<TestModel> context)
         {
-            return new DeleteEntity<TestModel>(context);
+            return new InsertEntity<TestModel>(context);
         }
 
         protected override VortexData GetData()
@@ -46,7 +45,7 @@ namespace Vortex.Tests.Engine.Commands
             // Execute
             await command.Execute();
 
-            mock.Verify(m => m.DeleteAsync(data.GetMainEntityAs<TestModel>()), Times.Once);
+            mock.Verify(m => m.InsertAsync(data.GetMainEntityAs<TestModel>()), Times.Once);
         }
 
         

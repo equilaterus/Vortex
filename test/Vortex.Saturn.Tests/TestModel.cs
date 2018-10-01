@@ -1,9 +1,10 @@
-﻿using Equilaterus.Vortex.Models;
+﻿
+using Equilaterus.Vortex.Saturn.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Vortex.Tests
+namespace Equilaterus.Vortex.Saturn.Tests
 {
     public class TestModel
     {

@@ -1,6 +1,5 @@
-﻿using Equilaterus.Vortex.Engine;
-using Equilaterus.Vortex.Engine.Queries;
-using Equilaterus.Vortex.Managers;
+﻿
+using Equilaterus.Vortex.Saturn.Queries;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -8,14 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Vortex.Tests.Managers
+namespace Equilaterus.Vortex.Saturn.Tests
 {
     public class PersistanceManagerTests
     {
         [Fact]
         public async Task ExecuteCommand()
         {
-            var vortexExecutor = new Mock<IVortexExecutor<TestModel>>();
+            var vortexExecutor = new Mock<IVortexEngine<TestModel>>();
 
             var persistanceManager = new PersistanceManager<TestModel>(null, vortexExecutor.Object);
 
@@ -25,13 +24,13 @@ namespace Vortex.Tests.Managers
             await persistanceManager.ExecuteCommandAsync(
                 vortexEvent, vortexData);
 
-            vortexExecutor.Verify(m => m.ExecuteAsync(vortexEvent, vortexData), Times.Once);
+            vortexExecutor.Verify(m => m.RaiseEventAsync(vortexEvent, vortexData), Times.Once);
         }
 
         [Fact]
         public async Task ExecuteCommandNullEvent()
         {
-            var vortexExecutor = new Mock<IVortexExecutor<TestModel>>();
+            var vortexExecutor = new Mock<IVortexEngine<TestModel>>();
 
             var persistanceManager = new PersistanceManager<TestModel>(null, vortexExecutor.Object);
             
@@ -44,13 +43,13 @@ namespace Vortex.Tests.Managers
         [Fact]
         public async Task ExecuteQueryForEntities()
         {
-            var vortexExecutor = new Mock<IVortexExecutor<TestModel>>();
+            var vortexExecutor = new Mock<IVortexEngine<TestModel>>();
 
             var vortexEvent = "randomEvent";
             var vortexData = new VortexData(new QueryParams<TestModel>());
 
             vortexExecutor.Setup(
-                m => m.ExecuteAsync(vortexEvent, vortexData))
+                m => m.RaiseEventAsync(vortexEvent, vortexData))
                 .ReturnsAsync(new VortexData(
                     new List<TestModel>()
                     {
@@ -63,7 +62,7 @@ namespace Vortex.Tests.Managers
             var result = await persistanceManager.ExecuteQueryForEntitiesAsync(
                 vortexEvent, vortexData);
 
-            vortexExecutor.Verify(m => m.ExecuteAsync(vortexEvent, vortexData), Times.Once);
+            vortexExecutor.Verify(m => m.RaiseEventAsync(vortexEvent, vortexData), Times.Once);
 
             Assert.NotEmpty(result);
             Assert.Equal(3, result[0].Id);
@@ -72,7 +71,7 @@ namespace Vortex.Tests.Managers
         [Fact]
         public async Task ExecuteQueryForEntitiesNullEvent()
         {
-            var vortexExecutor = new Mock<IVortexExecutor<TestModel>>();
+            var vortexExecutor = new Mock<IVortexEngine<TestModel>>();
 
             var persistanceManager = new PersistanceManager<TestModel>(null, vortexExecutor.Object);
 
@@ -85,13 +84,13 @@ namespace Vortex.Tests.Managers
         [Fact]
         public async Task ExecuteQueryForInt()
         {
-            var vortexExecutor = new Mock<IVortexExecutor<TestModel>>();
+            var vortexExecutor = new Mock<IVortexEngine<TestModel>>();
 
             var vortexEvent = "randomEvent";
             var vortexData = new VortexData(new QueryParams<TestModel>());
 
             vortexExecutor.Setup(
-                m => m.ExecuteAsync(vortexEvent, vortexData))
+                m => m.RaiseEventAsync(vortexEvent, vortexData))
                 .ReturnsAsync(new VortexData(3));
 
             var persistanceManager = new PersistanceManager<TestModel>(null, vortexExecutor.Object);
@@ -100,7 +99,7 @@ namespace Vortex.Tests.Managers
             var result = await persistanceManager.ExecuteQueryForIntAsync(
                 vortexEvent, vortexData);
 
-            vortexExecutor.Verify(m => m.ExecuteAsync(vortexEvent, vortexData), Times.Once);
+            vortexExecutor.Verify(m => m.RaiseEventAsync(vortexEvent, vortexData), Times.Once);
             
             Assert.Equal(3, result);
         }
@@ -108,7 +107,7 @@ namespace Vortex.Tests.Managers
         [Fact]
         public async Task ExecuteQueryForIntNullEvent()
         {
-            var vortexExecutor = new Mock<IVortexExecutor<TestModel>>();
+            var vortexExecutor = new Mock<IVortexEngine<TestModel>>();
 
             var persistanceManager = new PersistanceManager<TestModel>(null, vortexExecutor.Object);
 

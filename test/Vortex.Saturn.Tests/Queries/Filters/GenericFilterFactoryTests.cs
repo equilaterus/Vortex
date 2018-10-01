@@ -1,11 +1,10 @@
-﻿using Equilaterus.Vortex.Models;
-using Equilaterus.Vortex.Engine.Queries.Filters;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Xunit;
-using Equilaterus.Vortex.Engine.Configuration;
 using System.Reflection;
+using Equilaterus.Vortex.Saturn.Queries.Filters;
+using Equilaterus.Vortex.Saturn.Models;
+using Equilaterus.Vortex.Saturn.Configuration;
 
 namespace Vortex.Tests.Engine.Queries.Filters
 {

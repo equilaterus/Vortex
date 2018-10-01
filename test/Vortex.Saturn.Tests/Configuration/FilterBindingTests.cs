@@ -1,13 +1,13 @@
-﻿using Equilaterus.Vortex.Engine.Configuration;
-using Equilaterus.Vortex.Engine.Queries.Filters;
-using Equilaterus.Vortex.Models;
+﻿using Equilaterus.Vortex.Saturn.Configuration;
+using Equilaterus.Vortex.Saturn.Models;
+using Equilaterus.Vortex.Saturn.Queries.Filters;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using Xunit;
 
-namespace Vortex.Tests.Engine.Configuration
+namespace Equilaterus.Vortex.Saturn.Tests.Configuration
 {
     public class FilterBindingTests
     {

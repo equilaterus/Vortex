@@ -1,16 +1,15 @@
-﻿using Equilaterus.Vortex.Models;
-using Equilaterus.Vortex.Engine.Queries.Filters;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
-using Equilaterus.Vortex.Engine.Configuration;
-using Equilaterus.Vortex.Engine.Queries;
 using System.Linq.Expressions;
 using System.Linq;
 using System.Threading.Tasks;
+using Equilaterus.Vortex.Saturn.Queries.Filters;
+using Equilaterus.Vortex.Saturn.Queries;
 
-namespace Vortex.Tests.Engine.Queries.Filters
+namespace Equilaterus.Vortex.Saturn.Tests.Queries.Filters
 {
     public class ActivableFilterTests : BaseFilterTests<ActivableTestModel>
     {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Equilaterus.Vortex.Saturn.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
@@ -6,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Equilaterus.Vortex.Services.Tests
+namespace Equilaterus.Vortex.Saturn.Tests.Services
 {
     public abstract class FileStorageTests
     {

@@ -1,12 +1,9 @@
-﻿using Equilaterus.Vortex.Engine.Queries;
-using Equilaterus.Vortex.Engine.Queries.Filters;
+﻿using Equilaterus.Vortex.Saturn.Queries;
+using Equilaterus.Vortex.Saturn.Queries.Filters;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace Vortex.Tests.Engine.Queries.Filters
+namespace Equilaterus.Vortex.Saturn.Tests.Queries.Filters
 {
     public abstract class BaseFilterTests<T> where T : class
     {

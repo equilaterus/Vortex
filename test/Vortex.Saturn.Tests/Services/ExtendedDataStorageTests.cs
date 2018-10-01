@@ -1,5 +1,6 @@
-﻿using Equilaterus.Vortex.Engine.Queries;
-using Equilaterus.Vortex.Services;
+﻿using Equilaterus.Vortex.Saturn.Queries;
+using Equilaterus.Vortex.Saturn.Services;
+using Equilaterus.Vortex.Saturn.Tests;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Vortex.Tests.Services
+namespace Equilaterus.Vortex.Saturn.Tests.Services
 {
     public class ExtendedDataStorageTests
     {

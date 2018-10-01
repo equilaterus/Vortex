@@ -1,6 +1,6 @@
-﻿using Equilaterus.Vortex.Engine;
-using Equilaterus.Vortex.Engine.Commands;
-using Equilaterus.Vortex.Services;
+﻿
+using Equilaterus.Vortex.Saturn.Commands;
+using Equilaterus.Vortex.Saturn.Services;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Vortex.Tests.Engine.Commands
+namespace Equilaterus.Vortex.Saturn.Tests.Commands
 {
     public class UpdateEntityTests : BaseActionTest<TestModel>
     {

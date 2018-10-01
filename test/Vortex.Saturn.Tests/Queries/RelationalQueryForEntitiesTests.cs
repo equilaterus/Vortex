@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Equilaterus.Vortex.Engine;
-using Equilaterus.Vortex.Engine.Queries;
-using Equilaterus.Vortex.Services;
+using Equilaterus.Vortex.Saturn.Queries;
+using Equilaterus.Vortex.Saturn.Services;
 using Moq;
 using Xunit;
 
-namespace Vortex.Tests.Engine.Queries
+namespace Equilaterus.Vortex.Saturn.Tests
 {
     public class RelationalQueryForEntitiesTests : BaseActionTest<TestModel>
     {
