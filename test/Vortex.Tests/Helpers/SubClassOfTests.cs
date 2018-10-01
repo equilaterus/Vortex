@@ -1,11 +1,8 @@
-﻿using Equilaterus.Vortex.Helpers;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Text;
 using Xunit;
 
-namespace Vortex.Tests.Helpers
+namespace Equilaterus.Vortex.Helpers.Test
 {
     public class SubClassOfTests
     {
