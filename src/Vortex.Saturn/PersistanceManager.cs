@@ -1,38 +1,30 @@
-﻿using Equilaterus.Vortex.Engine;
-using Equilaterus.Vortex.Engine.Queries;
-using Equilaterus.Vortex.Services;
+﻿using Equilaterus.Vortex.Saturn.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using static Equilaterus.Vortex.Engine.Configuration.CommandBindings;
 
-namespace Equilaterus.Vortex.Managers
+namespace Equilaterus.Vortex.Saturn
 {
     public class PersistanceManager<T> : IPersistanceManager<T> where T : class
     {
         protected readonly IDataStorage<T> _dataStorage;
-        protected readonly IVortexExecutor<T> _vortexExecutor;
+        protected readonly IVortexEngine<T> _vortexExecutor;
 
         public PersistanceManager(
             IDataStorage<T> dataStorage,
-            IVortexExecutor<T> vortexExecutor)
+            IVortexEngine<T> vortexExecutor)
         {
             _dataStorage = dataStorage;
             _vortexExecutor = vortexExecutor;
-            _vortexExecutor.Initialize(new VortexContext<T>(dataStorage, null));
         }
 
         public PersistanceManager(
             IDataStorage<T> dataStorage, 
-            IFileStorage fileStorage, 
-            IVortexExecutor<T> vortexExecutor)
+            IFileStorage fileStorage,
+            IVortexEngine<T> vortexExecutor)
         {
             _dataStorage = dataStorage;
             _vortexExecutor = vortexExecutor;
-            _vortexExecutor.Initialize(new VortexContext<T>(dataStorage, fileStorage));
         }
 
         public async Task ExecuteCommandAsync(
@@ -44,7 +36,7 @@ namespace Equilaterus.Vortex.Managers
                 throw new ArgumentNullException(nameof(vortexEvent));
             }
             
-            await _vortexExecutor.ExecuteAsync(vortexEvent, entity);
+            await _vortexExecutor.RaiseEventAsync(vortexEvent, entity);
         }
 
         public async Task<List<T>> ExecuteQueryForEntitiesAsync(
@@ -56,7 +48,7 @@ namespace Equilaterus.Vortex.Managers
                 throw new ArgumentNullException(nameof(vortexEvent));
             }
 
-            var result = await _vortexExecutor.ExecuteAsync(
+            var result = await _vortexExecutor.RaiseEventAsync(
                 vortexEvent,
                 queryParams);
 
@@ -70,11 +62,11 @@ namespace Equilaterus.Vortex.Managers
                 throw new ArgumentNullException(nameof(vortexEvent));
             }
 
-            var result = await _vortexExecutor.ExecuteAsync(
+            var result = await _vortexExecutor.RaiseEventAsync(
                 vortexEvent,
                 queryParams);
 
-            return result.GetAsInt();
+            return (int)result.Entity;
         }
     }
 }

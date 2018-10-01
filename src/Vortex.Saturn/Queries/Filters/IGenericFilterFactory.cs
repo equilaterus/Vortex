@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Equilaterus.Vortex.Engine.Queries.Filters
+namespace Equilaterus.Vortex.Saturn.Queries.Filters
 {
     public interface IGenericFilterFactory
     {        

@@ -1,11 +1,11 @@
-﻿using Equilaterus.Vortex.Engine.Configuration;
-using Equilaterus.Vortex.Engine.Queries.Filters;
+﻿using Equilaterus.Vortex.Saturn.Configuration;
+using Equilaterus.Vortex.Saturn.Queries.Filters;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Equilaterus.Vortex.Engine.Queries
+namespace Equilaterus.Vortex.Saturn.Queries
 {
     public class UpdateQueryFilter<T> : GenericAction<T> where T : class
     {

@@ -1,5 +1,4 @@
-﻿using Equilaterus.Vortex.Engine;
-using Equilaterus.Vortex.Engine.Queries;
+﻿using Equilaterus.Vortex.Saturn.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Equilaterus.Vortex.Managers
+namespace Equilaterus.Vortex.Saturn
 {
     public static class RelationalPersistanceManager
     {

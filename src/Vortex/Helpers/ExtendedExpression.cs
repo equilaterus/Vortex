@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Equilaterus.Vortex.Helpers
 {
-    static class ExtendedExpression
+    public static class ExtendedExpression
     {
         public static Expression<Func<T,bool>> Bind<T>(
             Expression<Func<T, bool>> expressionA,

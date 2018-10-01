@@ -26,20 +26,5 @@ namespace Equilaterus.Vortex
         }
 
         public abstract Task Execute();        
-    }
-
-    public abstract class GenericAction<T> : VortexAction where T : class
-    {
-        public IVortexContext<T> Context { get; protected set; }
-
-        public GenericAction(IVortexContext<T> context)
-        {
-            Context = context;
-        }
-
-        public GenericAction()
-        {
-
-        }
-    }
+    }    
 }

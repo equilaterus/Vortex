@@ -1,12 +1,12 @@
 ﻿using Equilaterus.Vortex.Helpers;
-using Equilaterus.Vortex.Models;
+using Equilaterus.Vortex.Saturn.Models;
 using LinqKit;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Equilaterus.Vortex.Engine.Queries.Filters
+namespace Equilaterus.Vortex.Saturn.Queries.Filters
 {
     public class ActivableFilter<T> : QueryFilter<T> where T : class, IActivable
     {

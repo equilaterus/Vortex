@@ -1,9 +1,9 @@
-﻿using Equilaterus.Vortex.Services;
+﻿using Equilaterus.Vortex.Saturn.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Equilaterus.Vortex.Engine
+namespace Equilaterus.Vortex.Saturn
 {
     public class VortexRelationalContext<T> : VortexContext<T> where T : class
     {

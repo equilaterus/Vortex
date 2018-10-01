@@ -1,5 +1,5 @@
-﻿using Equilaterus.Vortex.Services;
-using Equilaterus.Vortex.Engine.Queries;
+﻿using Equilaterus.Vortex.Saturn.Services;
+using Equilaterus.Vortex.Saturn.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Equilaterus.Vortex.Engine.Queries
+namespace Equilaterus.Vortex.Saturn.Queries
 {
     public class RelationalQueryForEntities<T> : GenericAction<T> where T : class
     {

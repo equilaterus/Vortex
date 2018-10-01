@@ -1,10 +1,10 @@
-﻿using Equilaterus.Vortex.Models;
+﻿using Equilaterus.Vortex.Saturn.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Equilaterus.Vortex.Engine.Commands
+namespace Equilaterus.Vortex.Saturn.Commands
 {
     public class SoftDelete<T> : GenericAction<T> where T : class, ISoftDeleteable
     {

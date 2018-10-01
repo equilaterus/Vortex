@@ -1,13 +1,12 @@
-﻿using Equilaterus.Vortex.Engine.Commands;
-using Equilaterus.Vortex.Engine.Queries;
-using Equilaterus.Vortex.Engine.Queries.Filters;
-using Equilaterus.Vortex.Helpers;
-using Equilaterus.Vortex.Models;
+﻿using Equilaterus.Vortex.Helpers;
+using Equilaterus.Vortex.Saturn.Commands;
+using Equilaterus.Vortex.Saturn.Models;
+using Equilaterus.Vortex.Saturn.Queries;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Equilaterus.Vortex.Engine.Configuration
+namespace Equilaterus.Vortex.Saturn.Configuration
 {
     public static class CommandBindings
     {

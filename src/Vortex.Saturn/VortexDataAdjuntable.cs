@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 
-namespace Equilaterus.Vortex.Engine
+namespace Equilaterus.Vortex.Saturn
 {
-    public class VortexDataAdjuntable : VortexData
+    public class VortexDataAttacheable : VortexData
     {
         public Stream File { get; private set; }
 
         public string Extension { get; set; }
 
-        public VortexDataAdjuntable(object entity, Stream file, string extension) : base(entity)
+        public VortexDataAttacheable(object entity, Stream file, string extension) : base(entity)
         {
             File = file;
             Extension = extension;

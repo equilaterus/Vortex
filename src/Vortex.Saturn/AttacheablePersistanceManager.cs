@@ -1,6 +1,4 @@
-﻿using Equilaterus.Vortex.Engine;
-using Equilaterus.Vortex.Engine.Queries;
-using Equilaterus.Vortex.Models;
+﻿using Equilaterus.Vortex.Saturn.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,9 +7,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Equilaterus.Vortex.Managers
+namespace Equilaterus.Vortex.Saturn
 {
-    public static class AdjuntablePersistanceManager
+    public static class AttacheablePersistanceManager
     {
         public static async Task InsertEntityAsync<T>(
             this IPersistanceManager<T> p,
@@ -22,7 +20,7 @@ namespace Equilaterus.Vortex.Managers
         {
             await p.ExecuteCommandAsync(
                 VortexEvents.InsertEntity, 
-                new VortexDataAdjuntable(
+                new VortexDataAttacheable(
                     entity, 
                     stream, 
                     extension
@@ -39,7 +37,7 @@ namespace Equilaterus.Vortex.Managers
         {
             await p.ExecuteCommandAsync(
                 VortexEvents.UpdateEntity,
-                new VortexDataAdjuntable(
+                new VortexDataAttacheable(
                     entity,
                     stream,
                     extension

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Equilaterus.Vortex.Engine.Queries.Filters
+namespace Equilaterus.Vortex.Saturn.Queries.Filters
 {
     public abstract class QueryFilter<T> where T : class
     {

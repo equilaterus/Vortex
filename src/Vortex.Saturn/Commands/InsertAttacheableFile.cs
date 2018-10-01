@@ -1,16 +1,16 @@
-﻿using Equilaterus.Vortex.Models;
+﻿using Equilaterus.Vortex.Saturn.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Equilaterus.Vortex.Engine.Commands
+namespace Equilaterus.Vortex.Saturn.Commands
 {
     public class InsertAttacheableFile<T> : GenericAction<T> where T : class, IAttacheableFile
     {
         public override async Task Execute()
         {
-            VortexDataAdjuntable adjuntableParams = Params as VortexDataAdjuntable;
+            var adjuntableParams = Params as VortexDataAttacheable;
             if (adjuntableParams == null)
             {
                 throw new Exception("Incorrect params");
