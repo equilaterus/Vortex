@@ -15,7 +15,7 @@ Clone this repo and open *Equilaterus.Vortex.sln* file.
   * vscode-solution-explorer.
   * .NET Core Test Explorer.
 * Clone repo.
-* Open folder wiht VS Code.
+* Open folder with VS Code.
 * **Important:** When editing keep .sln up-to-date.
 
 ### More info
