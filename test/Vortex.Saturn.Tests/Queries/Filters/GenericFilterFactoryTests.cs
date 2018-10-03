@@ -6,7 +6,7 @@ using Equilaterus.Vortex.Saturn.Queries.Filters;
 using Equilaterus.Vortex.Saturn.Models;
 using Equilaterus.Vortex.Saturn.Configuration;
 
-namespace Vortex.Tests.Engine.Queries.Filters
+namespace Equilaterus.Vortex.Saturn.Tests.Queries.Filters
 {
     public class GenericFilterFactoryTests
     {
