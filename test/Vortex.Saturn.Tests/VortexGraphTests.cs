@@ -98,8 +98,8 @@ namespace Equilaterus.Vortex.Saturn.Tests
             VortexGraph g = new VortexGraph();
 
             g.CreateEvent("OnDelete");
-            g.Bind("OnDelete", nameof(IT1), SubClassOf<VortexAction>.GetFrom<Action1<ClassTest>>());
-            g.Bind("OnDelete", nameof(IT2), SubClassOf<VortexAction>.GetFrom<Action2<ClassTest>>());
+            g.Bind("OnDelete", nameof(IT1), SubTypeOf<VortexAction>.GetFrom<Action1<ClassTest>>());
+            g.Bind("OnDelete", nameof(IT2), SubTypeOf<VortexAction>.GetFrom<Action2<ClassTest>>());
 
             ClassTest objectTest = new ClassTest();
             var actions = g.GetActions("OnDelete", objectTest.GetType());
@@ -127,8 +127,8 @@ namespace Equilaterus.Vortex.Saturn.Tests
             VortexGraph g = new VortexGraph();
 
             g.CreateEvent("OnDelete");
-            g.Bind("OnDelete", nameof(IT1), SubClassOf<VortexAction>.GetFrom<BasicAction1>());
-            g.Bind("OnDelete", nameof(IT2), SubClassOf<VortexAction>.GetFrom<BasicAction2>());
+            g.Bind("OnDelete", nameof(IT1), SubTypeOf<VortexAction>.GetFrom<BasicAction1>());
+            g.Bind("OnDelete", nameof(IT2), SubTypeOf<VortexAction>.GetFrom<BasicAction2>());
 
             ClassTest objectTest = new ClassTest();
             var actions = g.GetActions("OnDelete", objectTest.GetType());
@@ -155,7 +155,7 @@ namespace Equilaterus.Vortex.Saturn.Tests
             VortexGraph g = new VortexGraph();
 
             g.CreateEvent("OnDelete");            
-            g.Bind("OnDelete", nameof(IT2), SubClassOf<VortexAction>.GetFrom<Action2<ClassTest>>());
+            g.Bind("OnDelete", nameof(IT2), SubTypeOf<VortexAction>.GetFrom<Action2<ClassTest>>());
 
             ClassTest objectTest = new ClassTest();
             var actions = g.GetActions("OnDelete", objectTest.GetType());
@@ -180,7 +180,7 @@ namespace Equilaterus.Vortex.Saturn.Tests
             VortexGraph g = new VortexGraph();
 
             Assert.Throws<Exception>(
-                () => g.Bind("OnDelete", nameof(IT1), SubClassOf<VortexAction>.GetFrom<Action1<ClassTest>>())
+                () => g.Bind("OnDelete", nameof(IT1), SubTypeOf<VortexAction>.GetFrom<Action1<ClassTest>>())
             );
         }
 

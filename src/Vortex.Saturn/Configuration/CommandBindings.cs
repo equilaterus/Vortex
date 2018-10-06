@@ -22,59 +22,59 @@ namespace Equilaterus.Vortex.Saturn.Configuration
             graph.Bind(
                 nameof(VortexEvents.InsertEntity),
                 "_default",
-                SubClassOf<VortexAction>.GetFrom(typeof(InsertEntity<>)));
+                SubTypeOf<VortexAction>.GetFrom(typeof(InsertEntity<>)));
 
             graph.Bind(
                 nameof(VortexEvents.UpdateEntity),
                 "_default",
-                SubClassOf<VortexAction>.GetFrom(typeof(UpdateEntity<>)));
+                SubTypeOf<VortexAction>.GetFrom(typeof(UpdateEntity<>)));
 
             graph.Bind(
                 nameof(VortexEvents.DeleteEntity),
                 "_default",
-                SubClassOf<VortexAction>.GetFrom(typeof(DeleteEntity<>)));
+                SubTypeOf<VortexAction>.GetFrom(typeof(DeleteEntity<>)));
 
             graph.Bind(
                 nameof(VortexEvents.QueryForEntities),
                 "_default",
-                SubClassOf<VortexAction>.GetFrom(typeof(QueryForEntities<>)));
+                SubTypeOf<VortexAction>.GetFrom(typeof(QueryForEntities<>)));
 
             graph.Bind(
                 nameof(VortexEvents.QueryForEntities),
                 "_default",
-                SubClassOf<VortexAction>.GetFrom(typeof(UpdateQueryFilter<>)));
+                SubTypeOf<VortexAction>.GetFrom(typeof(UpdateQueryFilter<>)));
 
             graph.Bind(
                 nameof(VortexEvents.RelationalQueryForEntities),
                 "_default",
-                SubClassOf<VortexAction>.GetFrom(typeof(RelationalQueryForEntities<>)));
+                SubTypeOf<VortexAction>.GetFrom(typeof(RelationalQueryForEntities<>)));
 
             graph.Bind(
                nameof(VortexEvents.RelationalQueryForEntities),
                "_default",
-               SubClassOf<VortexAction>.GetFrom(typeof(UpdateQueryFilter<>)));
+               SubTypeOf<VortexAction>.GetFrom(typeof(UpdateQueryFilter<>)));
 
 
             // Adjuntables
             graph.Bind(
                 nameof(VortexEvents.InsertEntity),
                 nameof(IAttacheableFile),
-                SubClassOf<VortexAction>.GetFrom(typeof(InsertAttacheableFile<>)));
+                SubTypeOf<VortexAction>.GetFrom(typeof(InsertAttacheableFile<>)));
 
             graph.Bind(
                 nameof(VortexEvents.UpdateEntity),
                 nameof(IAttacheableFile),
-                SubClassOf<VortexAction>.GetFrom(typeof(UpdateAttacheableFile<>)));
+                SubTypeOf<VortexAction>.GetFrom(typeof(UpdateAttacheableFile<>)));
 
             graph.Bind(
                 nameof(VortexEvents.DeleteEntity),
                 nameof(IAttacheableFile),
-                SubClassOf<VortexAction>.GetFrom(typeof(DeleteAttacheableFile<>)));
+                SubTypeOf<VortexAction>.GetFrom(typeof(DeleteAttacheableFile<>)));
 
             graph.Bind(
                 nameof(VortexEvents.QueryCount),
                 "_default",
-                SubClassOf<VortexAction>.GetFrom(typeof
+                SubTypeOf<VortexAction>.GetFrom(typeof
                   (QueryCount<>)));
         }
     }

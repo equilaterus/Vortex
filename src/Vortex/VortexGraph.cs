@@ -10,14 +10,14 @@ namespace Equilaterus.Vortex
         /// VortexGraph representation.
         /// Dictionary {Event, {Inteface, Action }}
         /// </summary>
-        protected Dictionary<string, Dictionary<string, List<SubClassOf<VortexAction>>>> _graph;
+        protected Dictionary<string, Dictionary<string, List<SubTypeOf<VortexAction>>>> _graph;
                 
         public VortexGraph()
         {
-            _graph = new Dictionary<string, Dictionary<string, List<SubClassOf<VortexAction>>>>();
+            _graph = new Dictionary<string, Dictionary<string, List<SubTypeOf<VortexAction>>>>();
         }
 
-        public void Bind(string instigatorEvent, string objectInterface, SubClassOf<VortexAction> action)
+        public void Bind(string instigatorEvent, string objectInterface, SubTypeOf<VortexAction> action)
         {
             if (!_graph.ContainsKey(instigatorEvent))
             {
@@ -26,7 +26,7 @@ namespace Equilaterus.Vortex
 
             if (!_graph[instigatorEvent].ContainsKey(objectInterface))
             {
-                _graph[instigatorEvent].Add(objectInterface, new List<SubClassOf<VortexAction>>());
+                _graph[instigatorEvent].Add(objectInterface, new List<SubTypeOf<VortexAction>>());
             }
             _graph[instigatorEvent][objectInterface].Add(action);
         }
@@ -38,17 +38,17 @@ namespace Equilaterus.Vortex
                 throw new Exception("The event already exist.");
             }
 
-            _graph.Add(instigatorEvent, new Dictionary<string, List<SubClassOf<VortexAction>>>());
+            _graph.Add(instigatorEvent, new Dictionary<string, List<SubTypeOf<VortexAction>>>());
         }
 
-        public List<SubClassOf<VortexAction>> GetActions(string instigatorEvent, Type typeEntity)
+        public List<SubTypeOf<VortexAction>> GetActions(string instigatorEvent, Type typeEntity)
         {
             if (!_graph.ContainsKey(instigatorEvent))
             {
                 throw new Exception("Instigator Event not found.");
             }
 
-            List<SubClassOf<VortexAction>> actions = new List<SubClassOf<VortexAction>>();
+            List<SubTypeOf<VortexAction>> actions = new List<SubTypeOf<VortexAction>>();
             var defaultAction = GetDefaultActions(instigatorEvent);
             if (defaultAction != null)
             {
@@ -69,14 +69,14 @@ namespace Equilaterus.Vortex
             return actions;
         }
 
-        public List<SubClassOf<VortexAction>> GetDefaultActions(string instigatorEvent)
+        public List<SubTypeOf<VortexAction>> GetDefaultActions(string instigatorEvent)
         {
             if (!_graph.ContainsKey(instigatorEvent))
             {
                 throw new Exception("Instigator Event not found.");
             }
 
-            List<SubClassOf<VortexAction>> defaultAction = null;
+            List<SubTypeOf<VortexAction>> defaultAction = null;
 
             var interfaceName = "_default";
             var graphEvent = _graph[instigatorEvent];

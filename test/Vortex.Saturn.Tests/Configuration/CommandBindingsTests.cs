@@ -23,11 +23,11 @@ namespace Equilaterus.Vortex.Saturn.Tests.Configuration
             VortexGraph vortexGraph = new VortexGraph();
             vortexGraph.LoadDefaults();
 
-            Dictionary<string, Dictionary<string, List<SubClassOf<VortexAction>>>> graph = null;
+            Dictionary<string, Dictionary<string, List<SubTypeOf<VortexAction>>>> graph = null;
 
             graph = vortexGraph.GetType()
                 .GetField("_graph", BindingFlags.Instance | BindingFlags.NonPublic)
-                .GetValue(vortexGraph) as Dictionary<string, Dictionary<string, List<SubClassOf<VortexAction>>>>;
+                .GetValue(vortexGraph) as Dictionary<string, Dictionary<string, List<SubTypeOf<VortexAction>>>>;
 
             Assert.NotNull(graph);
             Assert.Equal(6, graph.Count);
