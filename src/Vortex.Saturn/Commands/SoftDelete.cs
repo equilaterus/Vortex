@@ -1,4 +1,5 @@
-﻿using Equilaterus.Vortex.Saturn.Models;
+﻿using Equilaterus.Vortex.Actions;
+using Equilaterus.Vortex.Saturn.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,23 +7,15 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Saturn.Commands
 {
-    public class SoftDelete<T> : GenericAction<T> where T : class, ISoftDeleteable
+    public class SoftDelete<T> : VortexAction<T> where T : class, ISoftDeleteable
     {
-        public override void Initialize()
+        public override async Task Execute(T entity, params object[] parameters)
         {
-            IsDefaultAction = false;
-            PreventDefault = true;
-            Priority = 1;
+            entity.IsDeleted = true;
+            await this.GetContext()
+                .DataStorage.UpdateAsync(entity);
         }
 
-        public override async Task Execute()
-        {
-            Params.GetMainEntityAs<T>().IsDeleted = true;
-            await Context.DataStorage.UpdateAsync(Params.GetMainEntityAs<T>());
-        }
-
-        public SoftDelete(VortexContext<T> context) : base(context)
-        {            
-        }
+        public SoftDelete(VortexContext<T> context) : base(context) { }
     }
 }

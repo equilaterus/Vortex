@@ -1,4 +1,5 @@
-﻿using Equilaterus.Vortex.Saturn.Models;
+﻿using Equilaterus.Vortex.Actions;
+using Equilaterus.Vortex.Saturn.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,29 +7,29 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Saturn.Commands
 {
-    public class UpdateAttacheableFile<T> : GenericAction<T> where T : class, IAttacheableFile
+    public class UpdateAttacheableFile<T> : VortexAction<T> where T : class, IAttacheableFile
     {
-        public override async Task Execute()
+        public override async Task Execute(T entity, params object[] parameters)
         {
-            var adjuntableParams = Params as VortexDataAttacheable;
+            if (parameters == null)
+                return;
+
+            var adjuntableParams = parameters[0] as VortexDataAttacheable;
             if (adjuntableParams == null)
-            {
                 throw new Exception("Incorrect params");
-            }
 
             if (adjuntableParams.File == null)
-            {
                 return;
-            }
 
-            await Context.FileStorage.DeleteFileAsync(
-                Params.GetMainEntityAs<T>().FileUrl);
+            await this.GetContext()
+                .FileStorage.DeleteFileAsync(entity.FileUrl);
 
-            string fileUrl = await Context.FileStorage.StoreFileAsync(
-                                adjuntableParams.File,
-                                adjuntableParams.Extension);
+            string fileUrl = await this.GetContext()
+                                .FileStorage.StoreFileAsync(
+                                    adjuntableParams.File,
+                                    adjuntableParams.Extension);
 
-            Params.GetMainEntityAs<T>().FileUrl = fileUrl;
+            entity.FileUrl = fileUrl;
         }
 
         public UpdateAttacheableFile(VortexContext<T> context) : base(context) { }

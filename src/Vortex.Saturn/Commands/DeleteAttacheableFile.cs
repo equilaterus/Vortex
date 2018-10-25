@@ -1,4 +1,5 @@
-﻿using Equilaterus.Vortex.Saturn.Models;
+﻿using Equilaterus.Vortex.Actions;
+using Equilaterus.Vortex.Saturn.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,20 +7,13 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Saturn.Commands
 {
-    public class DeleteAttacheableFile<T> : GenericAction<T> where T : class, IAttacheableFile
+    public class DeleteAttacheableFile<T> : VortexAction<T> where T : class, IAttacheableFile
     {
-        public override void Initialize()
+        public override async Task Execute(T entity, params object[] parameters)
         {
-            PreventDefault = false;
-            base.Initialize();
-        }
+            await this.GetContext().FileStorage.DeleteFileAsync(entity.FileUrl);
 
-        public override async Task Execute()
-        {
-            await Context.FileStorage.DeleteFileAsync(
-                Params.GetMainEntityAs<T>().FileUrl);
-
-            Params.GetMainEntityAs<T>().FileUrl = null;
+            entity.FileUrl = null;
         }
 
         public DeleteAttacheableFile(VortexContext<T> context) : base(context) { }

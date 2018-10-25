@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Equilaterus.Vortex.Actions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -7,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Saturn.Commands
 {
-    public class UpdateEntity<T> : GenericAction<T> where T : class
+    public class UpdateEntity<T> : VortexAction<T> where T : class
     {
-        public override async Task Execute()
+        public override async Task Execute(T entity, params object[] parameters)
         {
-            await Context.DataStorage.UpdateAsync(
-                Params.GetMainEntityAs<T>());
+            await this.GetContext()
+                .DataStorage.UpdateAsync(entity);
         }
 
         public UpdateEntity(VortexContext<T> context) : base(context) { }

@@ -1,4 +1,5 @@
 ﻿
+using Equilaterus.Vortex.Actions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Saturn.Commands
 {
-    public class InsertEntity<T> : GenericAction<T> where T : class
+    public class InsertEntity<T> : VortexAction<T> where T : class
     {
-        public override async Task Execute()
+        public override async Task Execute(T entity, params object[] parameters)
         {
-            await Context.DataStorage.InsertAsync(
-                Params.GetMainEntityAs<T>());
+            await this.GetContext()
+                .DataStorage.InsertAsync(entity);
         }
 
         public InsertEntity(VortexContext<T> context) : base(context) { }
