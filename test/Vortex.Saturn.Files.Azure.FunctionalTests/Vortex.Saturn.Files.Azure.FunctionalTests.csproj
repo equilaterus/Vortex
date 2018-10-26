@@ -5,6 +5,7 @@
     <IsPackable>false</IsPackable>
     <AssemblyName>Vortex.Files.Azure.Tests</AssemblyName>
     <RootNamespace>Equilaterus.Vortex.Services.AzureStorage.Tests</RootNamespace>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

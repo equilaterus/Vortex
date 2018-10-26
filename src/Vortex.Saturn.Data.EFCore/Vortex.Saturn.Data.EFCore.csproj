@@ -10,6 +10,7 @@
     <FileVersion>0.0.1.0</FileVersion>
     <AssemblyName>Equilaterus.Vortex.Services.EFCore</AssemblyName>
     <RootNamespace>Equilaterus.Vortex.DataStorage.EFCore</RootNamespace>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

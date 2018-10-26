@@ -10,6 +10,7 @@
     <PackageId>Equilaterus.Vortex.Files.Azure</PackageId>
     <Version>0.0.1</Version>
     <Product>Equilaterus.Vortex.Files.Azure</Product>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

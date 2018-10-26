@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -12,8 +12,9 @@
     <Authors>Equilaterus</Authors>
     <AssemblyName>Equilaterus.Vortex</AssemblyName>
     <RootNamespace>Equilaterus.Vortex</RootNamespace>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="LinqKit.Core" Version="1.1.14" />
   </ItemGroup>
