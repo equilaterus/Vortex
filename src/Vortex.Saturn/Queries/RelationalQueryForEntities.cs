@@ -6,42 +6,35 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Equilaterus.Vortex.Actions;
+using Equilaterus.Vortex.Filters;
 
 namespace Equilaterus.Vortex.Saturn.Queries
 {
-    public class RelationalQueryForEntities<T> : GenericAction<T> where T : class
+    public class RelationalQueryForEntities<T> : VortexReturnAction<T, List<T>> where T : class
     {
-        public override void Initialize()
+        public override async Task<List<T>> Execute(QueryParams<T> queryParams)
         {
-            IsReturnAction = true;
-            base.Initialize();            
-        }
+            var dataStorage = this.GetContext().DataStorage;
 
-        public override async Task Execute()
-        {
-            var dataStorage = Context.DataStorage as IRelationalDataStorage<T>;
-
-            List<T> result;
-
-            var relationalParams = Params.GetMainEntityAs<RelationalQueryParams<T>>();
-            if (relationalParams != null)
+            if (queryParams is RelationalQueryParams<T> relationalQueryParams)
             {
-                result = await dataStorage.FindAsync(
-                    relationalParams
-                );
+                if (dataStorage is IRelationalDataStorage<T> relationalDataStorage)
+                {
+                    return await relationalDataStorage.FindAsync(relationalQueryParams);
+                }
+                else
+                {
+                    throw new Exception("Relational DataStorage not found. Ensure to be inyecting it.");
+                }  
             }
             else
             {
-                // Try to get basic params
-                var queryParams = Params.GetMainEntityAs<QueryParams<T>>();
-                result = await dataStorage.FindAsync(
-                   queryParams
-               );
-            }       
-
-            Results = new VortexData(result);
+                return await dataStorage.FindAsync(queryParams);
+            }
         }
 
-        public RelationalQueryForEntities(VortexContext<T> context) : base(context) { }
+        public RelationalQueryForEntities(VortexContext<T> context, IGenericFilterFactory filterFactory)
+            : base(context, filterFactory) { }
     }
 }

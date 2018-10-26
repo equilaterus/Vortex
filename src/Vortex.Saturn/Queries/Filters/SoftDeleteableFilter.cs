@@ -1,4 +1,5 @@
-﻿using Equilaterus.Vortex.Helpers;
+﻿using Equilaterus.Vortex.Filters;
+using Equilaterus.Vortex.Helpers;
 using Equilaterus.Vortex.Saturn.Models;
 using LinqKit;
 using System;

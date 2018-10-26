@@ -1,19 +1,35 @@
-﻿using System;
+﻿using Equilaterus.Vortex.Filters;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Actions
 {
-    public abstract class VortexReturnAction<TInput, TReturn>
+    public abstract class VortexReturnAction<TEntity, TReturn> where TEntity : class
     {
-        public IVortexContext<TReturn> Context { get; private set; }
+        public IVortexContext<TEntity> Context { get; private set; }
 
-        public VortexReturnAction(IVortexContext<TReturn> context)
+        protected readonly IGenericFilterFactory _FilterFactory;
+
+        public VortexReturnAction(IVortexContext<TEntity> context, IGenericFilterFactory filterFactory)
         {
             Context = context;
+            _FilterFactory = filterFactory;
         }
 
-        public abstract Task<TReturn> Execute(TInput input);
+        public virtual void ApplyFilters(QueryParams<TEntity> queryParams)
+        {
+            if (queryParams.SkipFilters)            
+                return;            
+
+            var filters = _FilterFactory.GetFilters<TEntity>();
+            foreach (var filter in filters)
+            {
+                filter.UpdateParams(queryParams);
+            }
+        }
+
+        public abstract Task<TReturn> Execute(QueryParams<TEntity> queryParams);
     }
 }

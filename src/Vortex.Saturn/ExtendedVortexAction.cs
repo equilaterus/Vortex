@@ -11,5 +11,10 @@ namespace Equilaterus.Vortex.Saturn
         {
             return vortexAction.Context as VortexContext<T>;
         }
+
+        public static VortexContext<T> GetContext<T, R>(this VortexReturnAction<T, R> vortexAction) where T : class
+        {
+            return vortexAction.Context as VortexContext<T>;
+        }
     }
 }

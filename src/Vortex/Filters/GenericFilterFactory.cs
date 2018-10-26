@@ -1,11 +1,9 @@
-﻿using Equilaterus.Vortex.Saturn.Configuration;
-using Equilaterus.Vortex.Saturn.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Equilaterus.Vortex.Saturn.Queries.Filters
+namespace Equilaterus.Vortex.Filters
 {
     public class GenericFilterFactory : IGenericFilterFactory
     {

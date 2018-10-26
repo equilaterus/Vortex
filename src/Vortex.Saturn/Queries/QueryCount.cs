@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Equilaterus.Vortex.Actions;
+using Equilaterus.Vortex.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -7,24 +9,16 @@ using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex.Saturn.Queries
 {
-    public class QueryCount<T> : GenericAction<T> where T : class
+    public class QueryCount<T> : VortexReturnAction<T, int> where T : class
     {
-        public override void Initialize()
+        public override async Task<int> Execute(QueryParams<T> queryParams)
         {
-            IsReturnAction = true;
-            base.Initialize();            
+            var dataStorage = this.GetContext().DataStorage;
+
+            return await dataStorage.Count(queryParams.Filter);
         }
 
-        public override async Task Execute()
-        {
-            var dataStorage = Context.DataStorage;
-
-            var result = await dataStorage.Count(
-                Params.GetMainEntityAs<QueryParams<T>>().Filter);
-
-            Results = new VortexData(result);
-        }
-
-        public QueryCount(VortexContext<T> context) : base(context) { }
+        public QueryCount(VortexContext<T> context, IGenericFilterFactory filterFactory) 
+            : base(context, filterFactory) { }
     }
 }

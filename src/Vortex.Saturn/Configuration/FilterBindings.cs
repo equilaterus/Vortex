@@ -1,4 +1,5 @@
-﻿using Equilaterus.Vortex.Saturn.Models;
+﻿using Equilaterus.Vortex.Filters;
+using Equilaterus.Vortex.Saturn.Models;
 using Equilaterus.Vortex.Saturn.Queries.Filters;
 using System;
 using System.Collections.Generic;

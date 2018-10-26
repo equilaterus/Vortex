@@ -6,27 +6,21 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Equilaterus.Vortex.Actions;
+using Equilaterus.Vortex.Filters;
 
 namespace Equilaterus.Vortex.Saturn.Queries
 {
-    public class QueryForEntities<T> : GenericAction<T> where T : class
+    public class QueryForEntities<T> : VortexReturnAction<T, List<T>> where T : class
     {
-        public override void Initialize()
+        public override async Task<List<T>> Execute(QueryParams<T> queryParams)
         {
-            IsReturnAction = true;
-            base.Initialize();            
+            var dataStorage = this.GetContext().DataStorage;
+
+            return await dataStorage.FindAsync(queryParams);
         }
 
-        public override async Task Execute()
-        {
-            var dataStorage = Context.DataStorage;
-
-            var result = await dataStorage.FindAsync(
-                Params.GetMainEntityAs<QueryParams<T>>());
-
-            Results = new VortexData(result);
-        }
-
-        public QueryForEntities(VortexContext<T> context) : base(context) { }
+        public QueryForEntities(VortexContext<T> context, IGenericFilterFactory filterFactory)
+            : base(context, filterFactory) { }
     }
 }

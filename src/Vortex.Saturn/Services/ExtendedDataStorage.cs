@@ -1,4 +1,5 @@
-﻿using Equilaterus.Vortex.Saturn.Queries;
+﻿using Equilaterus.Vortex.Filters;
+using Equilaterus.Vortex.Saturn.Queries;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -1,24 +1,10 @@
-﻿using System;
+﻿using Equilaterus.Vortex.Filters;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 
 namespace Equilaterus.Vortex.Saturn.Queries
 {
-    public class QueryParams<T>
-    {
-        public Expression<Func<T, bool>> Filter { get; set; } = null;
-
-        public Func<IQueryable<T>, IOrderedQueryable<T>> OrderBy { get; set; } = null;
-
-        public int Skip { get; set; } = 0;
-
-        public int Take { get; set; } = 0;
-
-        public bool SkipFilters { get; set; } = false;
-    }
-
     public class RelationalQueryParams<T> : QueryParams<T>
     {
         public string[] IncludeProperties { get; set; } = null;

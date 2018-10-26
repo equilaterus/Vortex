@@ -1,4 +1,5 @@
-﻿using Equilaterus.Vortex.Helpers;
+﻿using Equilaterus.Vortex.Actions;
+using Equilaterus.Vortex.Helpers;
 using System;
 using System.Collections.Generic;
 
@@ -8,9 +9,9 @@ namespace Equilaterus.Vortex
     {
         /// <summary>
         /// VortexGraph representation.
-        /// Dictionary {Event, {Inteface, Action }}
+        /// Dictionary {Event, {Instigator, Actions }}
         /// </summary>
-        protected Dictionary<string, Dictionary<string, List<SubTypeOf<VortexAction>>>> _graph;
+        protected Dictionary<string, Dictionary<string, List<SubTypeOf<IVortexAction>>>> _graph;
                 
         public VortexGraph()
         {
