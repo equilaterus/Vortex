@@ -2,6 +2,7 @@
 using Equilaterus.Vortex.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Equilaterus.Vortex
 {
@@ -11,83 +12,79 @@ namespace Equilaterus.Vortex
         /// VortexGraph representation.
         /// Dictionary {Event, {Instigator, Actions }}
         /// </summary>
-        protected Dictionary<string, Dictionary<string, List<SubTypeOf<IVortexAction>>>> _graph;
+        protected Dictionary<string, Dictionary<string, List<VortexBinding>>> _graph;
                 
         public VortexGraph()
         {
-            _graph = new Dictionary<string, Dictionary<string, List<SubTypeOf<VortexAction>>>>();
+            _graph = new Dictionary<string, Dictionary<string, List<VortexBinding>>>();
         }
 
-        public void Bind(string instigatorEvent, string objectInterface, SubTypeOf<VortexAction> action)
+        public void Bind(string eventName, Type instigator, VortexBinding binding)
         {
-            if (!_graph.ContainsKey(instigatorEvent))
+            if (!_graph.ContainsKey(eventName))
             {
-                throw new Exception("Instigator Event not found.");
+                throw new Exception("Event not found.");
             }
 
-            if (!_graph[instigatorEvent].ContainsKey(objectInterface))
+            var instigatorName = nameof(instigator);
+            if (!_graph[eventName].ContainsKey(instigatorName))
             {
-                _graph[instigatorEvent].Add(objectInterface, new List<SubTypeOf<VortexAction>>());
+                _graph[eventName].Add(instigatorName, new List<VortexBinding>());
             }
-            _graph[instigatorEvent][objectInterface].Add(action);
+            _graph[eventName][instigatorName].Add(binding);
         }
 
-        public void CreateEvent(string instigatorEvent)
+        public void CreateEvent(string eventName)
         {
-            if (_graph.ContainsKey(instigatorEvent))
+            if (_graph.ContainsKey(eventName))
             {
-                throw new Exception("The event already exist.");
+                throw new Exception("Event already exist.");
             }
 
-            _graph.Add(instigatorEvent, new Dictionary<string, List<SubTypeOf<VortexAction>>>());
+            _graph.Add(eventName, new Dictionary<string, List<VortexBinding>>());
         }
 
-        public List<SubTypeOf<VortexAction>> GetActions(string instigatorEvent, Type typeEntity)
+        public List<VortexBinding> GetBindings(string eventName, Type instigator)
         {
-            if (!_graph.ContainsKey(instigatorEvent))
+            if (!_graph.ContainsKey(eventName))
             {
-                throw new Exception("Instigator Event not found.");
+                throw new Exception("Event not found.");
             }
 
-            List<SubTypeOf<VortexAction>> actions = new List<SubTypeOf<VortexAction>>();
-            var defaultAction = GetDefaultActions(instigatorEvent);
-            if (defaultAction != null)
+            List<VortexBinding> bindings = new List<VortexBinding>();
+            var defaultBindings = GetDefaultBindings(eventName);
+            if (defaultBindings != null)
             {
-                actions.AddRange(defaultAction);
+                bindings.AddRange(defaultBindings);
             }
 
-            var implementedInterfaces = typeEntity.GetInterfaces();
-            foreach (var tinterface in implementedInterfaces)
+            var implementedInterfaces = instigator.GetInterfaces();
+            foreach (var interfaceType in implementedInterfaces)
             {
-                var interfaceName = tinterface.Name;
-                var graphEvent = _graph[instigatorEvent];
+                var interfaceName = interfaceType.Name;
+                var graphEvent = _graph[eventName];
                 if (graphEvent.ContainsKey(interfaceName))
                 {
-                    var action = _graph[instigatorEvent][interfaceName];
-                    actions.AddRange(action);
+                    var action = _graph[eventName][interfaceName];
+                    bindings.AddRange(action);
                 }
             }
-            return actions;
+            bindings.Sort((VortexBinding x, VortexBinding y) => {
+                return y.Priority.CompareTo(x.Priority);
+            });
+
+
+            return bindings.TakeWhile(e => e.ApplyLowerPriorityActions).ToList();
         }
 
-        public List<SubTypeOf<VortexAction>> GetDefaultActions(string instigatorEvent)
+        private List<VortexBinding> GetDefaultBindings(string eventName)
         {
-            if (!_graph.ContainsKey(instigatorEvent))
-            {
-                throw new Exception("Instigator Event not found.");
-            }
-
-            List<SubTypeOf<VortexAction>> defaultAction = null;
-
             var interfaceName = "_default";
-            var graphEvent = _graph[instigatorEvent];
-            if (graphEvent.ContainsKey(interfaceName))
-            {
-                var action = _graph[instigatorEvent][interfaceName];
-                defaultAction = action;
-            }
-
-            return defaultAction;
+            var graphEvent = _graph[eventName];
+            if (!graphEvent.ContainsKey(interfaceName))            
+                return null;            
+            else 
+                return _graph[eventName][interfaceName];
         }
     }
 }
