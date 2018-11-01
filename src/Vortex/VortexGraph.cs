@@ -36,6 +36,11 @@ namespace Equilaterus.Vortex
 
         public void CreateEvent(string eventName)
         {
+            if (eventName == null)
+            {
+                throw new ArgumentNullException(nameof(eventName));
+            }
+
             if (_graph.ContainsKey(eventName))
             {
                 throw new Exception("Event already exist.");
