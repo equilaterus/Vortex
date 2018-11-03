@@ -21,12 +21,25 @@ namespace Equilaterus.Vortex
 
         public void Bind(string eventName, Type instigator, VortexBinding binding)
         {
+            if (eventName == null)
+            {
+                throw new ArgumentNullException(nameof(eventName));
+            }
+            if (instigator == null)
+            {
+                throw new ArgumentNullException(nameof(instigator));
+            }
+            if (binding == null)
+            {
+                throw new ArgumentNullException(nameof(binding));
+            }
+
             if (!_graph.ContainsKey(eventName))
             {
                 throw new Exception("Event not found.");
             }
 
-            var instigatorName = nameof(instigator);
+            var instigatorName = instigator.ToString();
             if (!_graph[eventName].ContainsKey(instigatorName))
             {
                 _graph[eventName].Add(instigatorName, new List<VortexBinding>());
