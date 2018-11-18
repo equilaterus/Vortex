@@ -8,6 +8,8 @@ namespace Equilaterus.Vortex
 {
     public class VortexGraph : IVortexGraph
     {
+        public const string DEFAULT_INSTIGATOR = "_default";
+
         /// <summary>
         /// VortexGraph representation.
         /// Dictionary {Event, {Instigator, Actions }}
@@ -17,34 +19,6 @@ namespace Equilaterus.Vortex
         public VortexGraph()
         {
             _graph = new Dictionary<string, Dictionary<string, List<VortexBinding>>>();
-        }
-
-        public void Bind(string eventName, Type instigator, VortexBinding binding)
-        {
-            if (eventName == null)
-            {
-                throw new ArgumentNullException(nameof(eventName));
-            }
-            if (instigator == null)
-            {
-                throw new ArgumentNullException(nameof(instigator));
-            }
-            if (binding == null)
-            {
-                throw new ArgumentNullException(nameof(binding));
-            }
-
-            if (!_graph.ContainsKey(eventName))
-            {
-                throw new Exception("Event not found.");
-            }
-
-            var instigatorName = instigator.ToString();
-            if (!_graph[eventName].ContainsKey(instigatorName))
-            {
-                _graph[eventName].Add(instigatorName, new List<VortexBinding>());
-            }
-            _graph[eventName][instigatorName].Add(binding);
         }
 
         public void CreateEvent(string eventName)
@@ -62,20 +36,56 @@ namespace Equilaterus.Vortex
             _graph.Add(eventName, new Dictionary<string, List<VortexBinding>>());
         }
 
+        public void Bind(string eventName, VortexBinding binding, Type instigator = null)
+        {
+            if (eventName == null)
+            {
+                throw new ArgumentNullException(nameof(eventName));
+            }
+            if (binding == null)
+            {
+                throw new ArgumentNullException(nameof(binding));
+            }
+
+            if (!_graph.ContainsKey(eventName))
+            {
+                throw new Exception("Event not found.");
+            }
+
+            var instigatorName = instigator != null ? instigator.ToString() : DEFAULT_INSTIGATOR;
+            if (!_graph[eventName].ContainsKey(instigatorName))
+            {
+                _graph[eventName].Add(instigatorName, new List<VortexBinding>());
+            }
+            _graph[eventName][instigatorName].Add(binding);
+        }
+
         public List<VortexBinding> GetBindings(string eventName, Type instigator)
         {
+            if (eventName == null)
+            {
+                throw new ArgumentNullException(nameof(eventName));
+            }
+            if (instigator == null)
+            {
+                throw new ArgumentNullException(nameof(instigator));
+            }
+
             if (!_graph.ContainsKey(eventName))
             {
                 throw new Exception("Event not found.");
             }
 
             List<VortexBinding> bindings = new List<VortexBinding>();
+
+            // Set defaults bindings
             var defaultBindings = GetDefaultBindings(eventName);
             if (defaultBindings != null)
             {
                 bindings.AddRange(defaultBindings);
             }
 
+            // Set instigator bindings            
             var implementedInterfaces = instigator.GetInterfaces();
             foreach (var interfaceType in implementedInterfaces)
             {
@@ -87,22 +97,22 @@ namespace Equilaterus.Vortex
                     bindings.AddRange(action);
                 }
             }
+            
+            // Prepare bindings according to metadata
             bindings.Sort((VortexBinding x, VortexBinding y) => {
                 return y.Priority.CompareTo(x.Priority);
             });
 
-
             return bindings.TakeWhile(e => e.ApplyLowerPriorityActions).ToList();
         }
 
-        private List<VortexBinding> GetDefaultBindings(string eventName)
+        protected List<VortexBinding> GetDefaultBindings(string eventName)
         {
-            var interfaceName = "_default";
             var graphEvent = _graph[eventName];
-            if (!graphEvent.ContainsKey(interfaceName))            
+            if (!graphEvent.ContainsKey(DEFAULT_INSTIGATOR))            
                 return null;            
             else 
-                return _graph[eventName][interfaceName];
+                return _graph[eventName][DEFAULT_INSTIGATOR];
         }
     }
 }
