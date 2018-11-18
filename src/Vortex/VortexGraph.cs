@@ -36,7 +36,7 @@ namespace Equilaterus.Vortex
             _graph.Add(eventName, new Dictionary<string, List<VortexBinding>>());
         }
 
-        public void Bind(string eventName, VortexBinding binding, Type instigator = null)
+        public void Bind(string eventName, VortexBinding binding, string instigator = null)
         {
             if (eventName == null)
             {
@@ -52,7 +52,7 @@ namespace Equilaterus.Vortex
                 throw new Exception("Event not found.");
             }
 
-            var instigatorName = instigator != null ? instigator.ToString() : DEFAULT_INSTIGATOR;
+            var instigatorName = instigator ?? DEFAULT_INSTIGATOR;
             if (!_graph[eventName].ContainsKey(instigatorName))
             {
                 _graph[eventName].Add(instigatorName, new List<VortexBinding>());
@@ -60,16 +60,12 @@ namespace Equilaterus.Vortex
             _graph[eventName][instigatorName].Add(binding);
         }
 
-        public List<VortexBinding> GetBindings(string eventName, Type instigator)
+        public List<VortexBinding> GetBindings(string eventName, params string[] instigators)
         {
             if (eventName == null)
             {
                 throw new ArgumentNullException(nameof(eventName));
-            }
-            if (instigator == null)
-            {
-                throw new ArgumentNullException(nameof(instigator));
-            }
+            }            
 
             if (!_graph.ContainsKey(eventName))
             {
@@ -85,27 +81,21 @@ namespace Equilaterus.Vortex
                 bindings.AddRange(defaultBindings);
             }
 
-            // Set instigator bindings            
-            var implementedInterfaces = instigator.GetInterfaces();
-            foreach (var interfaceType in implementedInterfaces)
+            // Set instigator bindings
+            foreach (var instigator in instigators)
             {
-                var interfaceName = interfaceType.Name;
                 var graphEvent = _graph[eventName];
-                if (graphEvent.ContainsKey(interfaceName))
+                if (graphEvent.ContainsKey(instigator))
                 {
-                    var action = _graph[eventName][interfaceName];
+                    var action = _graph[eventName][instigator];
                     bindings.AddRange(action);
                 }
             }
             
             // Prepare bindings according to metadata
-            bindings.Sort((VortexBinding x, VortexBinding y) => {
-                return y.Priority.CompareTo(x.Priority);
-            });
-
-            return bindings.TakeWhile(e => e.ApplyLowerPriorityActions).ToList();
+            return PrepareBindings(bindings);
         }
-
+        
         protected List<VortexBinding> GetDefaultBindings(string eventName)
         {
             var graphEvent = _graph[eventName];
@@ -113,6 +103,22 @@ namespace Equilaterus.Vortex
                 return null;            
             else 
                 return _graph[eventName][DEFAULT_INSTIGATOR];
+        }
+
+        protected List<VortexBinding> PrepareBindings(List<VortexBinding> bindings)
+        {
+            bindings.Sort((VortexBinding x, VortexBinding y) => {
+                return y.Priority.CompareTo(x.Priority);
+            });
+
+            var result = new List<VortexBinding>();
+            foreach (var binding in bindings)
+            {
+                result.Add(binding);
+                if (!binding.ApplyLowerPriorityActions)
+                    break;
+            }
+            return result;
         }
     }
 }
