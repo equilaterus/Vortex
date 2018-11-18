@@ -7,10 +7,6 @@ namespace Equilaterus.Vortex
 {
     public abstract class VortexBinding
     {
-        public string EventName { get; set; }
-
-        public Type TypeInstigator { get; set; }
-
         public List<Type> Actions { get; set; }
 
         Type ReturnAction { get; set; }
