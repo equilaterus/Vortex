@@ -6,10 +6,10 @@ namespace Equilaterus.Vortex
 {
     public interface IVortexGraph
     {
-        void Bind(string eventName, Type instigator, VortexBinding action);
+        void Bind(string eventName, VortexBinding action, string instigator = null);
 
         void CreateEvent(string eventName);
 
-        List<VortexBinding> GetBindings(string eventName, Type instigator);
+        List<VortexBinding> GetBindings(string eventName, params string[] instigators);
     }
 }
