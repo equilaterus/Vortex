@@ -7,7 +7,7 @@ using System.Text;
 using Vortex.Tests.Utilities;
 using Xunit;
 
-namespace Vortex.Tests
+namespace Equilaterus.Vortex.Tests
 {
     public class IVortexGraphExtendedTests
     {
