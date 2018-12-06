@@ -9,7 +9,7 @@ namespace Equilaterus.Vortex
     {
         public List<Type> Actions { get; set; }
 
-        Type ReturnAction { get; set; }
+        public Type ReturnAction { get; set; }
 
         public bool ApplyLowerPriorityActions { get; set; } = false;
 
