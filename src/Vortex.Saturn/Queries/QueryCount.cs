@@ -11,7 +11,7 @@ namespace Equilaterus.Vortex.Saturn.Queries
 {
     public class QueryCount<T> : VortexReturnAction<T, int> where T : class
     {
-        public override async Task<int> Execute(QueryParams<T> queryParams)
+        public override async Task<int> Execute(QueryParams<T> queryParams, params object[] parameters)
         {
             var dataStorage = this.GetContext().DataStorage;
 

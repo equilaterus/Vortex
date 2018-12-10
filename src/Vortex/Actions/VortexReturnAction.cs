@@ -30,6 +30,6 @@ namespace Equilaterus.Vortex.Actions
             }
         }
 
-        public abstract Task<TReturn> Execute(QueryParams<TEntity> queryParams);
+        public abstract Task<TReturn> Execute(QueryParams<TEntity> queryParams, params object[] parameters);
     }
 }
