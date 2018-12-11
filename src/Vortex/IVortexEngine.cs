@@ -1,9 +1,14 @@
-﻿using System.Threading.Tasks;
+﻿using Equilaterus.Vortex.Filters;
+using System.Threading.Tasks;
 
 namespace Equilaterus.Vortex
 {
-    public interface IVortexEngine<T> where T : class
+    public interface IVortexEngine<TEntity> where TEntity : class
     {
-        Task<VortexData> RaiseEventAsync(string vortexEvent, VortexData actionParams);
+        Task<TReturn> RaiseEventAsync<TReturn>(
+            string eventName,
+            TEntity entity = null,
+            QueryParams<TEntity> queryParams = null,
+            params object[] parameters);
     }
 }
