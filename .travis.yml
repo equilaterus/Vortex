@@ -6,7 +6,6 @@ script:
   - dotnet restore
   - dotnet build ./Equilaterus.Vortex.sln
   - dotnet test ./test/Vortex.Tests/Vortex.Tests.csproj
-  - dotnet test ./test/Vortex.Saturn.Tests/Vortex.Saturn.Tests.csproj
   - dotnet test ./test/Vortex.IntegrationTests/Vortex.IntegrationTests.csproj
   - dotnet test ./test/Vortex.Saturn.Data.EFCore.FunctionalTests/Vortex.Saturn.Data.EFCore.FunctionalTests.csproj
   - dotnet test ./test/Vortex.Saturn.Data.MongoDB.FunctionalTests/Vortex.Saturn.Data.MongoDB.FunctionalTests.csproj
