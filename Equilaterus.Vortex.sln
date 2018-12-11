@@ -33,8 +33,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vortex.Saturn.Files.Local",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vortex.Saturn.Services.TestingShared", "test\Vortex.Saturn.Services.TestingShared\Vortex.Saturn.Services.TestingShared.csproj", "{92509601-E7BC-4E74-B59D-962895AE690E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vortex.Saturn.Tests", "test\Vortex.Saturn.Tests\Vortex.Saturn.Tests.csproj", "{65AA0D8C-123C-448C-B7E0-FF2F4F32F355}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AE862BF7-30AE-45AE-8000-4B96CB6406EA}"
 	ProjectSection(SolutionItems) = preProject
 		.travis.yml = .travis.yml
@@ -98,10 +96,6 @@ Global
 		{92509601-E7BC-4E74-B59D-962895AE690E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92509601-E7BC-4E74-B59D-962895AE690E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92509601-E7BC-4E74-B59D-962895AE690E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{65AA0D8C-123C-448C-B7E0-FF2F4F32F355}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65AA0D8C-123C-448C-B7E0-FF2F4F32F355}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65AA0D8C-123C-448C-B7E0-FF2F4F32F355}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65AA0D8C-123C-448C-B7E0-FF2F4F32F355}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,7 +114,6 @@ Global
 		{D7C33B1C-4D06-4B66-BE08-D5190651ED1B} = {D4C3E7D0-D76A-4EBA-A6FA-71E2891E0B17}
 		{E0C372B1-B2E0-4FBD-AC72-17EB84F2D500} = {47415767-F5D0-4BD0-959D-938E3662D252}
 		{92509601-E7BC-4E74-B59D-962895AE690E} = {D4C3E7D0-D76A-4EBA-A6FA-71E2891E0B17}
-		{65AA0D8C-123C-448C-B7E0-FF2F4F32F355} = {D4C3E7D0-D76A-4EBA-A6FA-71E2891E0B17}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74E8512C-925F-4C3C-81F4-E175984EBDC9}
