@@ -214,7 +214,7 @@ namespace Equilaterus.Vortex.Tests
 
         // Priority, 
         [Fact]
-        public void GetBindings_MultipleHandlers_Sucess()
+        public void GetBindings_MultipleHandlers_PriorityOrdered_Sucess()
         {
             // Prepare
             var mock_eventA_null = new Mock<VortexBinding>();
