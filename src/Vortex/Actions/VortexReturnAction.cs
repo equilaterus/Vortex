@@ -10,20 +10,17 @@ namespace Equilaterus.Vortex.Actions
     {
         public IVortexContext<TEntity> Context { get; private set; }
 
-        protected readonly IGenericFilterFactory _FilterFactory;
+        public IGenericFilterFactory FilterFactory { get; private set; }
 
         public VortexReturnAction(IVortexContext<TEntity> context, IGenericFilterFactory filterFactory)
         {
             Context = context;
-            _FilterFactory = filterFactory;
-        }
+            FilterFactory = filterFactory;
+        }        
 
         public virtual void ApplyFilters(QueryParams<TEntity> queryParams)
         {
-            if (queryParams.SkipFilters)            
-                return;            
-
-            var filters = _FilterFactory.GetFilters<TEntity>();
+            var filters = FilterFactory.GetFilters<TEntity>();
             foreach (var filter in filters)
             {
                 filter.UpdateParams(queryParams);
