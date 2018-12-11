@@ -15,7 +15,7 @@ namespace Equilaterus.Vortex.Saturn.Commands
             if (parameters == null)
                 return;
             
-            var adjuntableParams = parameters[0] as VortexDataAttacheable;
+            var adjuntableParams = parameters[0] as AttachedFile;
             if (adjuntableParams == null)            
                 throw new Exception("Incorrect params");
             
