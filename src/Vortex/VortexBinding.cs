@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Equilaterus.Vortex
 {
-    public abstract class VortexBinding
+    public class VortexBinding
     {
         public List<Type> Actions { get; set; }
 
