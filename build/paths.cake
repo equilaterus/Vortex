@@ -54,23 +54,23 @@ public class BuildPaths
 		var vortexIntegrationTests = testsPath.Combine(
 				context.Directory("Vortex.IntegrationTests"));
         var efCoreTests = testsPath.Combine(
-                context.Directory("Vortex.Data.EFCore.Tests")); 
+                context.Directory("Vortex.Saturn.Data.EFCore.FunctionalTests")); 
         var mongoDBTests = testsPath.Combine(
-                context.Directory("Vortex.Data.MongoDB.Tests "));
+                context.Directory("Vortex.Saturn.Data.MongoDB.FunctionalTests"));
 		var azureFilesTests = testsPath.Combine(
-				context.Directory("Vortex.Files.Azure.Tests"));			
+				context.Directory("Vortex.Saturn.Files.Azure.FunctionalTests"));			
 		var localFilesTests = testsPath.Combine(
-				context.Directory("Vortex.Files.Local.Tests"));			
+				context.Directory("Vortex.Saturn.Files.Local.FunctionalTests"));			
 
         var srcPath = rootDir.Combine(context.Directory("src"));
         var efCore = srcPath.Combine(
-                context.Directory("Vortex.Data.EFCore"));
+                context.Directory("Vortex.Saturn.Data.EFCore"));
         var mongoDB = srcPath.Combine(
-                context.Directory("Vortex.Data.MongoDB"));
+                context.Directory("Vortex.Saturn.Data.MongoDB"));
 		var azureFiles = srcPath.Combine(
-				context.Directory("Vortex.Files.Azure"));
+				context.Directory("Vortex.Saturn.Files.Azure"));
 		var localFiles = srcPath.Combine(
-				context.Directory("Vortex.Files.Local"));
+				context.Directory("Vortex.Saturn.Files.Local"));
 		
         var testDirs = new []{
 								vortexTests								
