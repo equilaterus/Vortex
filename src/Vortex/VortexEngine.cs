@@ -1,5 +1,6 @@
 ﻿using Equilaterus.Vortex.Actions;
 using Equilaterus.Vortex.Filters;
+using Equilaterus.Vortex.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,22 +39,11 @@ namespace Equilaterus.Vortex
             var bindings = _graph.GetBindings(eventName, typeof(TEntity));
             foreach (var binding in bindings)
             {
-                VortexAction<TEntity> vortexAction;
-
                 // Instantiate Vortex Actions from bindings
                 foreach (var bindedActionType in binding.Actions)
                 {
-                    if (!bindedActionType.ContainsGenericParameters)
-                    {
-                        vortexAction = (VortexAction<TEntity>)Activator.CreateInstance(bindedActionType, _context);
-                    }
-                    else
-                    {
-                        Type[] typeArgs = { typeof(TEntity) };
-                        var genericType = bindedActionType.MakeGenericType(typeArgs);
-                        vortexAction = (VortexAction<TEntity>)Activator.CreateInstance(genericType, _context);
-                    }
-                    actionsToExecute.Add(vortexAction);
+                    actionsToExecute.Add(
+                        ReflectionTools.InstantiateAs<VortexAction<TEntity>>(bindedActionType, _context));
                 }
 
                 // Keep first return action (if exists)
@@ -61,26 +51,9 @@ namespace Equilaterus.Vortex
                 {
                     if (binding.ReturnAction != null)
                     {
-                        if (!binding.ReturnAction.ContainsGenericParameters)
-                        {
-                            returnAction = (VortexReturnAction<TEntity, TReturn>)Activator.CreateInstance(binding.ReturnAction, _context, _filterFactory);
-                        }
-                        else
-                        {
-                            Type[] typeArgs;
-                            if (binding.ReturnAction.GetGenericArguments().Count() == 1)
-                            {
-                                typeArgs = new Type[] { typeof(TEntity) };
-                            }
-                            // TODO: Discuss if we really need this:
-                            else
-                            {
-                                typeArgs = new Type[] { typeof(TEntity), typeof(TReturn) };
-                            }
-
-                            var genericType = binding.ReturnAction.MakeGenericType(typeArgs);
-                            returnAction = (VortexReturnAction<TEntity, TReturn>)Activator.CreateInstance(genericType, _context, _filterFactory);
-                        }
+                        returnAction =
+                            ReflectionTools.InstantiateAs<VortexReturnAction<TEntity, TReturn>>(
+                                binding.ReturnAction, _context, _filterFactory);
                     }
                 }
             }
