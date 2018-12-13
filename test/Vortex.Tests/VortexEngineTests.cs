@@ -13,7 +13,7 @@ namespace Equilaterus.Vortex.Tests
     {
         // TODO:
         // Pending: 
-        // non-generic actions, no return action, no actions, multiple bindings, no expecting return action.
+        // no return action, no actions, multiple bindings, no expecting return action.
 
 
         #region TestContext
@@ -38,6 +38,22 @@ namespace Equilaterus.Vortex.Tests
             }
 
             public GenericAction(IVortexContext<T> context) : base(context) { }
+        }
+
+        class Action : VortexAction<MyEntity>
+        {
+            public override Task Execute(MyEntity entity, params object[] parameters)
+            {
+                if (Context == null) throw new Exception("Context is null!!");
+
+                if (entity is MyEntity myEntity)
+                {
+                    myEntity.Id++;
+                }
+                return Task.FromResult(true);
+            }
+
+            public Action(IVortexContext<MyEntity> context) : base(context) { }
         }
 
         class GenericReturnAction<T> : VortexReturnAction<T, List<MyEntity>> where T : class
@@ -72,8 +88,7 @@ namespace Equilaterus.Vortex.Tests
                             Actions = new List<Type>
                             {
                                 typeof(GenericAction<>),
-                                typeof(GenericAction<>),
-                                typeof(GenericAction<>)
+                                typeof(Action)
                             },
                             ReturnAction = typeof(GenericReturnAction<>)
                         }
@@ -92,7 +107,7 @@ namespace Equilaterus.Vortex.Tests
             var result = await vortexEngine.RaiseEventAsync<List<MyEntity>>("event", myEntity);
 
             Assert.Empty(result);
-            Assert.Equal(3, myEntity.Id);
+            Assert.Equal(2, myEntity.Id);
         }
     }
 }
