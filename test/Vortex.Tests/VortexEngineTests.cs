@@ -13,7 +13,7 @@ namespace Equilaterus.Vortex.Tests
     {
         // TODO:
         // Pending: 
-        // no return action, no actions, multiple bindings, no expecting return action.
+        // multiple bindings
 
 
         #region TestContext
@@ -72,6 +72,63 @@ namespace Equilaterus.Vortex.Tests
 
         [Fact]
         public async Task RaiseEventAsync_Success()
+        {
+            // Prepare
+            var context = new Mock<IVortexContext<MyEntity>>();
+            var filterFactory = new Mock<IGenericFilterFactory>();
+
+            var vortexGraph = new Mock<IVortexGraph>();
+            vortexGraph.Setup(
+                    g => g.GetBindings("event", typeof(IInstigator).Name)
+                ).Returns(
+                    new List<VortexBinding>()
+                );
+
+            var vortexEngine =
+                new VortexEngine<MyEntity>(
+                    vortexGraph.Object,
+                    context.Object,
+                    filterFactory.Object);
+
+            var myEntity = new MyEntity();
+
+            // Execute
+            var result = await vortexEngine.RaiseEventAsync<List<MyEntity>>("event", myEntity);
+
+            // Check
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task RaiseEventAsync_SentQueryParams_NoReturnAction_ThrowsError()
+        {
+            // Prepare
+            var context = new Mock<IVortexContext<MyEntity>>();
+            var filterFactory = new Mock<IGenericFilterFactory>();
+
+            var vortexGraph = new Mock<IVortexGraph>();
+            vortexGraph.Setup(
+                    g => g.GetBindings("event", typeof(IInstigator).Name)
+                ).Returns(
+                    new List<VortexBinding>()
+                );
+
+            var vortexEngine =
+                new VortexEngine<MyEntity>(
+                    vortexGraph.Object,
+                    context.Object,
+                    filterFactory.Object);
+
+            var myEntity = new MyEntity();
+
+            // Execute and check
+            await Assert.ThrowsAsync<Exception>(
+               async () => await vortexEngine.RaiseEventAsync<List<MyEntity>>("event", myEntity, new QueryParams<MyEntity>())
+            );
+        }
+
+        [Fact]
+        public async Task RaiseEventAsync_MultipleActions_ReturnAction_Success()
         {
             // Prepare
             var context = new Mock<IVortexContext<MyEntity>>();
