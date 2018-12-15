@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
+using Equilaterus.Vortex.Helpers;
 using Xunit;
 
-namespace Equilaterus.Vortex.Helpers.Test
+namespace Equilaterus.Vortex.Tests.Helpers
 {
     public class SubTypeOfTests
     {
