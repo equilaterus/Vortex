@@ -46,7 +46,7 @@ namespace Equilaterus.Vortex
                         ReflectionTools.InstantiateAs<VortexAction<TEntity>>(bindedActionType, _context));
                 }
 
-                // Keep first return action (if exists)
+                // Prepare execution until a return action is found
                 if (returnAction == null)
                 {
                     if (binding.ReturnAction != null)
@@ -54,8 +54,14 @@ namespace Equilaterus.Vortex
                         returnAction =
                             ReflectionTools.InstantiateAs<VortexReturnAction<TEntity, TReturn>>(
                                 binding.ReturnAction, _context, _filterFactory);
+                        break;
                     }
                 }
+            }
+
+            if (returnAction == null && queryParams != null)
+            {
+                throw new Exception("Expected return action not found.");
             }
 
             // Execute!
@@ -66,15 +72,7 @@ namespace Equilaterus.Vortex
 
             if (returnAction == null)
             {
-                // TODO: Discuss this
-                if (queryParams != null)
-                {
-                    throw new Exception("Expected return action not found.");
-                }
-                else
-                {
-                    return default;
-                }
+                return default;
             }
             else
             {
