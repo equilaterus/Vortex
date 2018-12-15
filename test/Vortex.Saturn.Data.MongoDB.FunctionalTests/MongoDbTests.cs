@@ -13,22 +13,24 @@ namespace Equilaterus.Vortex.Saturn.Services.MongoDB.Tests
 {    
     public class MongoDbTests : DocumentDataStorageTests<TestModel>
     {
-        protected MongoDbRunner _runner;
+        protected static MongoDbRunner _runner;
         protected MongoDbContext _context;
 
         protected MongoDbContext GetContext(string databaseName)
-        {             
-            if (_context == null)
+        {
+            if (_runner == null)
             {
                 _runner = MongoDbRunner.Start();
-                MongoDbSettings mongoDbSettings = new MongoDbSettings()
-                {
-                    ConnectionString = _runner.ConnectionString,
-                    DatabaseName = databaseName
-                };
-                _context = new MongoDbContext(mongoDbSettings);
             }
 
+            MongoDbSettings mongoDbSettings = new MongoDbSettings()
+            {
+                ConnectionString = _runner.ConnectionString,
+                DatabaseName = databaseName,
+                
+            };
+            _context = new MongoDbContext(mongoDbSettings);
+            
             return _context;
         }
 
@@ -71,9 +73,7 @@ namespace Equilaterus.Vortex.Saturn.Services.MongoDB.Tests
         }
 
         protected override void ClearOrDispose(IDataStorage<TestModel> service)
-        {
-            _runner.Dispose();
-        }        
+        { }        
 
         protected override List<TestModel> GetSeedData()
         {
