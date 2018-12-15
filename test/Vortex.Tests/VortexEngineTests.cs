@@ -11,11 +11,6 @@ namespace Equilaterus.Vortex.Tests
 {
     public class VortexEngineTests
     {
-        // TODO:
-        // Pending: 
-        // multiple bindings
-
-
         #region TestContext
         interface IInstigator { }
 
@@ -48,7 +43,7 @@ namespace Equilaterus.Vortex.Tests
 
                 if (entity is MyEntity myEntity)
                 {
-                    myEntity.Id++;
+                    myEntity.Id += 100;
                 }
                 return Task.FromResult(true);
             }
@@ -97,6 +92,7 @@ namespace Equilaterus.Vortex.Tests
 
             // Check
             Assert.Null(result);
+            Assert.Equal(0, myEntity.Id);
         }
 
         [Fact]
@@ -125,6 +121,8 @@ namespace Equilaterus.Vortex.Tests
             await Assert.ThrowsAsync<Exception>(
                async () => await vortexEngine.RaiseEventAsync<List<MyEntity>>("event", myEntity, new QueryParams<MyEntity>())
             );
+
+            Assert.Equal(0, myEntity.Id);
         }
 
         [Fact]
@@ -164,7 +162,100 @@ namespace Equilaterus.Vortex.Tests
             var result = await vortexEngine.RaiseEventAsync<List<MyEntity>>("event", myEntity);
 
             Assert.Empty(result);
-            Assert.Equal(2, myEntity.Id);
+            Assert.Equal(101, myEntity.Id);
         }
+
+        [Fact]
+        public async Task RaiseEventAsync_MultipleBindings_ReturnAction_Success()
+        {
+            // Prepare
+            var context = new Mock<IVortexContext<MyEntity>>();
+            var filterFactory = new Mock<IGenericFilterFactory>();
+
+            var vortexGraph = new Mock<IVortexGraph>();
+            vortexGraph.Setup(
+                    g => g.GetBindings("event", typeof(IInstigator).Name)
+                ).Returns(
+                    new List<VortexBinding>
+                    {
+                        new VortexBinding
+                        {
+                            Actions = new List<Type>
+                            {
+                                typeof(Action)
+                            },
+                            ReturnAction = typeof(GenericReturnAction<>)
+                        },
+                        new VortexBinding
+                        {
+                            // These action must not be executed
+                            Actions = new List<Type>
+                            {
+                                typeof(GenericAction<>)
+                            }
+                        }
+                    }
+                );
+
+            var vortexEngine =
+                new VortexEngine<MyEntity>(
+                    vortexGraph.Object,
+                    context.Object,
+                    filterFactory.Object);
+
+            var myEntity = new MyEntity();
+
+            // Execute
+            var result = await vortexEngine.RaiseEventAsync<List<MyEntity>>("event", myEntity);
+
+            // 
+            Assert.Empty(result);
+            Assert.Equal(100, myEntity.Id);
+        }
+
+        [Fact]
+        public async Task RaiseEventAsync_MultipleBindings_NoReturnAction_Success()
+        {
+            // Prepare
+            var context = new Mock<IVortexContext<MyEntity>>();
+            var filterFactory = new Mock<IGenericFilterFactory>();
+
+            var vortexGraph = new Mock<IVortexGraph>();
+            vortexGraph.Setup(
+                    g => g.GetBindings("event", typeof(IInstigator).Name)
+                ).Returns(
+                    new List<VortexBinding>
+                    {
+                        new VortexBinding
+                        {
+                            Actions = new List<Type>
+                            {
+                                typeof(Action)
+                            }
+                        },
+                        new VortexBinding
+                        {
+                            Actions = new List<Type>
+                            {
+                                typeof(GenericAction<>)
+                            }
+                        }
+                    }
+                );
+
+            var vortexEngine =
+                new VortexEngine<MyEntity>(
+                    vortexGraph.Object,
+                    context.Object,
+                    filterFactory.Object);
+
+            var myEntity = new MyEntity();
+
+            // Execute
+            var result = await vortexEngine.RaiseEventAsync<List<MyEntity>>("event", myEntity);
+
+            Assert.Null(result);
+            Assert.Equal(101, myEntity.Id);
+        }        
     }
 }
