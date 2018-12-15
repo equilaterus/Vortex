@@ -5,6 +5,7 @@
     <RootNamespace>Equilaterus.Vortex.Services.MongoDB</RootNamespace>
     <AssemblyName>Equilaterus.Vortex.Services.MongoDB</AssemblyName>
     <LangVersion>latest</LangVersion>
+    <Version>0.2.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <RootNamespace>Equilaterus.Vortex.Services.LocalStorage</RootNamespace>
     <LangVersion>latest</LangVersion>
+    <Version>0.2.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
