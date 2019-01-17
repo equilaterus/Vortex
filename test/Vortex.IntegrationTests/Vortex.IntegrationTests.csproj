@@ -30,8 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Vortex.Saturn.Data.EFCore\Vortex.Saturn.Data.EFCore.csproj" />
-    <ProjectReference Include="..\..\src\Vortex.Saturn.Data.MongoDB\Vortex.Saturn.Data.MongoDB.csproj" />
     <ProjectReference Include="..\..\src\Vortex.Saturn\Vortex.Saturn.csproj" />
     <ProjectReference Include="..\..\src\Vortex\Vortex.csproj" />
   </ItemGroup>

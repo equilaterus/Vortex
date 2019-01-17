@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Vortex.Saturn.Files.Azure\Vortex.Saturn.Files.Azure.csproj" />
     <ProjectReference Include="..\Vortex.Saturn.Services.TestingShared\Vortex.Saturn.Services.TestingShared.csproj" />
   </ItemGroup>
 

@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Vortex.Saturn.Files.Local\Vortex.Saturn.Files.Local.csproj" />
     <ProjectReference Include="..\Vortex.Saturn.Services.TestingShared\Vortex.Saturn.Services.TestingShared.csproj" />
   </ItemGroup>
 

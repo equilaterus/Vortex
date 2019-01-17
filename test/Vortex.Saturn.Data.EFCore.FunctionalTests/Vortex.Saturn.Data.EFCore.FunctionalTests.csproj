@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Vortex.Saturn.Data.EFCore\Vortex.Saturn.Data.EFCore.csproj" />
     <ProjectReference Include="..\Vortex.Saturn.Services.TestingShared\Vortex.Saturn.Services.TestingShared.csproj" />
   </ItemGroup>
 
