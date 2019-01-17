@@ -14,9 +14,5 @@
     <RootNamespace>Equilaterus.Vortex</RootNamespace>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="LinqKit.Core" Version="1.1.15" />
-  </ItemGroup>
 
 </Project>
