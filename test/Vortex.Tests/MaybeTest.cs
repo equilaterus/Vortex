@@ -12,19 +12,86 @@ namespace Equilaterus.Vortex.Tests
         const string VALUE_FIELD = "_value";
 
         [Fact]
-        public void Create_Empty_Success()
+        public void Create_Nothing_Success()
         {
+            // Prepare and execute
             Maybe<object> maybe = new Maybe<object>();
 
+            // Check
             Assert.False(maybe.GetPrivateField<bool>(HAS_VALUE_FIELD));
             Assert.Null(maybe.GetPrivateField<object>(VALUE_FIELD));
         }
 
         [Fact]
+        public void Create_Success()
+        {
+            // Prepare and execute
+            var obj = new object();
+            Maybe<object> maybe = new Maybe<object>(obj);
+            
+            // Check
+            Assert.True(maybe.GetPrivateField<bool>(HAS_VALUE_FIELD));
+            Assert.Equal(obj, maybe.GetPrivateField<object>(VALUE_FIELD));
+        }
+
+        [Fact]
         public void Create_Null_ThrowsError()
         {
+            // Execute and check
             Assert.Throws<ArgumentNullException>(
                 () => { Maybe<object> maybe = new Maybe<object>(null); });
 		}
+
+        [Fact]
+        public void Select_Null_ThrowsError()
+        {
+            // Prepare
+            Maybe<object> maybe = new Maybe<object>();
+
+            // Execute and check
+            Assert.Throws<ArgumentNullException>(
+                () => { maybe.Select<object>(null); });
+        }
+
+        [Fact]
+        public void Select_Nothing_Success()
+        {
+            // Prepare
+            Maybe<object> maybe = new Maybe<object>();
+
+            // Execute
+            var result = maybe.Select(m => m);
+
+            // Check
+            Assert.NotEqual(maybe, result);
+            Assert.False(result.GetPrivateField<bool>(HAS_VALUE_FIELD));
+            Assert.Null(result.GetPrivateField<object>(VALUE_FIELD));
+        }
+
+        [Fact]
+        public void Select_Success()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>(5);
+
+            // Execute
+            var result = maybe.Select(m => m * 2);
+
+            // Check
+            Assert.NotEqual(maybe, result);
+            Assert.True(result.GetPrivateField<bool>(HAS_VALUE_FIELD));
+            Assert.Equal(10, result.GetPrivateField<object>(VALUE_FIELD));
+        }
+
+        [Fact]
+        public void Select_FuncReturnsNull_ThrowsError()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>(5);
+
+            // Execute and check
+            Assert.Throws<ArgumentNullException>(
+                () => maybe.Select<int?>(m => null));
+        }
     }
 }
