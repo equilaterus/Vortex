@@ -26,9 +26,10 @@ namespace Equilaterus.Vortex
         {
             if (function == null)
                 throw new ArgumentNullException(nameof(function));
-            if (_hasValue)
-                return new Maybe<TResult>(function(_value));
-            return new Maybe<TResult>();
+            if (!_hasValue)
+                return new Maybe<TResult>();
+
+            return new Maybe<TResult>(function(_value));
         }
 
         // ma -> (a -> mb) -> mb
@@ -36,16 +37,18 @@ namespace Equilaterus.Vortex
         {
             if (function == null)
                 throw new ArgumentNullException(nameof(function));
-            if (_hasValue)
-                return function(_value);
-            return new Maybe<TResult>();
+            if (!_hasValue)
+                return new Maybe<TResult>();
+
+            return function(_value);
         }
 
         // ma -> b -> (a -> b) -> b
-        public TResult Match<TResult>(TResult nothing, Func<T, TResult> just)
+        public TResult Match<TResult>(Func<T, TResult> just, TResult nothing)
         {
             if (just == null)
                 throw new ArgumentNullException(nameof(just));
+
             return _hasValue ? just(_value) : nothing;
         }
                 
@@ -56,6 +59,7 @@ namespace Equilaterus.Vortex
                 throw new ArgumentNullException(nameof(function));
             if (!_hasValue)
                 return new Maybe<TResult>();
+
             var result = await function(_value);
             return result == null ?
                 new Maybe<TResult>() :
