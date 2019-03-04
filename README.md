@@ -18,9 +18,8 @@ Vortex is a .Net Standard framework focused on **Functional Programming**.
 * History: [Version change log](https://github.com/equilaterus/Vortex/wiki/Version-change-log)
 
 
-## How to start contributing
+## More info
 
-* Visual Studio - VS Code: [enviroment configuration](https://github.com/equilaterus/Vortex/wiki/Start-contributing-to-Vortex)
 
-* More info in our [wiki](https://github.com/equilaterus/Vortex/wiki)!
+* Check our [wiki](https://github.com/equilaterus/Vortex/wiki)!
 
