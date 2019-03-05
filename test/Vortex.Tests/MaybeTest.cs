@@ -80,7 +80,7 @@ namespace Equilaterus.Vortex.Tests
             // Check
             Assert.NotEqual(maybe, result);
             Assert.True(result.GetPrivateField<bool>(HAS_VALUE_FIELD));
-            Assert.Equal(10, result.GetPrivateField<object>(VALUE_FIELD));
+            Assert.Equal(10, result.GetPrivateField<int>(VALUE_FIELD));
         }
 
         [Fact]
