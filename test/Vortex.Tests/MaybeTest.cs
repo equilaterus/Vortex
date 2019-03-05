@@ -93,5 +93,55 @@ namespace Equilaterus.Vortex.Tests
             Assert.Throws<ArgumentNullException>(
                 () => maybe.Select<int?>(m => null));
         }
+
+        [Fact]
+        public void SelectMany_Null_ThrowsError()
+        {
+            // Prepare
+            Maybe<object> maybe = new Maybe<object>();
+
+            // Execute and check
+            Assert.Throws<ArgumentNullException>(
+                () => { maybe.SelectMany<object>(null); });
+        }
+
+        [Fact]
+        public void SelectMany_Nothing_Success()
+        {
+            // Prepare
+            Maybe<object> maybe = new Maybe<object>();
+
+            // Execute
+            var result = maybe.SelectMany(m => new Maybe<object>(new object()));
+
+            // Check
+            Assert.NotEqual(maybe, result);
+            Assert.False(result.GetPrivateField<bool>(HAS_VALUE_FIELD));
+            Assert.Null(result.GetPrivateField<object>(VALUE_FIELD));
+        }
+
+        [Fact]
+        public void SelectMany_Success()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>(5);
+
+            // Execute
+            var result = maybe.SelectMany(m => new Maybe<double>(m * 2));
+
+            // Check
+            Assert.True(result.GetPrivateField<bool>(HAS_VALUE_FIELD));
+            Assert.Equal(10, result.GetPrivateField<double>(VALUE_FIELD));
+        }
+
+        [Fact]
+        public void SelectMany_FuncReturnsNull_ThrowsError()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>(5);
+
+            // Execute and check
+            Assert.Null(maybe.SelectMany<int>(m => null));
+        }
     }
 }
