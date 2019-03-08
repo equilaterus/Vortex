@@ -8,6 +8,22 @@ namespace Vortex.Tests
 {
     public class TaskExtensionsTest
     {
+        private Task<string> AsyncMethod()
+        {
+            return Task.FromResult("Vortex");
+        }
+
+        [Fact]
+        public async Task Select_Success()
+        {
+            // Prepare and execute
+            var result = await Equilaterus.Vortex.TaskExtensions.Select(
+                AsyncMethod(), str => str[0]);
+
+            // Check
+            Assert.Equal('V', result);
+        }
+
         [Fact]
         public async Task Select_NullTask_ThrowsError()
         {
