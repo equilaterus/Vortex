@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Vortex.Tests.Shared;
 using Xunit;
 
@@ -179,6 +180,58 @@ namespace Equilaterus.Vortex.Tests
             // Execute and check
             Assert.Throws<ArgumentNullException>(
                 () => { maybe.Match(null, 0); });
+        }
+
+        [Fact]
+        public async Task AwaitSideEffect_Success()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>(5);
+
+            // Execute
+            var result = await maybe.AwaitSideEffect(m => Task.FromResult(m * 2));
+
+            // Check
+            Assert.NotEqual(result, maybe);
+            Assert.Equal(10, result.GetPrivateField<int>(VALUE_FIELD));
+        }
+
+        [Fact]
+        public async Task AwaitSideEffect_NoValue_Success()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>();
+
+            // Execute
+            var result = await maybe.AwaitSideEffect(m => Task.FromResult(m * 2));
+
+            // Check
+            Assert.NotEqual(result, maybe);
+            Assert.False(result.GetPrivateField<bool>(HAS_VALUE_FIELD));
+        }
+
+        [Fact]
+        public async Task AwaitSideEffect_FunctionReturnsNull_Success()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>(5);
+
+            // Execute
+            var result = await maybe.AwaitSideEffect(m => Task.FromResult<int?>(null));
+
+            // Check
+            Assert.False(result.GetPrivateField<bool>(HAS_VALUE_FIELD));
+        }
+
+        [Fact]
+        public async Task AwaitSideEffect_FunctionNull_ThrowsError()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>(5);
+
+            // Execute and check
+            await Assert.ThrowsAsync<ArgumentNullException>(
+                () => maybe.AwaitSideEffect<int>(null));
         }
     }
 }
