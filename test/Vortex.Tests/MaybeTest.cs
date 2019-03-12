@@ -143,5 +143,42 @@ namespace Equilaterus.Vortex.Tests
             // Execute and check
             Assert.Null(maybe.SelectMany<int>(m => null));
         }
+
+        [Fact]
+        public void Match_Success()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>(5);
+
+            // Execute
+            var result = maybe.Match(c => c, 0);
+
+            // Check
+            Assert.Equal(5, result);
+        }
+
+        [Fact]
+        public void Match__Nothing_Success()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>();
+
+            // Execute
+            var result = maybe.Match(c => c, 0);
+
+            // Check
+            Assert.Equal(0, result);
+        }
+
+        [Fact]
+        public void Match_JustNull_ThrowsError()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>(5);
+
+            // Execute and check
+            Assert.Throws<ArgumentNullException>(
+                () => { maybe.Match(null, 0); });
+        }
     }
 }
