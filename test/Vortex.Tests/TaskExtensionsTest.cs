@@ -45,5 +45,39 @@ namespace Equilaterus.Vortex.Tests
 
             Assert.Equal("selector", exception.ParamName);
         }
+
+        [Fact]
+        public async Task SelectMany_Success()
+        {
+            // Prepare and execute
+            var result = await TaskExtensions.SelectMany(
+                AsyncMethod(), str => Task.FromResult(str[0]));
+
+            // Check
+            Assert.Equal('V', result);
+        }
+
+        [Fact]
+        public async Task SelectMany_NullTask_ThrowsError()
+        {
+            // Execute and check
+            var exception = await Assert.ThrowsAsync<ArgumentNullException>(
+                () => TaskExtensions.SelectMany<object, object>(null, t => Task.FromResult(t))
+            );
+
+            Assert.Equal("source", exception.ParamName);
+        }
+
+        [Fact]
+        public async Task SelectMany_NullSelector_ThrowsError()
+        {
+            // Execute and check
+            var exception = await Assert.ThrowsAsync<ArgumentNullException>(
+                () => TaskExtensions.SelectMany<object, object>(Task.FromResult<object>(null), null)
+            );
+
+            Assert.Equal("selector", exception.ParamName);
+        }
+
     }
 }
