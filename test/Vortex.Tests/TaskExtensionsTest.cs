@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Vortex.Tests
+namespace Equilaterus.Vortex.Tests
 {
     public class TaskExtensionsTest
     {
@@ -17,7 +17,7 @@ namespace Vortex.Tests
         public async Task Select_Success()
         {
             // Prepare and execute
-            var result = await Equilaterus.Vortex.TaskExtensions.Select(
+            var result = await TaskExtensions.Select(
                 AsyncMethod(), str => str[0]);
 
             // Check
@@ -29,7 +29,7 @@ namespace Vortex.Tests
         {
             // Execute and check
             var exception = await Assert.ThrowsAsync<ArgumentNullException>(
-                () => Equilaterus.Vortex.TaskExtensions.Select<object, object>(null, t => t)
+                () => TaskExtensions.Select<object, object>(null, t => t)
             );
             
             Assert.Equal("source", exception.ParamName);
@@ -40,7 +40,7 @@ namespace Vortex.Tests
         {
             // Execute and check
             var exception = await Assert.ThrowsAsync<ArgumentNullException>(
-                () => Equilaterus.Vortex.TaskExtensions.Select<object, object>(Task.FromResult<object>(null), null)
+                () => TaskExtensions.Select<object, object>(Task.FromResult<object>(null), null)
             );
 
             Assert.Equal("selector", exception.ParamName);
