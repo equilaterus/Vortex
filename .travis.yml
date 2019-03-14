@@ -5,5 +5,5 @@ dotnet: 2.1
 script:
   - dotnet restore
   - dotnet build ./Equilaterus.Vortex.sln
-  - dotnet test ./test/Vortex.Tests/Vortex.Tests.csproj
+  - dotnet test ./test/Vortex.Tests.csproj
   
