@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Vortex.Tests.Shared;
+using Vortex.Tests.Utils;
 using Xunit;
 
 namespace Equilaterus.Vortex.Tests

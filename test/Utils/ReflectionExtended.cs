@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Vortex.Tests.Shared
+namespace Vortex.Tests.Utils
 {
     public static class ReflectionExtended
     {

@@ -19,8 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Vortex\Vortex.csproj" />
-    <ProjectReference Include="..\Vortex.Tests.Shared\Vortex.Tests.Shared.csproj" />
+    <ProjectReference Include="..\src\Vortex.csproj" />
   </ItemGroup>
 
   <ItemGroup>
