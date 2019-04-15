@@ -1,10 +1,9 @@
 language: csharp
 solution: Equilaterus.Vortex.sln
 mono: none
-dotnet: 2.0.0
+dotnet: 2.1
 script:
   - dotnet restore
   - dotnet build ./Equilaterus.Vortex.sln
-  - dotnet test ./test/Vortex.Tests/Vortex.Tests.csproj
-  - dotnet test ./test/Vortex.Data.EFCore.Tests/Vortex.Data.EFCore.Tests.csproj
-  - dotnet test ./test/Vortex.Data.MongoDB.Tests/Vortex.Data.MongoDB.Tests.csproj
+  - dotnet test ./test/Vortex.Tests.csproj
+  

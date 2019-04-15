@@ -1,0 +1,22 @@
+version: 0.3.1.{build}
+image: Visual Studio 2017
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+before_build:
+- cmd: nuget restore
+build:
+  project: Equilaterus.Vortex.sln
+  publish_nuget: true
+  verbosity: minimal
+deploy:
+- provider: NuGet
+  api_key:
+    secure: WfQbHXHq3gu23bo1V3NY20wjg0pmUHv4C7GNbUqM6hX5X0TQ3JXDasLcOj7CPkc0
+  on:
+    branch: master

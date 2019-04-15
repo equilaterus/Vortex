@@ -5,8 +5,7 @@
 #tool "nuget:https://www.nuget.org/api/v2?package=ReportGenerator&version=2.4.5"
 
 var parameters = BuildParameters.GetParameters(Context);
-var integrationTests = Argument("integrationTests", false);
-var paths = BuildPaths.GetPaths(Context, parameters, integrationTests);
+var paths = BuildPaths.GetPaths(Context, parameters);
 
 Setup(context =>
 {

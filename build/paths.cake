@@ -7,11 +7,10 @@ public class BuildPaths
 
     public static BuildPaths GetPaths(
 		ICakeContext context, 
-		BuildParameters parameters, 
-		bool integrationTests)
+		BuildParameters parameters)
     {
         var configuration =  parameters.Configuration;
-        var buildDirectories = GetBuildDirectories(context, integrationTests);		
+        var buildDirectories = GetBuildDirectories(context);		
 
         var testAssemblies = buildDirectories
 			.TestDirs
@@ -41,8 +40,7 @@ public class BuildPaths
     }
 
     public static BuildDirectories GetBuildDirectories(
-		ICakeContext context,
-		bool integrationTests)
+		ICakeContext context)
     {
         var rootDir = (DirectoryPath)context.Directory("../");
         var artifacts = rootDir.Combine(".artifacts");
@@ -50,69 +48,24 @@ public class BuildPaths
 		
         var testsPath = rootDir.Combine(context.Directory("test")); 
 		var vortexTests = testsPath.Combine(
-				context.Directory("Vortex.Tests"));	
-		var vortexIntegrationTests = testsPath.Combine(
-				context.Directory("Vortex.IntegrationTests"));
-        var efCoreTests = testsPath.Combine(
-                context.Directory("Vortex.Data.EFCore.Tests")); 
-        var mongoDBTests = testsPath.Combine(
-                context.Directory("Vortex.Data.MongoDB.Tests "));
-		var azureFilesTests = testsPath.Combine(
-				context.Directory("Vortex.Files.Azure.Tests"));			
-		var localFilesTests = testsPath.Combine(
-				context.Directory("Vortex.Files.Local.Tests"));			
-
-        var srcPath = rootDir.Combine(context.Directory("src"));
-        var efCore = srcPath.Combine(
-                context.Directory("Vortex.Data.EFCore"));
-        var mongoDB = srcPath.Combine(
-                context.Directory("Vortex.Data.MongoDB"));
-		var azureFiles = srcPath.Combine(
-				context.Directory("Vortex.Files.Azure"));
-		var localFiles = srcPath.Combine(
-				context.Directory("Vortex.Files.Local"));
+				context.Directory("Vortex.Tests"));
 		
         var testDirs = new []{
-								vortexTests								
-                            };
-		var integrationTestDirs = new []{
-								vortexTests,
-								vortexIntegrationTests,
-                                efCoreTests,
-                                mongoDBTests,
-								azureFilesTests,
-								localFilesTests
-							};
+            vortexTests								
+        };
+		
         var toClean = new[] {
-                                 testResults,   
-								 
-								 vortexTests.Combine("bin"),
-                                 vortexTests.Combine("obj"),
-                                 vortexIntegrationTests.Combine("bin"),
-                                 vortexIntegrationTests.Combine("obj"),
-                                 efCoreTests.Combine("bin"),
-                                 efCoreTests.Combine("obj"),
-                                 mongoDBTests.Combine("bin"),
-                                 mongoDBTests.Combine("obj"),
-								 azureFilesTests.Combine("bin"),
-                                 azureFilesTests.Combine("obj"),
-								 localFilesTests.Combine("bin"),
-                                 localFilesTests.Combine("obj"),
-								 
-                                 efCore.Combine("bin"),
-                                 efCore.Combine("obj"),
-                                 mongoDB.Combine("bin"),
-                                 mongoDB.Combine("obj"),
-								 azureFiles.Combine("bin"),
-                                 azureFiles.Combine("obj"),
-								 localFiles.Combine("bin"),
-                                 localFiles.Combine("obj")
-                            };
-        return new BuildDirectories(rootDir,
-                                    artifacts,
-                                    testResults,
-                                    integrationTests ? integrationTestDirs : testDirs, 
-                                    toClean);
+            testResults,   
+            
+            vortexTests.Combine("bin"),
+            vortexTests.Combine("obj"),            
+        };
+        return new BuildDirectories(
+            rootDir,
+            artifacts,
+            testResults,
+            testDirs, 
+            toClean);
     }
 }
 
