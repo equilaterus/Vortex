@@ -1,6 +1,7 @@
 language: csharp
 solution: Equilaterus.Vortex.sln
 mono: none
+dist: xenial
 dotnet: 2.1
 script:
   - dotnet restore
