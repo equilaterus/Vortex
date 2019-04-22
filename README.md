@@ -49,6 +49,7 @@ Write **elegant** and **testeable** solutions on C# using a Monadic Framework th
 
 ## More info
 
+* Check our [official site](https://equilaterus.github.io/Vortex/)
 
-* Check our [wiki](https://github.com/equilaterus/Vortex/wiki)!
+* Check our [wiki](https://github.com/equilaterus/Vortex/wiki)
 
