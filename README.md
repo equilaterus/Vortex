@@ -40,9 +40,11 @@ Write **elegant** and **testeable** solutions on C# using a Monadic Framework th
 
 ## Releases
 
-* Github releases: [Download center](https://github.com/equilaterus/Vortex/releases)
+* Download [nuget package](https://www.nuget.org/packages/Equilaterus.Vortex/)  
 
-* History: [Version change log](https://github.com/equilaterus/Vortex/wiki/Version-change-log)
+* Download [source code](https://github.com/equilaterus/Vortex/releases)
+
+* See [version change log](https://github.com/equilaterus/Vortex/wiki/Version-change-log)
 
 
 ## More info
