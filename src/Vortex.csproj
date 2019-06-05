@@ -17,6 +17,7 @@
     <PackageLicenseUrl>https://github.com/equilaterus/Vortex/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/equilaterus/Vortex</RepositoryUrl>
     <PackageTags>Functional, Monads, Maybe, TaskExtensions</PackageTags>
+    <Description>Vortex is a .Net Standard framework focused on Functional Programming.</Description>
   </PropertyGroup>
 
 </Project>
