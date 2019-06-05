@@ -28,7 +28,12 @@ Write **elegant** and **testeable** solutions on C# using a Monadic Framework th
 
 ## Builds
 
-* **Master** v0.3.1-alpha
+* **Release**
+
+  [![Build status](https://ci.appveyor.com/api/projects/status/04uwh93rktkowhvk/branch/release?svg=true)](https://ci.appveyor.com/project/dacanizares/vortex/branch/master)  [![Build Status](https://travis-ci.org/equilaterus/Vortex.svg?branch=release)](https://travis-ci.org/equilaterus/Vortex)
+  [![nuget](https://img.shields.io/nuget/v/Equilaterus.Vortex.svg)](https://www.nuget.org/packages/Equilaterus.Vortex/)
+
+* **Master**
 
   [![Build status](https://ci.appveyor.com/api/projects/status/04uwh93rktkowhvk/branch/master?svg=true)](https://ci.appveyor.com/project/dacanizares/vortex/branch/master)  [![Build Status](https://travis-ci.org/equilaterus/Vortex.svg?branch=master)](https://travis-ci.org/equilaterus/Vortex)
 
@@ -39,13 +44,16 @@ Write **elegant** and **testeable** solutions on C# using a Monadic Framework th
 
 ## Releases
 
-* Github releases: [Download center](https://github.com/equilaterus/Vortex/releases)
+* Download [nuget package](https://www.nuget.org/packages/Equilaterus.Vortex/)  
 
-* History: [Version change log](https://github.com/equilaterus/Vortex/wiki/Version-change-log)
+* Download [source code](https://github.com/equilaterus/Vortex/releases)
+
+* See [version change log](https://github.com/equilaterus/Vortex/wiki/Version-change-log)
 
 
 ## More info
 
+* Check our [official site](https://equilaterus.github.io/Vortex/)
 
-* Check our [wiki](https://github.com/equilaterus/Vortex/wiki)!
+* Check our [wiki](https://github.com/equilaterus/Vortex/wiki)
 
