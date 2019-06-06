@@ -10,20 +10,27 @@ Write **elegant** and **testeable** solutions on C# using a Monadic Framework th
 
   ```csharp
   await 
+    // Try to create an order
     from maybeOrder in
-        from order in _orderRepository.GetById(orderId)
+        from order in _orderRepository.GetByIdAsync(orderId)
         select OrderBehavior.TryCheckout(order)
-    from result in maybeOrder.AwaitSideEffect(_orderRepository.Update)
+    // Update database
+    from result in maybeOrder.AwaitSideEffect(_orderRepository.UpdateAsync)
+    // Return results
     select result.Match(Ok, InternalServerError("Error"));
   ```
 
 * Fluent notation
 
   ```csharp
-  return await _orderRepository.GetById(orderId)    
-        .Select(order => OrderBehavior.TryCheckout(order))
-        .SelectMany(m => m.AwaitSideEffect(_orderRepository.Update))
-        .Select(m => m.Match(Ok, InternalServerError("Error")));
+  return await 
+      // Try to create an order
+      _orderRepository.GetByIdAsync(orderId)    
+      .Select(order => OrderBehavior.TryCheckout(order))
+      // Update database
+      .SelectMany(m => m.AwaitSideEffect(_orderRepository.UpdateAsync))
+      // Return results
+      .Select(m => m.Match(Ok, InternalServerError("Error")));
   ```
 
 ## Builds
