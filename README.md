@@ -14,8 +14,10 @@ Write **elegant** and **testeable** solutions on C# using a Monadic Framework th
     from maybeOrder in
         from order in _orderRepository.GetByIdAsync(orderId)
         select OrderBehavior.TryCheckout(order)
+
     // Update database
     from result in maybeOrder.AwaitSideEffect(_orderRepository.UpdateAsync)
+
     // Return results
     select result.Match(Ok, InternalServerError("Error"));
   ```
@@ -27,8 +29,10 @@ Write **elegant** and **testeable** solutions on C# using a Monadic Framework th
       // Try to create an order
       _orderRepository.GetByIdAsync(orderId)    
       .Select(order => OrderBehavior.TryCheckout(order))
+
       // Update database
       .SelectMany(m => m.AwaitSideEffect(_orderRepository.UpdateAsync))
+      
       // Return results
       .Select(m => m.Match(Ok, InternalServerError("Error")));
   ```
