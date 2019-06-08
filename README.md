@@ -41,7 +41,7 @@ Write **elegant** and **testeable** solutions on C# using a Monadic Framework th
 
 * **Release**
 
-  [![Build status](https://ci.appveyor.com/api/projects/status/04uwh93rktkowhvk/branch/release?svg=true)](https://ci.appveyor.com/project/dacanizares/vortex/branch/master)  [![Build Status](https://travis-ci.org/equilaterus/Vortex.svg?branch=release)](https://travis-ci.org/equilaterus/Vortex)
+  [![Build status](https://ci.appveyor.com/api/projects/status/04uwh93rktkowhvk/branch/release?svg=true)](https://ci.appveyor.com/project/dacanizares/vortex/branch/release)  [![Build Status](https://travis-ci.org/equilaterus/Vortex.svg?branch=release)](https://travis-ci.org/equilaterus/Vortex)
   [![nuget](https://img.shields.io/nuget/v/Equilaterus.Vortex.svg)](https://www.nuget.org/packages/Equilaterus.Vortex/)
 
 * **Master**
