@@ -1,13 +1,13 @@
-version: 0.3.2.{build}
+version: 0.3.3.{build}
 image: Visual Studio 2019
 dotnet_csproj:
   patch: true
   file: '**\*.csproj'
-  version: '0.3.2'
-  package_version: '0.3.2'
-  assembly_version: '0.3.2'
-  file_version: '0.3.2'
-  informational_version: '0.3.2-alpha'
+  version: '0.3.3'
+  package_version: '0.3.3'
+  assembly_version: '0.3.3'
+  file_version: '0.3.3'
+  informational_version: '0.3.3'
 before_build:
 - cmd: nuget restore
 build:
