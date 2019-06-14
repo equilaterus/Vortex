@@ -14,10 +14,17 @@
     <RootNamespace>Equilaterus.Vortex</RootNamespace>
     <LangVersion>latest</LangVersion>
     <PackageProjectUrl></PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/equilaterus/Vortex/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/equilaterus/Vortex</RepositoryUrl>
     <PackageTags>Functional, Monads, Maybe, TaskExtensions</PackageTags>
     <Description>Vortex is a .Net Standard framework focused on Functional Programming.</Description>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
