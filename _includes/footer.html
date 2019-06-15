@@ -17,6 +17,9 @@
             {%- if site.email -%}
             <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
             {%- endif -%}
+            {%- if site.website -%}
+            <li><a href="{{ site.website }}" target="_blank" rel="noopener">{{ site.website }}</a></li>
+            {%- endif -%}
           </ul>
       </div>
 
