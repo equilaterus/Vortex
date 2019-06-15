@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Prompt:400,700&display=swap');
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6, .navbar {
+  font-family: 'Prompt';
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
 #main-container {
   padding-top: 65px;
 }
