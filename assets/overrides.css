@@ -1,0 +1,10 @@
+#main-container {
+  padding-top: 65px;
+}
+
+.svg-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  fill: #828282;
+}

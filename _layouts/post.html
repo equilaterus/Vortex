@@ -1,0 +1,24 @@
+---
+layout: default
+---
+<article>
+
+  <span class="text-muted">
+      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+      {{ page.date | date: date_format }}
+  </span>
+  <h1 class="mb-0">{{ page.title | escape }}</h1>
+  {%- if page.author -%}
+  <p class="lead">{{ page.author }}</span></p>
+  {%- endif -%}</p>
+
+  <div class="mt-4">
+    {{ content }}
+  </div>
+
+  {%- if site.disqus.shortname -%}
+    {%- include disqus_comments.html -%}
+  {%- endif -%}
+
+  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+</article>

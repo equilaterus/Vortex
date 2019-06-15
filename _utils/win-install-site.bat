@@ -1,0 +1,3 @@
+cd..
+bundle install
+pause

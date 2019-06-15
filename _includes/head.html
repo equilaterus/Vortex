@@ -1,0 +1,29 @@
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  {%- seo -%}
+
+  <!-- Bootstrap themes -->
+  <!-- Uncomment only one at a time or add your own theme -->
+  <!-- Default Bootstrap -->
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <!-- Bootlaterus with Custom Fonts -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootlaterus@latest/dist/css/bootlaterus-cfonts.min.css" crossorigin="anonymous"> -->
+  <!-- Bootlaterus Light with Custom Fonts -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootlaterus@latest/dist/css/bootlaterus-light-cfonts.min.css" crossorigin="anonymous">
+  <!--
+    See more about Bootlaterus themes:
+    https://github.com/equilaterus/bootlaterus
+  -->
+
+  <!-- Local overrides -->
+  <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
+
+  {%- feed_meta -%}
+  {%- if jekyll.environment == 'production' and site.google_analytics -%}
+    {%- include google-analytics.html -%}
+  {%- endif -%}
+
+</head>
