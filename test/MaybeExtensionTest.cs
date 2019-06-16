@@ -4,20 +4,20 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace Vortex.Tests
+namespace Equilaterus.Vortex.Tests
 {
     public class MaybeExtensionTest
     {
         [Fact]
         public void MatchBool_False()
         {
-            //Prepare
+            // Prepare
             Maybe<bool> maybe = new Maybe<bool>();
 
-            //Execute
+            // Execute
             var result = maybe.MatchBool(x => x == true, false);
 
-            //Check
+            // Check
             Assert.False(result);
         }
 

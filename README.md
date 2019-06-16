@@ -1,7 +1,5 @@
 # Vortex
 
-**Check our [Official Site](https://equilaterus.github.io/Vortex/).**
-
 Vortex is a .Net Standard framework focused on **Functional Programming**.
 
 Write **elegant** and **testeable** solutions on C# using a Monadic Framework that comes in two flavours:
@@ -62,11 +60,10 @@ Write **elegant** and **testeable** solutions on C# using a Monadic Framework th
 * See [version change log](https://github.com/equilaterus/Vortex/wiki/Version-change-log)
 
 
-## More info
+## Links
 
-* Check our [Sample Applications](https://github.com/equilaterus/Vortex.Samples)
+* [Sample Applications](https://github.com/equilaterus/Vortex.Samples)
 
-* Check our [official site](https://equilaterus.github.io/Vortex/)
+* [Official website](https://equilaterus.github.io/Vortex/)
 
-* Check our [wiki](https://github.com/equilaterus/Vortex/wiki)
-
+* [Vortex Wiki](https://github.com/equilaterus/Vortex/wiki)
