@@ -24,16 +24,14 @@ namespace Equilaterus.Vortex.Tests
         [Fact]
         public void MatchBool_true()
         {
-            var obj = true;
-            //Prepare
-            Maybe<bool> maybe = new Maybe<bool>(obj);
+            // Prepare
+            Maybe<bool> maybe = new Maybe<bool>(true);
 
-            //Execute
+            // Execute
             var result = maybe.MatchBool(x => x == true, false);
 
-            //Check
+            // Check
             Assert.True(result);
         }
-
     }
 }
