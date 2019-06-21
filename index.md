@@ -9,7 +9,9 @@ layout: page
 is_home: true
 ---
 
-Write **elegant** and **testeable** solutions on C# using a Monadic Framework.
+## Welcome to Vortex
+
+Write **elegant** and **testeable** solutions on C# using a Monadic Framework. **ASP Core** joins the functional side!
 
 ## Choose your hero
 
