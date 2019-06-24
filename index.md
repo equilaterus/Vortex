@@ -7,6 +7,7 @@
 #
 layout: page
 is_home: true
+no-title: true
 ---
 
 ## Welcome to Vortex
