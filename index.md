@@ -10,9 +10,15 @@ hide_menu: true
 hide_title: true
 ---
 
-## Welcome to Vortex
+<div class="jumbotron bg-shadow-hi" markdown="1">
 
-Write **elegant** and **testeable** solutions on C# using a Monadic Framework. **ASP Core** joins the functional side!
+# Welcome to Vortex
+
+Write **elegant** and **testeable** solutions on C# using a Monadic Framework.
+
+[![GitHub license](https://img.shields.io/github/license/equilaterus/Vortex.svg)](https://github.com/equilaterus/Vortex/blob/master/LICENSE) [![Build status](https://ci.appveyor.com/api/projects/status/04uwh93rktkowhvk/branch/release?svg=true)](https://ci.appveyor.com/project/dacanizares/vortex/branch/release) [![nuget](https://img.shields.io/nuget/v/Equilaterus.Vortex.svg)](https://www.nuget.org/packages/Equilaterus.Vortex/)
+
+</div>
 
 ## Choose your hero
 
