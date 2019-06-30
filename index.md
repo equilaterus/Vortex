@@ -10,7 +10,7 @@ hide_menu: true
 hide_title: true
 ---
 
-<div class="jumbotron bg-shadow-hi" markdown="1">
+<div class="jumbotron bg-shadow-low" markdown="1">
 
 # Welcome to Vortex
 
