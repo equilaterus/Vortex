@@ -6,8 +6,8 @@
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 #
 layout: page
-is_home: true
-no_title: true
+hide_menu: true
+hide_title: true
 ---
 
 ## Welcome to Vortex
