@@ -15,7 +15,7 @@
             <li class="lead">{{ site.title | escape }}</li>
             {%- endif -%}
             {%- if site.email -%}
-            <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+            <li><a class="u-email" href="mailto:{{ site.email }}">{{ site.email }}</a></li>
             {%- endif -%}
             {%- if site.website -%}
             <li><a href="{{ site.website }}" target="_blank" rel="noopener">{{ site.website }}</a></li>

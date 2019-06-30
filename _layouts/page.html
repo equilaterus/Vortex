@@ -2,8 +2,8 @@
 layout: default
 ---
 
-{%- if page.title and page.no_title != true -%}
-  <h1>{{ page.title }}</h1>
+{%- if page.title and page.hide_title != true -%}
+<h1 class="post-title">{{ page.title | escape }}</h1>
 {%- endif -%}
 
 {{ content }}
