@@ -12,6 +12,10 @@ namespace Equilaterus.Vortex.Tests
         const string HAS_VALUE_FIELD = "_hasValue";
         const string VALUE_FIELD = "_value";
 
+        //
+        // Create
+        //
+
         [Fact]
         public void Create_Nothing_Success()
         {
@@ -42,6 +46,11 @@ namespace Equilaterus.Vortex.Tests
             Assert.Throws<ArgumentNullException>(
                 () => { Maybe<object> maybe = new Maybe<object>(null); });
 		}
+
+
+        //
+        // Select
+        //
 
         [Fact]
         public void Select_Null_ThrowsError()
@@ -145,6 +154,11 @@ namespace Equilaterus.Vortex.Tests
             Assert.Null(maybe.SelectMany<int>(m => null));
         }
 
+
+        //
+        // Match
+        //
+
         [Fact]
         public void Match_Success()
         {
@@ -181,6 +195,61 @@ namespace Equilaterus.Vortex.Tests
             Assert.Throws<ArgumentNullException>(
                 () => { maybe.Match(null, 0); });
         }
+
+        // Match method overload to receive two functions
+
+        [Fact]
+        public void Match_Functions_Success()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>(5);
+
+            // Execute
+            var result = maybe.Match(c => c, () => 0);
+
+            // Check
+            Assert.Equal(5, result);
+        }
+
+        [Fact]
+        public void Match_Functions__Nothing_Success()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>();
+
+            // Execute
+            var result = maybe.Match(c => c, () => 0);
+
+            // Check
+            Assert.Equal(0, result);
+        }
+
+        [Fact]
+        public void Match_Function_JustNull_ThrowsError()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>(5);
+
+            // Execute and check
+            Assert.Throws<ArgumentNullException>(
+                () => { maybe.Match(null, () => 0); });
+        }
+
+        [Fact]
+        public void Match_Function_NothingNull_ThrowsError()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>(5);
+
+            // Execute and check
+            Assert.Throws<ArgumentNullException>(
+                () => { maybe.Match(c => 4, null); });
+        }
+
+
+        //
+        // AwaitSideEffect
+        //
 
         [Fact]
         public async Task AwaitSideEffect_Success()
