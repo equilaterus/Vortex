@@ -1,5 +1,7 @@
 # Vortex
 
+[![CodeFactor](https://www.codefactor.io/repository/github/equilaterus/vortex/badge)](https://www.codefactor.io/repository/github/equilaterus/vortex)   [![nuget](https://img.shields.io/nuget/v/Equilaterus.Vortex.svg)](https://www.nuget.org/packages/Equilaterus.Vortex/)
+
 Vortex is a .Net Standard framework focused on **Functional Programming**.
 
 Write **elegant** and **testeable** solutions on C# using a Monadic Framework that comes in two flavours:
@@ -55,15 +57,15 @@ Write **elegant** and **testeable** solutions on C# using a Monadic Framework th
 
 * Download [nuget package](https://www.nuget.org/packages/Equilaterus.Vortex/)  
 
-* Download [source code](https://github.com/equilaterus/Vortex/releases)
+* Download [GitHub releases](https://github.com/equilaterus/Vortex/releases)
 
 * See [version change log](https://github.com/equilaterus/Vortex/wiki/Version-change-log)
 
 
 ## Links
 
-* [Sample Applications](https://github.com/equilaterus/Vortex.Samples)
-
 * [Official website](https://equilaterus.github.io/Vortex/)
+
+* [Sample Apps](https://github.com/equilaterus/Vortex.Samples)
 
 * [Vortex Wiki](https://github.com/equilaterus/Vortex/wiki)
