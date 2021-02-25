@@ -63,6 +63,17 @@ namespace Equilaterus.Vortex
             return _hasValue ? just(_value) : nothing();
         }
 
+        // TODO: Define functional signature
+        public TResult Match<TResult>(TResult just, TResult nothing)
+        {
+            if (just == null)
+                throw new ArgumentNullException(nameof(just));
+            if (nothing == null)
+                throw new ArgumentNullException(nameof(nothing));
+
+            return _hasValue ? just : nothing;
+        }
+
         // ma -> (a -> tb) -> tmb
         public async Task<Maybe<TResult>> AwaitSideEffect<TResult>(Func<T, Task<TResult>> function)
         {

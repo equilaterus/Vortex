@@ -199,6 +199,54 @@ namespace Equilaterus.Vortex.Tests
         // Match method overload to receive two functions
 
         [Fact]
+        public void Match_Values_Success()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>(5);
+
+            // Execute
+            var result = maybe.Match(1, 0);
+
+            // Check
+            Assert.Equal(1, result);
+        }
+
+        [Fact]
+        public void Match_Values__Nothing_Success()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>();
+
+            // Execute
+            var result = maybe.Match(1, 0);
+
+            // Check
+            Assert.Equal(0, result);
+        }
+
+
+        // Match_Values_JustNull_ThrowsError(): with maybe.Match<int?>
+        // Is not callable with a null Just argument due to
+        // a ambiguous call that's detected during compilation time.
+        //
+        // Test ignored.
+        // [Fact]
+        // Match_Values_JustNull_ThrowsError()
+
+        [Fact]
+        public void Match_Values_NothingNull_ThrowsError()
+        {
+            // Prepare
+            Maybe<int> maybe = new Maybe<int>(5);
+
+            // Execute and check
+            Assert.Throws<ArgumentNullException>(
+                () => { maybe.Match<int?>(1, null); });
+        }
+
+        // Match methods to reveice two values
+
+        [Fact]
         public void Match_Functions_Success()
         {
             // Prepare
